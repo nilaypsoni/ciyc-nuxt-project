@@ -1,0 +1,334 @@
+<template>
+
+        
+    <landing-header :title="eventDetails.title" :description="eventDetails.description" :city="aplace"  :subTitle="eventDetails.subTitle" :media="eventDetails.media"  />
+
+
+
+    <event-list v-if="cityEvents.length > 0" :events="cityEvents"  :heading="eventDetails.title+' Events '" :currentPage="cityEventCurrentPage" :lastPage="cityEventLastPage" @jump-to-page-event="jumpToPageCityEvent" @go-to-prev-event="goToPrevCityEvent" @go-to-next-event="goToNextCityEvent"  />
+    
+    
+    <event-list v-if="((eventListDetails.events.length > 0) || (eventListDetails.events.length == 0 && cityEvents.length == 0 && popularEventDetails.popularEvents.length == 0) )" :events="eventListDetails.events"  :heading="(eventListDetails.isLocationEvent) ? eventDetails.title+' Events in nearby cities' : 'Events' " :currentPage="currentPage" :lastPage="lastPage" @jump-to-page-event="jumpToPageEvent" @go-to-prev-event="goToPrevEvent" @go-to-next-event="goToNextEvent" />
+    
+    
+    <event-list v-if="popularEventDetails.popularEvents.length > 0" :events="popularEventDetails.popularEvents" :is-paging="false" :heading="(popularEventDetails.isLocationEvent) ? 'Popular Events from nearby cities' : 'Popular Events'"    />
+
+
+    <related-organizer :category="eventTypeTxt" />
+   
+    
+    <culture-slider :show-heading="true"/>
+</template>
+<script setup>
+import {toRef,ref, watch,reactive,onMounted} from "vue";
+import { MEDIA_BASEURL } from "@/utils/constants";
+import { isoDateToNormalDate, userCurrentTimezone } from "@/utils/helpers";
+import { ROUTES } from "@/utils/constants/routes";
+import { useRouter,useRoute } from "vue-router";
+import credentialModel from '@/models/credential.model'
+import methodModel from "@/models/method.model";
+import { ROLES } from "@/utils/constants";
+import dateModel from "@/models/date.model";
+import { createSeoFriendlyUrl } from "@/utils/helpers";
+import CultureSlider from "@/components/presentational/home/culture-slider";
+
+import LandingHeader from "@/components/presentational/event-type/landing-header";
+import LandingBody from "@/components/presentational/event-type/landing-body";
+import LiveEventsCard from "@/components/common/card/live-events-card";
+import RelatedOrganizer from "@/components/presentational/user/related-organizer";
+import EventList from "@/components/presentational/events/events/event-list";
+
+import carbonTime from "@/assets/g-img/carbon_time.svg";
+import categoryImg from "@/assets/category/category/category-05.svg";
+
+import tablerBuilding from "@/assets/g-img/tabler_building.svg";
+import materialSymbolsTag from "@/assets/g-img/material-symbols_tag.svg";
+import organizerIcon from "@/assets/landing-page/organizers-icon.svg";
+import countrySlider01 from "@/assets/country-slider/01.jpg"
+import countrySlider02 from "@/assets/country-slider/02.jpg"
+import countrySlider05 from "@/assets/country-slider/05.jpg"
+import countrySlider04 from "@/assets/country-slider/04.jpg"
+import ApiClient from "@/methods/apiclient";
+
+
+const $route = useRoute();
+
+const eventType = $route.params.category;
+
+const currentPage = ref(1);
+const lastPage = ref(1);
+const totalEventLimit = ref(8);
+
+
+const aplace = ref(localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '');
+const longitude = ref(0)
+const latitude = ref(0)
+
+const patchLatng=()=>{
+  latitude.value=Number(localStorage.getItem('alat')||0)
+  longitude.value=Number(localStorage.getItem('alng')||0)
+}
+patchLatng()
+
+
+const undoPageSlug = (slug) => {
+return slug.replace(/-/g, ' ');
+};
+
+const capitalizeEachWord = (input) => {
+return input.replace(/\b\w/g, match => match.toUpperCase());
+}
+var eventTypeTxt = undoPageSlug(eventType)
+
+const eventDetails = reactive({
+    media:"",
+    title:eventTypeTxt,
+    subTitle:"",
+    description:"",
+    id:""
+})
+
+const getData=()=>{
+
+    ApiClient.get('event-types/byName?eventType='+eventTypeTxt).then(res=>{
+
+    
+      if(res.data){
+       
+        eventDetails.title = res.data.name;
+        eventDetails.subTitle = res.data.subTitle ? res.data.subTitle : '';
+        eventDetails.description = res.data.description ? res.data.description : '';
+        eventDetails.media = res.data.media ? res.data.media : '';
+
+
+        
+      }
+    })
+
+}
+getData();
+
+
+
+
+
+
+const cityEvents = ref([]);
+const cityEventCurrentPage = ref(1);
+const cityEventLimit = ref(8);
+const cityEventLastPage = ref(1);
+const getEventsByCity = () => {
+    var params = {
+        page:cityEventCurrentPage.value,
+        limit:cityEventLimit.value,
+        eventType:eventTypeTxt
+    };
+
+    if(aplace.value != '' && aplace.value != undefined){
+        
+        // params.cityName = aplace.value;
+
+        ApiClient.get('event/byCityName',params).then(res=>{
+    
+            if(res.data){
+            
+                cityEvents.value = res.data;
+                cityEventLastPage.value = res.lastPage;
+            }
+
+        })
+    }
+}
+getEventsByCity();
+
+const jumpToPageCityEvent = (page) => {
+    cityEventCurrentPage.value = page
+
+    getEventsByCity()
+}
+
+const goToNextCityEvent = () => {
+
+    cityEventCurrentPage.value+=1
+    getEventsByCity()
+
+}
+
+const goToPrevCityEvent = () => {
+
+    cityEventCurrentPage.value-=1
+
+    if(cityEventCurrentPage.value <= 0){
+        cityEventCurrentPage.value = 1
+    }
+
+    getEventsByCity()
+}
+
+
+const popularEventDetails = reactive({
+    isLocationEvent:false,
+    popularEvents:[],
+    initialResponse:true
+})
+const getPopularEvents = (byLocationDefault=true,dateFilter = '',excludeCity='') => {
+
+    var params = {
+        limit: 4,
+        page: 1,
+        isFeatured: false,
+        eventType:eventTypeTxt
+    };
+
+    if(dateFilter != ''){
+        params.dateFilter = dateFilter;
+    }
+
+
+    if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
+        params.excludeCity = aplace.value;
+
+        // ApiClient.get('event/featured-popular', {...params,latitude:latitude.value,longitude:longitude.value }).then(res => {
+        ApiClient.get('event/featured-popular', {...params }).then(res => {
+            if(res.data && res.data.length > 0){
+                // Location Event
+                
+                popularEventDetails.isLocationEvent = false;
+                popularEventDetails.popularEvents = res.data
+
+            }else{
+
+                popularEventDetails.initialResponse = false;
+                popularEventDetails.popularEvents = [];
+                popularEventDetails.isLocationEvent = false;
+
+            }
+
+        });
+    }
+
+    
+
+}
+getPopularEvents();
+
+
+
+
+
+const eventListDetails = reactive({
+    isLocationEvent: false,
+    events:[],
+    initialResponseData: true
+});
+
+const setAllEventsWithoutLocation = (page=1) =>{
+    let parms = {
+            limit: totalEventLimit.value,
+            page: page,
+            all: true,
+            dateFilter: 1,
+            category: 1,
+            searchQuery: '',
+            organizationProfileType: 'events',
+            eventType:[]
+        }
+        parms.eventType.push(eventTypeTxt);
+
+        if(aplace.value != ''){
+            parms.excludeCity = aplace.value
+        }
+
+
+        ApiClient.get('event/browse', parms).then(res => {
+            if(res.data){
+                
+                lastPage.value = res.lastPage;
+                eventListDetails.isLocationEvent = false;
+                eventListDetails.events = res.data;
+
+            }else{
+                lastPage.value = 1;
+                eventListDetails.isLocationEvent = false;
+                eventListDetails.events = [];
+            }
+        })
+}
+
+const getEvents = (page=1) => {
+
+    if(latitude.value != 0 && longitude.value != 0 && eventListDetails.initialResponseData){
+
+        let parms = {
+            limit: totalEventLimit.value,
+            page: page,
+            latitude:latitude.value,
+            longitude:longitude.value,
+            eventType:eventTypeTxt,
+            excludeCity:aplace.value
+        };
+
+        ApiClient.get('event/near-by', parms).then(res => {
+            if(res.data.length > 0){
+                eventListDetails.initialResponseData = true;
+                
+                lastPage.value = res.lastPage;
+                eventListDetails.isLocationEvent = true;
+                eventListDetails.events = res.data;
+
+            }else{
+                eventListDetails.initialResponseData = false;
+
+                setAllEventsWithoutLocation(page);
+            }
+
+        })
+    }else{
+        setAllEventsWithoutLocation(page);
+    }
+    
+
+    
+}
+
+
+
+const goToNextEvent = () => {
+
+currentPage.value+=1
+
+getEvents(currentPage.value)
+
+}
+
+
+
+
+const jumpToPageEvent = (page) =>{
+currentPage.value = page
+
+getEvents(currentPage.value)
+
+}
+
+
+
+
+
+const goToPrevEvent = () => {
+
+
+currentPage.value-=1
+
+if(currentPage.value <= 0){
+currentPage.value = 1
+}
+
+getEvents(currentPage.value)
+
+}
+
+
+
+getEvents(1)
+</script>

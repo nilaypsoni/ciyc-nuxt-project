@@ -1,0 +1,1 @@
+export { default } from "file:///Users/apple/Desktop/Someshwar/ciyc-latest-project/ciyc-latest-ssr-project/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

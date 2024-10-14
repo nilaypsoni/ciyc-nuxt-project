@@ -1,0 +1,68 @@
+
+<template>
+    <div class="h-full">
+  <div class="h-full relative">
+   
+    <div class="relative bg-hero__image__background">
+      <img class="w-full opacity-50 object-cover h-[350px]" :src="aboutScaled" alt="Hero Slider"></div>
+      <div class="absolute top-0 px-container h-full flex items-center">
+        <div>
+        <h1 class="font-secondary font-bold text-heading text-white pb-[18px] lg__mobile:text-heading__mobile">Join the Community</h1>
+       </div>
+    </div>
+ 
+</div>
+</div>
+<div class="dec-info px-container pt-10 pb-5">
+  <p class="text-[#000000] font-normal mobile:text-base mobileS:text-sm leading-5 pb-2">We are excited to announce the launch of Culture City. We provide you a convenient and hassle-free way to discover the cultural experiences of your city, and make meaningful connections along the way. Through the use of our expertise in technology, cultural engagement and event management, we design and deliver a variety of exciting opportunities to experience the different cultures around you - You could search for local organizations, businesses, or events, ranging from yoga centers, restaurants, wine tastings and museum visits, to outdoor activities and the performing arts.</p>
+
+  <p>&nbsp;</p>
+
+  <p class="text-[#000000] font-normal mobile:text-base mobileS:text-sm leading-5 pb-2"><router-link class="btn-sm text-center py-2.5 px-[18px] rounded-md text-white lg__mobile:px-[12px] lg__mobile:py-2 lg__mobile:!text-xs searchBtn mr-2 bg-site__orange" :to="{ name: ROUTES.REGISTER,params:{role:ROLES.SEEKER} }">
+                Join the Community  
+  </router-link> to create your profile and your preferences:</p>
+</div>
+
+
+
+
+
+
+<!-- <auth-modals :open-login="isOpenLoginModal" :openSignup="openSignup" :close="closeModal" :role="role" /> -->
+</template>
+
+<script setup>
+
+
+import { ref, watch } from "vue";
+import { ROUTES } from "@/utils/constants/routes";
+import TokenService from "@/services/token.service";
+import { useRoute, useRouter } from "vue-router"
+import LoggedInUserNavDropdown from "@/components/presentational/home/loggedin-user-nav-dropdown";
+import AuthModals from "@/components/presentational/auth/auth-modals";
+import { ROLES } from "@/utils/constants";
+import useUrlQuery from "@/composables/use-url-query";
+import useToaster from "@/composables/use-toaster";
+import tokenService from "@/services/token.service";
+import aboutScaled from "@/assets/pritzkerpavilion-scaled.jpg"
+import organizer123 from "@/assets/organizer123.png"
+
+const userData = ref(TokenService.getUser())
+const role = ref('')
+const openSignup = ref('')
+
+
+const closeModal = () => {
+  openSignup.value = ''
+  console.log("closeModal");
+}
+
+const openSignupModal = (r) => {
+  role.value = r
+  openSignup.value = r
+  // router.push({path:'/?auth-page=organizer-signup'})
+  document.getElementById("body").classList.add('modalOpened')
+}
+
+
+</script>
