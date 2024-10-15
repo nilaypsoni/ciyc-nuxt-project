@@ -18,6 +18,9 @@ export default defineNuxtConfig({
       })
     }
   },
+  plugins: [
+    '~/src/plugins/vue-tags-input.js',
+  ],
   dir:{
    pages: 'src/views'
   },
