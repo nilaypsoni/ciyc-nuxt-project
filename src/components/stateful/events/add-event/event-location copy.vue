@@ -65,11 +65,13 @@
                 </select>  -->
 
                 <span @focusin="showSuggestion()" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+                <ClientOnly>
                   <vue-tags-input v-model="neighborhood" :tags="fieldsData.neighborhood" placeholder="You could start typing and also select multiple	"
                     :validation="[]" :add-only-from-autocomplete="true" class="mt-1 w-full rounded"
                     :autocomplete-items="searchNeighborhood(neighborhood)" @tags-changed="newTags => neighborhoodChange(newTags)"
                     :autocomplete-always-open="suggestions" />
-                </span>
+                  </ClientOnly>
+                  </span>
 
             </div>
 

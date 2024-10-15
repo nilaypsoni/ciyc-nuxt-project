@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="f-logo-menu d-flex justify-content-between ">
                         <article class="f-logo">
-                          <router-link :to="{ name: ROUTES.HOME }">
+                          <router-link :to="{ name: ROUTES?.HOME }">
                             <a href="#">
                                 <span>
                                     <img :src="logoW" alt="img">

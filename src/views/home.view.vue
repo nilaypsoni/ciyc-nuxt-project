@@ -209,24 +209,24 @@
     v-if="!haveSpecialEvent"
   ></section>
 
-  <!-- <events-list  v-if="popularEventDetails.initialResponse" :filter-type="eventFilterTypes.popular" :event-list-type="EVENTS_LIST.POPULAR"  @handle-filter-type-change="handleFilterTypeChange" :custom-class="(latitude && nearbyEvents?.length > 0 )? 'bg-site__light__peach' : ''" :events-list="popularEventDetails.popularEvents" :title="popularEventDetails.isLocationEvent ? 'Popular Events in '+aplace : 'Popular Events'" :see-all-route="{name:ROUTES.BROWSE_EVENTS_LIST,params:{eventListType:EVENTS_LIST.POPULAR}}"/> -->
+  <!-- <events-list  v-if="popularEventDetails.initialResponse" :filter-type="eventFilterTypes.popular" :event-list-type="EVENTS_LIST?.POPULAR"  @handle-filter-type-change="handleFilterTypeChange" :custom-class="(latitude && nearbyEvents?.length > 0 )? 'bg-site__light__peach' : ''" :events-list="popularEventDetails.popularEvents" :title="popularEventDetails.isLocationEvent ? 'Popular Events in '+aplace : 'Popular Events'" :see-all-route="{name:ROUTES?.BROWSE_EVENTS_LIST,params:{eventListType:EVENTS_LIST?.POPULAR}}"/> -->
 
   <events-list
-    :filter-type="eventFilterTypes.featured"
-    :event-list-type="EVENTS_LIST.FEATURED"
+    :filter-type="eventFilterTypes?.featured"
+    :event-list-type="EVENTS_LIST?.FEATURED"
     @handle-filter-type-change="handleFilterTypeChange"
     custom-class="bg-site__light__peach"
     :events-list="featuredEvents"
     is-featured="true"
     title="Featured Events"
     :see-all-route="{
-      name: ROUTES.BROWSE_EVENTS_LIST,
-      params: { eventListType: EVENTS_LIST.FEATURED },
+      name: ROUTES?.BROWSE_EVENTS_LIST,
+      params: { eventListType: EVENTS_LIST?.FEATURED },
     }"
   />
 
   <events-list
-    v-if="upcomingEventDetails.initialResponse"
+    v-if="upcomingEventDetails?.initialResponse"
     :filter-type="eventFilterTypes.upcoming"
     :event-list-type="EVENTS_LIST.UPCOMING"
     @handle-filter-type-change="handleFilterTypeChange"
@@ -240,20 +240,20 @@
         : 'Upcoming Events'
     "
     :see-all-route="{
-      name: ROUTES.BROWSE_EVENTS_LIST,
+      name: ROUTES?.BROWSE_EVENTS_LIST,
       params: { eventListType: EVENTS_LIST.UPCOMING },
     }"
   />
 
-  <!-- <events-list v-if="(latitude  && nearbyEvents?.length > 0)"  :filter-type="eventFilterTypes.nearby" :event-list-type="EVENTS_LIST.NEARBY" @handle-filter-type-change="handleFilterTypeChange" :events-list="nearbyEventsList" :title="'Event Near in '+aplace" :see-all-route="{name:ROUTES.BROWSE_EVENTS_LIST,params:{eventListType:'nearby'}}"/>
-    <events-list v-if="favEvents?.length > 0 && user"         :filter-type="eventFilterTypes.favourites" :event-list-type="EVENTS_LIST.FAVOURITES" @handle-filter-type-change="handleFilterTypeChange" custom-class="bg-site__light__peach" :backButton="false" :events-list="favEventsList" title="Favourite Events" :see-all-route="{name:ROUTES.BROWSE_EVENTS_LIST,params:{eventListType:'favorites'}}"/>
-    <events-list v-if="ComneteEvents?.length > 0" :custom-class="(latitude && nearbyEvents?.length > 0 )? 'bg-site__light__peach' : ''" :events-list="ComneteEvents" title="Popular Planner Events" :see-all-route="{name:ROUTES.BROWSE_EVENTS_LIST,params:{eventListType:EVENTS_LIST.COMNETE}}"/> -->
+  <!-- <events-list v-if="(latitude  && nearbyEvents?.length > 0)"  :filter-type="eventFilterTypes.nearby" :event-list-type="EVENTS_LIST.NEARBY" @handle-filter-type-change="handleFilterTypeChange" :events-list="nearbyEventsList" :title="'Event Near in '+aplace" :see-all-route="{name:ROUTES?.BROWSE_EVENTS_LIST,params:{eventListType:'nearby'}}"/>
+    <events-list v-if="favEvents?.length > 0 && user"         :filter-type="eventFilterTypes.favourites" :event-list-type="EVENTS_LIST.FAVOURITES" @handle-filter-type-change="handleFilterTypeChange" custom-class="bg-site__light__peach" :backButton="false" :events-list="favEventsList" title="Favourite Events" :see-all-route="{name:ROUTES?.BROWSE_EVENTS_LIST,params:{eventListType:'favorites'}}"/>
+    <events-list v-if="ComneteEvents?.length > 0" :custom-class="(latitude && nearbyEvents?.length > 0 )? 'bg-site__light__peach' : ''" :events-list="ComneteEvents" title="Popular Planner Events" :see-all-route="{name:ROUTES?.BROWSE_EVENTS_LIST,params:{eventListType:EVENTS_LIST.COMNETE}}"/> -->
 
   <!-- <culture-slider :limit="6" /> -->
 
   <!-- Organizations -->
   <section
-    v-if="organizationDetails.organizations.length > 0"
+    v-if="organizationDetails?.organizations?.length > 0"
     class="category-article-section l-primary-bg pt-0 bg-site__light__peach"
   >
     <div class="container">
@@ -273,7 +273,7 @@
               v-if="!organizationDetails.isLocationOrganization"
             >
               {{
-                organizationDetails.organizations.length > 1
+                organizationDetails?.organizations?.length > 1
                   ? "Organizations"
                   : "Organization"
               }}
@@ -286,7 +286,7 @@
         <div class="row ms-2 mt-5 me-2">
           <div class="organizers-col d-flex flex-wrap gap-4">
             <organizer-event-count-card
-              v-for="(organization, index) in organizationDetails.organizations"
+              v-for="(organization, index) in organizationDetails?.organizations"
               :key="index"
               :organizer="organization"
               :show-event-count="false"
@@ -298,7 +298,7 @@
   </section>
 
   <!-- Organizers -->
-  <!-- <section v-if="organizerDetails.organizers.length > 0" class="category-article-section l-primary-bg pt-0 bg-site__light__peach">
+  <!-- <section v-if="organizerDetails.organizers?.length > 0" class="category-article-section l-primary-bg pt-0 bg-site__light__peach">
         <div class="container">
             <div class="row ms-2 me-2">
                 <div class="page-title-cover d-flex justify-content-between align-items-center">
@@ -371,7 +371,7 @@
 
   <!-- Uncover the worldwide events -->
   <section
-    v-if="eventCities.length > 0"
+    v-if="eventCities?.length > 0"
     class="category-article-section l-primary-bg country-section-col"
   >
     <div class="container">
@@ -412,10 +412,10 @@
   </section>
 
   <events-list
-    :class="eventCities.length == 0 ? 'pt-5' : ''"
+    :class="eventCities?.length == 0 ? 'pt-5' : ''"
     :show-extra-option="false"
-    :filter-type="eventFilterTypes.worldwidePopular"
-    :event-list-type="eventFilterTypes.worldwidePopular"
+    :filter-type="eventFilterTypes?.worldwidePopular"
+    :event-list-type="eventFilterTypes?.worldwidePopular"
     @handle-filter-type-change="handleFilterTypeChange"
     :custom-class="
       latitude && nearbyEvents?.length > 0 ? 'bg-site__light__peach' : ''
@@ -423,8 +423,8 @@
     :events-list="worldwidePopularEvents"
     title="World wide Popular events"
     :see-all-route="{
-      name: ROUTES.BROWSE_EVENTS_LIST,
-      params: { eventListType: EVENTS_LIST.POPULAR },
+      name: ROUTES?.BROWSE_EVENTS_LIST,
+      params: { eventListType: EVENTS_LIST?.POPULAR },
     }"
   />
 
@@ -852,7 +852,7 @@ const popularEventDetails = reactive({
 
 //     // if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
 //     //     ApiClient.get('event/featured-popular', {...params,latitude:latitude.value,longitude:longitude.value }).then(res => {
-//     //         if(res.data && res.data.length > 0){
+//     //         if(res.data && res.data?.length > 0){
 //     //             // Location Event
 
 //     //             popularEventDetails.isLocationEvent = true;
@@ -868,7 +868,7 @@ const popularEventDetails = reactive({
 //     //     });
 //     // }else{
 //         ApiClient.get('event/featured-popular', {...params }).then(res => {
-//             if(res.data && res.data.length > 0){
+//             if(res.data && res.data?.length > 0){
 //                 popularEventDetails.isLocationEvent = false;
 //                 popularEventDetails.popularEvents = res.data
 //             }else{
@@ -891,7 +891,7 @@ const getWorldWidePopularEvents = () => {
   };
 
   ApiClient.get("event/featured-popular", { ...params }).then((res) => {
-    if (res.data && res.data.length > 0) {
+    if (res.data && res.data?.length > 0) {
       // Location Event
 
       worldwidePopularEvents.value = res.data;
@@ -945,7 +945,7 @@ const getUpcomingEvents = (byLocationDefault = true, dateFilter = "") => {
 
   // if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
   //     ApiClient.get('event/upcoming-events', {...params,latitude:latitude.value,longitude:longitude.value}).then(res => {
-  //         if(res.data && res.data.upcomingEvents && res.data.upcomingEvents.length > 0){
+  //         if(res.data && res.data.upcomingEvents && res.data.upcomingEvents?.length > 0){
   //             upcomingEventDetails.isLocationEvent = true
   //             upcomingEventDetails.upcomingEvents = res.data.upcomingEvents
   //             upcomingEventDetails.initialResponse = true;
@@ -959,7 +959,7 @@ const getUpcomingEvents = (byLocationDefault = true, dateFilter = "") => {
     if (
       res.data &&
       res.data.upcomingEvents &&
-      res.data.upcomingEvents.length > 0
+      res.data.upcomingEvents?.length > 0
     ) {
       upcomingEventDetails.isLocationEvent = false;
       upcomingEventDetails.upcomingEvents = res.data.upcomingEvents;
@@ -985,7 +985,7 @@ const getCitiesAccordingEvents = () => {
   };
 
   ApiClient.get("event/cities", { ...params }).then(async (res) => {
-    if (res.data && res.data.length > 0) {
+    if (res.data && res.data?.length > 0) {
       const updatedCities = [];
 
       for (const details of res.data) {
@@ -1017,7 +1017,7 @@ const getOrganizers = (byLocationDefault = true) => {
       latitude: latitude.value,
       longitude: longitude.value,
     }).then((res) => {
-      if (res.data && res.data.length > 0) {
+      if (res.data && res.data?.length > 0) {
         organizerDetails.isLocationOrganizer = true;
         organizerDetails.organizers = res.data;
       } else {
@@ -1056,7 +1056,7 @@ const getOrganization = (byLocationDefault = true) => {
 
   // if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
   //     ApiClient.post('user/organizers', {...params,isPopular:false,latitude:latitude.value,longitude:longitude.value}).then(res => {
-  //         if(res.data && res.data.length > 0){
+  //         if(res.data && res.data?.length > 0){
 
   //             organizationDetails.isLocationOrganization = true;
   //             organizationDetails.organizations = res.data;
@@ -1088,9 +1088,9 @@ getOrganization();
 const handleFilterTypeChange = (data) => {
   eventFilterTypes[data.eventType] = data.filterType;
 
-  if (data.eventType == EVENTS_LIST.FEATURED) {
+  if (data.eventType == EVENTS_LIST?.FEATURED) {
     getFeaturedEvents(data.filterType);
-  } else if (data.eventType == EVENTS_LIST.POPULAR) {
+  } else if (data.eventType == EVENTS_LIST?.POPULAR) {
     getPopularEvents(true, data.filterType);
   } else if (data.eventType == EVENTS_LIST.NEARBY) {
   } else if (data.eventType == EVENTS_LIST.UPCOMING) {

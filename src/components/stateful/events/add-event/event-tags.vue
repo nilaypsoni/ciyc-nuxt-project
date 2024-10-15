@@ -6,10 +6,11 @@
     </div> -->
     <div class="capitalize">
       <span @keyup.enter.prevent="handleInput($event.key)" @focusout="hidetags()" class="tagWrapper" v-bind:class="loading ? 'loading' : ''">
+       <ClientOnly>
         <vue-tags-input v-model="tag" :tags="reactiveTags" :placeholder="'Type Any Keywords That Are Related To Your Event And Press Enter.'" :validation="[]"
           :add-only-from-autocomplete="true" class="mt-1 w-full rounded tags-cs" 
           @tags-changed="newTags => tagChange(newTags)"     />
-
+        </ClientOnly>
           <!-- :autocomplete-always-open="tagsVisible" -->
           <!-- @focusin="showtags()" -->
           <!-- :autocomplete-items="searchTag(tag)" -->
