@@ -6,7 +6,7 @@
         @open-login="() => modalRedirect('guestLoginActive', 'loginActive')"
         @close-modal="() => toggleModal('guestLoginActive')" />
     </auth-modal> -->
-    <auth-modal :modal-active="modalActive.loginActive" :toggle-modal="() => toggleModal('loginActive')"
+    <auth-modal :modal-active="modalActive?.loginActive" :toggle-modal="() => toggleModal('loginActive')"
       :title="(userRole == 'Seeker') ? 'Login' : `Login`">
       <login-form :role="userRole" @open-signup="(r) => openSignup(r)"
         @open-guest-login="() => modalRedirect('guestLoginActive')"
