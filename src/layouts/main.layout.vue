@@ -4,9 +4,7 @@
       <!-- <div class="page-loader"></div> -->
       <home-top-bar v-if="!isLogin && !isRegister" />
       <router-view></router-view>
-      <client-only>
       <Footer v-if="!isLogin && !isRegister" />
-      </client-only>
   </div>
 </template>
 

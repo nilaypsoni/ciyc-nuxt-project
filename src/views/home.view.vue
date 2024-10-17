@@ -286,7 +286,9 @@
         <div class="row ms-2 mt-5 me-2">
           <div class="organizers-col d-flex flex-wrap gap-4">
             <organizer-event-count-card
-              v-for="(organization, index) in organizationDetails?.organizations"
+              v-for="(
+                organization, index
+              ) in organizationDetails?.organizations"
               :key="index"
               :organizer="organization"
               :show-event-count="false"
@@ -526,7 +528,6 @@ import appStore from "@/assets/header/app-store.svg";
 import globeImage from "@/assets/globe.png";
 import footerCallUs01 from "@/assets/footer-call-us/01.svg";
 
-
 import SolutionForCreator from "@/components/presentational/home/solution-for-creator";
 
 import EventsList from "@/components/presentational/home/events-list";
@@ -571,7 +572,9 @@ const isSuccessMessageModal = ref(false);
 const isPayoutAddedModal = ref(false);
 const isCardAddedModal = ref(false);
 const props = defineProps();
-const aplace = process.client ? ref(localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '') : '';
+const aplace = process.client
+  ? ref(localStorage.getItem("aplace") ? localStorage.getItem("aplace") : "")
+  : "";
 
 const refUserId = ref(!!userData?._id ? userData?._id : null);
 const ComneteEvents = ref([]);
@@ -595,14 +598,18 @@ const route = useRoute();
 watch(
   () => route.fullPath,
   (newPath, oldPath) => {
-    if (newPath !== oldPath) {
-      $("body").removeClass("home-page");
+    if (process.client) {
+      if (newPath !== oldPath) {
+        $("body").removeClass("home-page");
+      }
     }
   }
 );
 
 watch(() => {
-  $("body").addClass("home-page");
+  if (process.client) {
+    $("body").addClass("home-page");
+  }
 });
 
 onMounted(() => {
@@ -672,48 +679,50 @@ const eventTypeList = () => {
     page: 1,
     limit: 999999999,
     onlyAllowedEvents: 1,
-  }).then((res) => {
+  })?.then((res) => {
     if (res.data) {
       eventTypes.value = res.data;
     }
 
     setTimeout(function () {
-      $(".banner-ser-item").slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 1500,
-        speed: 2000,
+      if (process.client) {
+        $(".banner-ser-item").slick({
+          dots: true,
+          infinite: true,
+          speed: 300,
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          autoplay: false,
+          autoplaySpeed: 1500,
+          speed: 2000,
 
-        responsive: [
-          {
-            breakpoint: 1200,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-              infinite: true,
-              dots: true,
+          responsive: [
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                infinite: true,
+                dots: true,
+              },
             },
-          },
-          {
-            breakpoint: 992,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
+            {
+              breakpoint: 992,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+              },
             },
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
             },
-          },
-        ],
-      });
+          ],
+        });
+      }
     }, 50);
   });
 };
@@ -723,7 +732,7 @@ const haveSpecialEvent = ref(false);
 const specialEvent = ref({});
 
 const getSpecialEvent = () => {
-  ApiClient.get("event/special", {}).then((res) => {
+  ApiClient.get("event/special", {})?.then((res) => {
     if (res.data) {
       haveSpecialEvent.value = true;
       specialEvent.value = res.data;
@@ -740,7 +749,7 @@ const getCultureContents = () => {
     page: 1,
     limit: 999999999,
     homePageOnly: true,
-  }).then((res) => {
+  })?.then((res) => {
     let newarr = [];
     const elementToRemove = "All";
     newarr = res.data.filter((item) => item.culture !== elementToRemove);
@@ -748,42 +757,44 @@ const getCultureContents = () => {
     cultures.value = newarr;
 
     setTimeout(function () {
-      $(".banner-ser-item").slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 1500,
-        speed: 2000,
+      if (process.client) {
+        $(".banner-ser-item").slick({
+          dots: true,
+          infinite: true,
+          speed: 300,
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          autoplay: false,
+          autoplaySpeed: 1500,
+          speed: 2000,
 
-        responsive: [
-          {
-            breakpoint: 1200,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-              infinite: true,
-              dots: true,
+          responsive: [
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                infinite: true,
+                dots: true,
+              },
             },
-          },
-          {
-            breakpoint: 992,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
+            {
+              breakpoint: 992,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+              },
             },
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
             },
-          },
-        ],
-      });
+          ],
+        });
+      }
     }, 500);
     // loading2.value = false
   });
@@ -795,7 +806,7 @@ const getComneteEvents = () => {
     page: 1,
     limit: 3,
     isPublished: true,
-  }).then((res) => {
+  })?.then((res) => {
     ComneteEvents.value = res.data;
   });
 };
@@ -821,12 +832,16 @@ const eventFilterTypes = reactive({
 });
 
 const patchLatng = () => {
-    latitude.value = process.client ? Number(localStorage.getItem('alat') || 0) : 0
-    longitude.value = process.client ? Number(localStorage.getItem('alng') || 0) : 0
-    console.log("latitude home", latitude.value);
-    console.log("longitude home", longitude.value);
-    //   getData()
-}
+  latitude.value = process.client
+    ? Number(localStorage.getItem("alat") || 0)
+    : 0;
+  longitude.value = process.client
+    ? Number(localStorage.getItem("alng") || 0)
+    : 0;
+  console.log("latitude home", latitude.value);
+  console.log("longitude home", longitude.value);
+  //   getData()
+};
 patchLatng();
 
 const popularEventDetails = reactive({
@@ -849,7 +864,7 @@ const popularEventDetails = reactive({
 //     console.log(params,'params')
 
 //     // if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
-//     //     ApiClient.get('event/featured-popular', {...params,latitude:latitude.value,longitude:longitude.value }).then(res => {
+//     //     ApiClient.get('event/featured-popular', {...params,latitude:latitude.value,longitude:longitude.value })?.then(res => {
 //     //         if(res.data && res.data?.length > 0){
 //     //             // Location Event
 
@@ -865,7 +880,7 @@ const popularEventDetails = reactive({
 
 //     //     });
 //     // }else{
-//         ApiClient.get('event/featured-popular', {...params }).then(res => {
+//         ApiClient.get('event/featured-popular', {...params })?.then(res => {
 //             if(res.data && res.data?.length > 0){
 //                 popularEventDetails.isLocationEvent = false;
 //                 popularEventDetails.popularEvents = res.data
@@ -888,7 +903,7 @@ const getWorldWidePopularEvents = () => {
     isFeatured: false,
   };
 
-  ApiClient.get("event/featured-popular", { ...params }).then((res) => {
+  ApiClient.get("event/featured-popular", { ...params })?.then((res) => {
     if (res.data && res.data?.length > 0) {
       // Location Event
 
@@ -915,7 +930,7 @@ const getFeaturedEvents = (dateFilter = "") => {
     params.dateFilter = dateFilter;
   }
 
-  ApiClient.get("event/featured-popular", params).then((res) => {
+  ApiClient.get("event/featured-popular", params)?.then((res) => {
     if (res.data) {
       featuredEvents.value = res.data;
     } else {
@@ -942,7 +957,7 @@ const getUpcomingEvents = (byLocationDefault = true, dateFilter = "") => {
   }
 
   // if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
-  //     ApiClient.get('event/upcoming-events', {...params,latitude:latitude.value,longitude:longitude.value}).then(res => {
+  //     ApiClient.get('event/upcoming-events', {...params,latitude:latitude.value,longitude:longitude.value})?.then(res => {
   //         if(res.data && res.data.upcomingEvents && res.data.upcomingEvents?.length > 0){
   //             upcomingEventDetails.isLocationEvent = true
   //             upcomingEventDetails.upcomingEvents = res.data.upcomingEvents
@@ -953,7 +968,7 @@ const getUpcomingEvents = (byLocationDefault = true, dateFilter = "") => {
   //         }
   //     })
   // }else{
-  ApiClient.get("event/upcoming-events", { ...params }).then((res) => {
+  ApiClient.get("event/upcoming-events", { ...params })?.then((res) => {
     if (
       res.data &&
       res.data.upcomingEvents &&
@@ -973,7 +988,7 @@ const getUpcomingEvents = (byLocationDefault = true, dateFilter = "") => {
   // }
 };
 if (process.client) {
-getUpcomingEvents();
+  getUpcomingEvents();
 }
 const eventCities = ref([]);
 const getCitiesAccordingEvents = () => {
@@ -983,7 +998,7 @@ const getCitiesAccordingEvents = () => {
     page: 1,
   };
 
-  ApiClient.get("event/cities", { ...params }).then(async (res) => {
+  ApiClient.get("event/cities", { ...params })?.then(async (res) => {
     if (res.data && res.data?.length > 0) {
       const updatedCities = [];
 
@@ -997,9 +1012,8 @@ const getCitiesAccordingEvents = () => {
   });
 };
 if (process.client) {
-    getCitiesAccordingEvents();
+  getCitiesAccordingEvents();
 }
-
 
 const organizerDetails = reactive({
   isLocationOrganizer: false,
@@ -1018,7 +1032,7 @@ const getOrganizers = (byLocationDefault = true) => {
       isPopular: false,
       latitude: latitude.value,
       longitude: longitude.value,
-    }).then((res) => {
+    })?.then((res) => {
       if (res.data && res.data?.length > 0) {
         organizerDetails.isLocationOrganizer = true;
         organizerDetails.organizers = res.data;
@@ -1032,7 +1046,7 @@ const getOrganizers = (byLocationDefault = true) => {
       isPopular: true,
       latitude: 0,
       longitude: 0,
-    }).then((res) => {
+    })?.then((res) => {
       if (res.data) {
         organizerDetails.isLocationOrganizer = false;
         organizerDetails.organizers = res.data;
@@ -1057,7 +1071,7 @@ const getOrganization = (byLocationDefault = true) => {
   };
 
   // if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
-  //     ApiClient.post('user/organizers', {...params,isPopular:false,latitude:latitude.value,longitude:longitude.value}).then(res => {
+  //     ApiClient.post('user/organizers', {...params,isPopular:false,latitude:latitude.value,longitude:longitude.value})?.then(res => {
   //         if(res.data && res.data?.length > 0){
 
   //             organizationDetails.isLocationOrganization = true;
@@ -1074,7 +1088,7 @@ const getOrganization = (byLocationDefault = true) => {
     isPopular: true,
     latitude: 0,
     longitude: 0,
-  }).then((res) => {
+  })?.then((res) => {
     if (res.data) {
       organizationDetails.isLocationOrganization = false;
       organizationDetails.organizations = res.data;
@@ -1107,7 +1121,7 @@ const favoriteEvents = () => {
       page: 1,
       limit: 4,
       userId: user.value._id,
-    }).then((res) => {
+    })?.then((res) => {
       if (res.data) {
         favEvents.value = res.data;
         favEventsList.value = res.data;
@@ -1158,14 +1172,14 @@ export default {
         const slickCarousel = require("slick-carousel");
 
         // Check if #my-element exists before manipulating it
-        if ($('#my-element').length) {
-          $('#my-element').text('Hello, jQuery is working!');
+        if ($("#my-element").length) {
+          $("#my-element").text("Hello, jQuery is working!");
         } else {
-          console.warn('#my-element not found');
+          console.warn("#my-element not found");
         }
 
         // Initialize slick carousel for elements with class "two-item"
-        if ($('.two-item').length) {
+        if ($(".two-item").length) {
           $(".two-item").slick({
             dots: true,
             infinite: true,
@@ -1187,7 +1201,7 @@ export default {
             ],
           });
         } else {
-          console.warn('.two-item not found');
+          console.warn(".two-item not found");
         }
 
         // Set up click events for incrementing and decrementing input values
@@ -1208,9 +1222,8 @@ export default {
             return false;
           });
         });
-
       } catch (error) {
-        console.error('An error occurred:', error);
+        console.error("An error occurred:", error);
       }
     }
   },

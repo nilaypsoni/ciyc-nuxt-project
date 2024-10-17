@@ -500,16 +500,25 @@ const closeModal = () => {
 
 
 const organizerClick = () => {
-  document.getElementById("organizerSignup").click();
+  if (process.client) {
+    document.getElementById("organizerSignup").click();
+  }
 };
 const seekerClick = () => {
-  document.getElementById("seekerSignup").click();
+  if (process.client) {
+    document.getElementById("seekerSignup").click();
+  }
 };
 
 const PlannerClick = () => {
-  document.getElementById("plannerSignup").click();
+  if (process.client) {
+    document.getElementById("plannerSignup").click();
+  }
 };
 
-document.getElementById('body').classList.remove('modalOpened')
+if (process.client) {
+  document.getElementById('body').classList.remove('modalOpened')
+}
+
 
 </script>
