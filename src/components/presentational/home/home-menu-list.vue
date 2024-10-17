@@ -1,75 +1,95 @@
 <template>
-  
-  <div class="collapse navbar-collapse " id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
-        <li class="nav-item" v-for="(menu, index) in filterMenuList(menuList)" :key="index">
-          <router-link class="nav-link  r-font fw-bolder d-hex-color" :to="{ name: menu?.name }">
-            {{ menu.title }}
-          </router-link>
-        </li>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+      <li
+        class="nav-item"
+        v-for="(menu, index) in filterMenuList(menuList)"
+        :key="index"
+      >
+        <router-link
+          class="nav-link r-font fw-bolder d-hex-color"
+          :to="{ name: menu?.name }"
+        >
+          {{ menu.title }}
+        </router-link>
+      </li>
 
-        <li class="nav-item" v-if="!userData || userData?.role == 'guest' ">
-          <router-link class="nav-link  r-font fw-bolder d-hex-color" :to="{ name: ROUTES.SHARE_YOUR_EVENT }">
-            Share your business
+      <li class="nav-item" v-if="!userData || userData?.role == 'guest'">
+        <router-link
+          class="nav-link r-font fw-bolder d-hex-color"
+          :to="{ name: ROUTES.SHARE_YOUR_EVENT }"
+        >
+          Share your business
+        </router-link>
+      </li>
 
-          </router-link>
-        </li>
+      <li class="nav-item" v-if="!userData || userData?.role == 'guest'">
+        <router-link
+          class="nav-link r-font fw-bolder d-hex-color"
+          :to="{ name: ROUTES.JOIN_COMMUNITY }"
+        >
+          Join the Community
+        </router-link>
+      </li>
 
-        <li class="nav-item" v-if="!userData || userData?.role == 'guest' ">
-          <router-link class="nav-link  r-font fw-bolder d-hex-color" :to="{ name: ROUTES.JOIN_COMMUNITY }">
-           Join the Community  
-          </router-link>
-        </li>
+      <li class="nav-item">
+        <router-link
+          class="nav-link r-font fw-bolder d-hex-color"
+          :to="{ name: ROUTES.FAQS }"
+        >
+          FAQ
+        </router-link>
+      </li>
 
-        <li class="nav-item">
-          <router-link class="nav-link  r-font fw-bolder d-hex-color" :to="{ name: ROUTES.FAQS }">
-           FAQ
-          </router-link>
-        </li>
-
-        <li class="nav-item">
-          <router-link class="nav-link  r-font fw-bolder d-hex-color" :to="{ name: ROUTES.ABOUT_US }">
-           About Us
-          </router-link>
-        </li>
-
-
-      </ul>
+      <li class="nav-item">
+        <router-link
+          class="nav-link r-font fw-bolder d-hex-color"
+          :to="{ name: ROUTES.ABOUT_US }"
+        >
+          About Us
+        </router-link>
+      </li>
+    </ul>
   </div>
-  <div class="search" v-if="!userData || userData?.role == 'guest' ">
-      <form>
-                <router-link class="search-icon" :to="{ name: ROUTES.SEARCH }">
-                  <img :src="search" alt="img">
-                </router-link>
-      </form>
-  </div>
-  <div class="g-btn" v-if="!userData || userData?.role == 'guest' ">
-      
-      <router-link class="primary-bg text-white pt-2 pb-2 ps-3 pe-3" :to="{ name: ROUTES.LOGIN }">
-        <span>Login/Sign In</span> <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+  <div class="search" v-if="!userData || userData?.role == 'guest'">
+    <form>
+      <router-link class="search-icon" :to="{ name: ROUTES.SEARCH }">
+        <img :src="search" alt="img" />
       </router-link>
+    </form>
   </div>
-  <div class="collapse navbar-collapse " id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+  <div class="g-btn" v-if="!userData || userData?.role == 'guest'">
+    <router-link
+      class="primary-bg text-white pt-2 pb-2 ps-3 pe-3"
+      :to="{ name: ROUTES.LOGIN }"
+    >
+      <span>Login/Sign In</span>
+      <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+    </router-link>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+      <li class="nav-item" v-if="userData">
+        <div class="search">
+          <form>
+            <router-link class="search-icon" :to="{ name: ROUTES.SEARCH }">
+              <img :src="search" alt="img" />
+            </router-link>
+          </form>
+        </div>
+      </li>
 
-        
-        <li class="nav-item" v-if="userData">
-          <div class="search" >
-              <form>
-                <router-link class="search-icon" :to="{ name: ROUTES.SEARCH }">
-                  <img :src="search" alt="img">
-                </router-link>
-                  
-              </form>
-          </div>
-        </li>
-
-        <li  class="nav-item" v-if="userData?.role != 'guest' && userData">
-          <logged-in-user-nav-dropdown @user-logged-out="userLoggedOut" :user-id="userId"
-            :logged-in-user-role="userData?.role" />
-        </li>
-        <!-- v-if="userData?.role === ROLES.SEEKER || userData?.role === ROLES.GUEST" -->
-        <!-- <li  class="nav-item cart-menu " >
+      <li class="nav-item" v-if="userData?.role != 'guest' && userData">
+        <ClientOnly>
+        <logged-in-user-nav-dropdown
+          @user-logged-out="userLoggedOut"
+          :user-id="userId"
+          :logged-in-user-role="userData?.role"
+        />
+      </ClientOnly>
+      </li>
+      <!-- v-if="userData?.role === ROLES.SEEKER || userData?.role === ROLES.GUEST" -->
+      <!-- <li  class="nav-item cart-menu " >
           <router-link v-if="userData" :to="{ name: ROUTES.CHECKOUT }" class="relative d-flex">
             <font-awesome-icon icon="fa-solid fa-cart-shopping"
               class="text-primary__color font-normal lg__mobile:text-xs lg__mobile:px-2" />
@@ -80,24 +100,25 @@
             </span>
           </router-link>
         </li> -->
-        
-
-
-
-
-      </ul>
+    </ul>
   </div>
   <span id="updateHeader" @click="updateHeader()"></span>
   <!--List Of All Auth Modals-->
-  <auth-modals :open-login="isOpenLoginModal" :emailVerificationReq="true" :openSignup="openSignup" :close="closeModal" :role="role" />
+  <auth-modals
+    :open-login="isOpenLoginModal"
+    :emailVerificationReq="true"
+    :openSignup="openSignup"
+    :close="closeModal"
+    :role="role"
+  />
 </template>
 
 <script setup>
-import search from "@/assets/header/search.svg"
+import search from "@/assets/header/search.svg";
 import { onMounted, ref, watch } from "vue";
 import { ROUTES } from "@/utils/constants/routes";
 import TokenService from "@/services/token.service";
-import { useRoute, useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router";
 import LoggedInUserNavDropdown from "@/components/presentational/home/loggedin-user-nav-dropdown";
 import AuthModals from "@/components/presentational/auth/auth-modals";
 import { ROLES } from "@/utils/constants";
@@ -107,10 +128,10 @@ import tokenService from "@/services/token.service";
 import { $ } from "dom7";
 import ApiClient from "@/methods/apiclient";
 
-const userData = ref(TokenService.getUser())
-const role = ref('')
-const openSignup = ref('')
-const emailVerificationUserId = useUrlQuery("email-verification") || ""
+const userData = ref(TokenService.getUser());
+const role = ref("");
+const openSignup = ref("");
+const emailVerificationUserId = useUrlQuery("email-verification") || "";
 
 if (emailVerificationUserId) {
   // useToaster('success', '', 'Email Verified Successfully')
@@ -121,17 +142,15 @@ if (emailVerificationUserId) {
   // })
 }
 
-
-const route = useRoute()
-const router = useRouter()
-const cartData = ref(TokenService.getCartData())
+const route = useRoute();
+const router = useRouter();
+const cartData = ref(TokenService.getCartData());
 
 // {
 //     title: "Cultures",
 //     name: ROUTES.CULTURE,
 //   },
 const menuList = ref([
-  
   {
     title: "Home",
     name: ROUTES.HOME,
@@ -152,220 +171,209 @@ const menuList = ref([
     title: "Create an event",
     name: ROUTES.ADD_EVENTS,
   },
-])
+]);
 
-const menuOpen = ref(false)
+const menuOpen = ref(false);
 const filterMenuList = (menu) => {
-  if (userData.value?.role !== ROLES.ORGANIZER && userData.value?.role !== ROLES.PLANNER || !userData.value) {
-    return menu.filter((link) => link.name !== ROUTES.ADD_EVENTS)
-  } else return menu
-}
-const userId = ref(TokenService.getUser()?._id)
+  if (
+    (userData.value?.role !== ROLES.ORGANIZER &&
+      userData.value?.role !== ROLES.PLANNER) ||
+    !userData.value
+  ) {
+    return menu.filter((link) => link.name !== ROUTES.ADD_EVENTS);
+  } else return menu;
+};
+const userId = ref(TokenService.getUser()?._id);
 
 const article = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Culture In Your City",
-      "publisher": {
-        "@type": "CreativeWork",
-        "name": "Culture In Your City",
-      }
-    };
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Culture In Your City",
+  publisher: {
+    "@type": "CreativeWork",
+    name: "Culture In Your City",
+  },
+};
 
-const existingScripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
-existingScripts.forEach((script) => {
-  script.parentNode.removeChild(script);
-});
-
-const script = document.createElement("script");
-script.type = "application/ld+json";
-script.textContent = JSON.stringify(article);
-document.head.appendChild(script);
-
+if (process.client) {
+  const existingScripts = Array.from(
+    document?.querySelectorAll('script[type="application/ld+json"]')
+  );
+  existingScripts.forEach((script) => {
+    script.parentNode.removeChild(script);
+  });
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify(article);
+  document.head.appendChild(script);
+}
 
 //Logout
 const guestLogout = () => {
   // localStorage.clear()
-  tokenService.clearStorage()
-  userData.value = ''
-  router.push({ path: '/' })
-  useToaster("success", "", "Logout Successfully.")
-}
+  tokenService.clearStorage();
+  userData.value = "";
+  router.push({ path: "/" });
+  useToaster("success", "", "Logout Successfully.");
+};
 
 //Listening to route changes to check if user is still logged in
-watch(() => route.path, () => {
-  cartData.value = TokenService.getCartData()
-  userData.value = TokenService.getUser()
-  mobileMenuDropdown(false)
-
-  
-})
+watch(
+  () => route.path,
+  () => {
+    cartData.value = TokenService.getCartData();
+    userData.value = TokenService.getUser();
+    mobileMenuDropdown(false);
+  }
+);
 
 const updateHeader = () => {
-  let el = document.getElementById('loginupdate')
-  if (el) el.click()
-  userData.value = TokenService.getUser()
-  cartData.value = TokenService.getCartData()
-  console.log("updateHeader")
-}
-
+  if (!process.client) return
+  let el = document.getElementById("loginupdate");
+  if (el) el.click();
+  userData.value = TokenService.getUser();
+  cartData.value = TokenService.getCartData();
+  console.log("updateHeader");
+};
 
 //After user is logged out
 const userLoggedOut = () => {
   // localStorage.clear()
-  tokenService.clearStorage()
-  userData.value = ''
-  router.push({ path: '/' })
-}
+  tokenService.clearStorage();
+  userData.value = "";
+  router.push({ path: "/" });
+};
 
 const closeModal = () => {
-  openSignup.value = ''
+  openSignup.value = "";
   console.log("closeModal");
-}
+};
 
-const isOpenLoginModal = ref(false)
-const openLogin = (p, r = '') => {
-  if (localStorage.getItem('isPurchase')) {
-    localStorage.removeItem('isPurchase')
+const isOpenLoginModal = ref(false);
+const openLogin = (p, r = "") => {
+  if (!process.client) return;
+  if (localStorage.getItem("isPurchase")) {
+    localStorage.removeItem("isPurchase");
     // localStorage.removeItem('cartData')
   }
- 
-  role.value = r
- 
-  isOpenLoginModal.value = !isOpenLoginModal.value
-  document.getElementById("body").classList.add('modalOpened')
-}
 
-const openSignupModal = (r = '') => {
-  role.value = r
-  openSignup.value = r
+  role.value = r;
+
+  isOpenLoginModal.value = !isOpenLoginModal.value;
+  document.getElementById("body").classList.add("modalOpened");
+};
+
+const openSignupModal = (r = "") => {
+  if (!process.client) return;
+  role.value = r;
+  openSignup.value = r;
   // router.push({path:'/?auth-page=organizer-signup'})
-  document.getElementById("body").classList.add('modalOpened')
-}
+  document.getElementById("body").classList.add("modalOpened");
+};
 
-const mobileMenuDropdown = (show=true) =>{
-  
-  if($('#dropdown-menu-ul').hasClass('show')){
-    $('#dropdown-menu-ul').removeClass('show')
-  }else{
-    if(show == true){
-      $('#dropdown-menu-ul').addClass('show')
+const mobileMenuDropdown = (show = true) => {
+  if ($("#dropdown-menu-ul").hasClass("show")) {
+    $("#dropdown-menu-ul").removeClass("show");
+  } else {
+    if (show == true) {
+      $("#dropdown-menu-ul").addClass("show");
     }
   }
+};
 
-}
+const loginLink = useUrlQuery("login-link");
 
-const loginLink = useUrlQuery('login-link')
-
-if(loginLink!='' && loginLink != undefined){
-  
+if (loginLink != "" && loginLink != undefined) {
   var payload = {
-    code: loginLink
-  }
+    code: loginLink,
+  };
 
-  ApiClient.get('auth/login/link', payload).then(res => {
+  ApiClient.get("auth/login/link", payload).then((res) => {
     if (res.data) {
-
-    
-      router.push({name:ROUTES.LOGIN_AS_USER,query:{id:res.data.id}})
-
-
+      router.push({ name: ROUTES.LOGIN_AS_USER, query: { id: res.data.id } });
     } else {
       // useToaster("error","",res.message,4000,'red')
-      
-        if(typeof res.message == 'string'){
-          useToaster("danger","",res.message)
-        }else{
-            useToaster("danger","",res.message[0])
-        }
-        
-    
 
+      if (typeof res.message == "string") {
+        useToaster("danger", "", res.message);
+      } else {
+        useToaster("danger", "", res.message[0]);
+      }
     }
-  })
-
+  });
 }
 
+const authPage = useUrlQuery("auth-page");
 
-const authPage = useUrlQuery('auth-page')
-
-
-
-if (authPage == 'organizer-signup') {
+if (authPage == "organizer-signup") {
   setTimeout(() => {
-    openSignupModal('Organizer')
+    openSignupModal("Organizer");
   }, 100);
 }
-if (authPage == 'seeker-signup') {
+if (authPage == "seeker-signup") {
   setTimeout(() => {
-    openSignupModal('Seeker')
+    openSignupModal("Seeker");
   }, 100);
 }
 
-if (authPage == 'seeker-login') {
+if (authPage == "seeker-login") {
   setTimeout(() => {
     // openLogin(false, 'Seeker')
   }, 100);
 }
 
-if (authPage == 'seeker-login-popup') {
+if (authPage == "seeker-login-popup") {
   setTimeout(() => {
-    openLogin(false, 'Seeker')
+    openLogin(false, "Seeker");
   }, 100);
 }
 
-if (authPage == 'login-popup') {
+if (authPage == "login-popup") {
   setTimeout(() => {
-    openLogin(false, 'Seeker')
+    openLogin(false, "Seeker");
   }, 100);
 }
 
-if (authPage == 'eventplanner-login') {
+if (authPage == "eventplanner-login") {
   setTimeout(() => {
-    openLogin(false, 'Event Planner')
+    openLogin(false, "Event Planner");
   }, 100);
 }
-if (authPage == 'organizer-login') {
+if (authPage == "organizer-login") {
   setTimeout(() => {
-    
     // openLogin(false, 'Organizer')
   }, 100);
 }
+if (process.client) {
+  document.getElementById("body").classList.remove("modalOpened");
+}
 
-document.getElementById('body').classList.remove('modalOpened')
 </script>
 
-
-
 <style>
-
 .origin-top-right.absolute.z-50.right-0.mt-2.w-48.bg-white.rounded-lg.shadow-primary__shadow.py-2 {
-    background: #3b5998 ;
+  background: #3b5998;
 }
 
 body .header-menu ul.dropdown-menu button {
-    color: white;
+  color: white;
 }
 
 #mobile-menu-dropdown ul li div {
-    background: #3b5998 !important;
-    text-align: left !important;
-    justify-content: start;
-    padding-left: 6px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    color: white  !important;
+  background: #3b5998 !important;
+  text-align: left !important;
+  justify-content: start;
+  padding-left: 6px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: white !important;
 }
-
 </style>
 
 <style scoped>
 li {
   white-space: nowrap;
 }
-
-
-
 
 .organizeDropdown .dropdown-menu {
   left: initial !important;
@@ -377,7 +385,7 @@ li {
 }
 
 .router-link-exact-active {
-  color: #E07A5F;
+  color: #e07a5f;
 }
 
 .modal-animation-enter-active,
@@ -407,14 +415,13 @@ li {
   transform: scale(0.8);
 }
 
-
 .hamburger__line,
 .hamburger__middle {
   display: block;
   width: 30px;
   height: 2px;
   border-radius: 2px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-top: 7px;
   margin-bottom: 7px;
 }
@@ -427,8 +434,6 @@ li {
   width: 20px;
   margin-left: 10px;
 }
-
-
 
 /*--8-5-2023--*/
 .header-menu a:hover {

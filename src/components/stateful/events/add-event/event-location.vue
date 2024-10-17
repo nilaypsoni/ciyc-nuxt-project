@@ -29,11 +29,13 @@
                                     <span  class="input-f g-input" v-if="isChicagoAddress && (activeEventsLocation == '2' || activeEventsLocation == '')">
                                         <label class="mb-1">Chicago Neighborhood</label>
                                         <span @focusin="showSuggestion()" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+                                        <ClientOnly>
                                           <vue-tags-input v-model="neighborhood" :tags="fieldsData.neighborhood" placeholder="You could start typing and also select multiple	"
                                             :validation="[]" :add-only-from-autocomplete="true" class="mt-1 w-full rounded"
                                             :autocomplete-items="searchNeighborhood(neighborhood)" @tags-changed="newTags => neighborhoodChange(newTags)"
                                             :autocomplete-always-open="suggestions" />
-                                        </span>
+                                          </ClientOnly>
+                                          </span>
                                     </span>
                                     <span  v-bind:class="fieldsDataError.stateOrProvince && showValidationMsg ? 'error-field' : ''" class="input-f g-input" v-if="activeEventsLocation == '2' || activeEventsLocation == ''">
                                         <label class="mb-1 required-field">State/Province<span class="text-danger">*</span></label>

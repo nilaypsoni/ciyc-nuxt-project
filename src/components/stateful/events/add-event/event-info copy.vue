@@ -30,11 +30,13 @@
             here</span> <a class="text-primary pointer text-sm" data-bs-toggle="modal"
             data-bs-target="#culturelistModal">(View List)</a></label>
         <span @focusin="showSuggestion()" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+        <ClientOnly>
           <vue-tags-input v-model="cultureSearch" :tags="cultures" :placeholder="cultures != '' ? '' : cultureSearchPlaceholder"
             :validation="[]" :add-only-from-autocomplete="true" class="mt-1 w-full rounded"
             :autocomplete-items="searchCulture(cultureSearch)" @tags-changed="newTags => cultureChange(newTags)"
             :autocomplete-always-open="suggestions" @focus="handlePlaceHolderFocus('cultureSearch')" @blur="handlePlaceHolderBlur('cultureSearch')" />
-        </span>
+          </ClientOnly>
+          </span>
 
         <!-- <BaseMultiSelect label="Type the first letter of the Culture" :options="cultureSuggestion" :value="cultures" /> -->
 
@@ -61,11 +63,13 @@
           custom-classes="mt-1 border border-secondary__color" :options="eventType" /> -->
           <label class="text-lg text-primary__color">Event Category</label>
           <span @focusin="showEventCategorySuggestion()" @focusout="hideEventCategorySuggestion()" v-bind:class="loading ? 'loading' : ''">
-              <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
+            <ClientOnly>
+            <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
               :placeholder="eventCategories != '' ? '' : eventCategorySearchPlaceholder" :validation="[]" :add-only-from-autocomplete="true"
               class="mt-1  w-full rounded" :autocomplete-items="searchEventCategory(eventCategorySearch)"
               @tags-changed="newTags => eventCategoryChange(newTags)" :autocomplete-always-open="eventCategorySuggestions" @focus="handlePlaceHolderFocus('eventCategorySearch')" @blur="handlePlaceHolderBlur('eventCategorySearch')" />
-          </span>
+            </ClientOnly>
+            </span>
       </div>
 
       <div  class="capitalize w-full">

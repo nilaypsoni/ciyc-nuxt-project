@@ -4,6 +4,7 @@
     <span class="text-red">*</span>
   </label>
   <div class="w-full">
+    <ClientOnly>
     <vue-tags-input
         v-model="tag"
         :tags="tags"
@@ -13,6 +14,7 @@
         class="mt-1  w-full rounded"
         :autocomplete-items="autocompleteItems"
     />
+  </ClientOnly>
     <div class="ti-autocomplete max-w-[450px]" data-v-2fbda277 v-if="isLoading">
       <ul data-v-2fbda277="">
         <li class="ti-valid ti-item" data-v-2fbda277>

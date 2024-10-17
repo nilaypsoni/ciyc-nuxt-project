@@ -73,7 +73,7 @@
             </div>
         </section>
 
-        <culture-slider :show-heading="true" />
+        <client-only> <culture-slider :show-heading="true" /> </client-only>
 
         <solution-for-creator />
 

@@ -17,7 +17,7 @@
     <related-organizer :category="eventTypeTxt" />
    
     
-    <culture-slider :show-heading="true"/>
+  <client-only>  <culture-slider :show-heading="true"/></client-only>
 </template>
 <script setup>
 import {toRef,ref, watch,reactive,onMounted} from "vue";

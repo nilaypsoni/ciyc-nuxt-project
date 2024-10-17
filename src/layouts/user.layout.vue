@@ -30,6 +30,7 @@
 import $ from 'jquery'; // Import jQuery
 
 export default {
+   
     mounted() {
         $('body').addClass('l-primary-bg-d');
         $('body').removeClass('create-event-section-body');

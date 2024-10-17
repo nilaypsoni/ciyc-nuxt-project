@@ -44,7 +44,10 @@
 <script setup>
 
 import { ref,onMounted  } from "vue";
-
+import $ from 'jquery'; // Import jQuery
+import 'slick-carousel/slick/slick.css'; // Import Slick Carousel CSS
+import 'slick-carousel/slick/slick-theme.css'; // Import Slick Carousel Theme CSS
+import 'slick-carousel'; // Import Slick Carousel JS
 const reviews = ref([
     {
         title:"IT Professional",
@@ -66,6 +69,7 @@ const reviews = ref([
 
 
 const initializeSlick = () => {
+    const $ = window.$; // Access jQuery from the global window object
     $('.three-item').slick({
         dots: false,
         infinite: true,
@@ -97,12 +101,13 @@ const initializeSlick = () => {
     });
 };
 
-onMounted(() => {
+  mounted(() => {
     if (process.client) {
     require("slick-carousel/slick/slick.css");
     require("slick-carousel/slick/slick-theme.css");
     require("slick-carousel");
     const $ = require("jquery");
+    window.$ = $;
   }
   const observeContent = () => {
     if (reviews.value.length > 0) {

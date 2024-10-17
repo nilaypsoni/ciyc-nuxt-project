@@ -3,7 +3,7 @@
   <label v-show="label" class="text-lg text-primary__color">{{ label }}</label>
   <div class="flex items-center gap-3">
     <div class="w-full">
-
+    <ClientOnly >
       <vue-tags-input
           v-model="tag"
           :tags="tags"
@@ -15,6 +15,7 @@
           :placeholder="placeholder"
           @tags-changed="newTags => tags = newTags"
       />
+    </ClientOnly>
     </div>
   </div>
 </template>

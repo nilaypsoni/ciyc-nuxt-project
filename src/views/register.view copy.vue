@@ -1,6 +1,8 @@
 <template>
      <div class="flex justify-center items-center bg-[#F5F5F5] mb-5 mt-5  mx-auto p-5  bg-site__peach signup-form g-form" style="width: 45%;">
-        <signup-form :role="signupRole" @open-login="handleLogin" @open-signup="handleRegister"  />
+        <client-only> 
+            <signup-form :role="signupRole" @open-login="handleLogin" @open-signup="handleRegister"  />
+        </client-only>
     </div>
 </template>
 

@@ -37,7 +37,7 @@
 import $ from 'jquery'; // Import jQuery
 
 export default {
-    mounted() {
+  onMounted() {
         $('body').removeClass('l-primary-bg-d');
         $('body').removeClass('create-event-section-body');
        
@@ -55,5 +55,7 @@ export default {
         }
     }
 }
-
+definePageMeta({
+  layout: 'main-layout'
+});
 </script>

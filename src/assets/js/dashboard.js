@@ -1,3 +1,6 @@
+export default defineNuxtPlugin((nuxtApp) => {
+    const { $ } = nuxtApp;
+
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
@@ -32,4 +35,6 @@ function readURL(input) {
 }
 $("#imageUpload").change(function() {
     readURL(this);
+});
+
 });

@@ -186,7 +186,7 @@
             </div>
         </section>
 
-        <review-slider />
+        <client-only> <review-slider /> </client-only>
 </template>
 
 <script setup>
@@ -207,7 +207,7 @@ import mangNetworx from "@/assets/mang-networx.jpg"
 import vinodNagubadis from "@/assets/vinod-nagubadis.jpg"
 import aboutScaled from "@/assets/about-scaled.jpg"
 import about1 from "@/assets/how-it-works/about-us-01.svg";
-import {ref, reactive} from "vue";
+import {ref, reactive, onMounted } from "vue";
 import ReviewSlider from "@/components/presentational/home/review-slider";
 
 const historyYear = ref('2013')
@@ -264,15 +264,13 @@ export default {
       eventsMinDistance: 60,
     };
   },
-  mounted() {
+  onMounted() {
     this.initTimeline();
     this.initCounts();
-    if (process.client) {
-    require("slick-carousel/slick/slick.css");
-    require("slick-carousel/slick/slick-theme.css");
-    require("slick-carousel");
-    const $ = require("jquery");
-  }
+    if (import.meta.client) {
+      require('slick-carousel');
+      this.initSlick();
+    }
   },
   beforeDestroy() {
     this.intervals.forEach((interval) => {
@@ -288,6 +286,12 @@ export default {
         dateArrays.push(newDate);
       });
       return dateArrays;
+    },
+    initSlick() {
+      // Initialize slick carousel here
+      $('.slick-carousel').slick({
+        // Slick settings
+      });
     },
     minLapse(dates) {
       // determine the minimum distance among events

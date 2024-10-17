@@ -70,11 +70,14 @@
                     <label>Chicago Neighborhood</label>
                     <!-- <input type="text" placeholder="City"> -->
                     <span @focusin="showNeighborhoodSuggestion()" class="" @focusout="hideNeighborhoodSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+                   <ClientOnly>   
                     <vue-tags-input v-model="neighborhood" :tags="fieldDetails.neighborhoods" placeholder="You could start typing and also select multiple	"
                         :validation="[]" :add-only-from-autocomplete="true" class=" w-full rounded suggestion-container chicago-neighborhood"
                         :autocomplete-items="searchNeighborhood(neighborhood)" @tags-changed="newTags => neighborhoodChange(newTags)"
                         :autocomplete-always-open="neighborhoodSuggestions" />
-                    </span>
+                      </ClientOnly>
+                      </span>
+                    
                 </span>
                 <!-- <span class="g-input"    >
                     <label v-if="role === ROLES.ORGANIZATION ">Organization Profile Type</label>
@@ -97,11 +100,13 @@
             <span class="g-input">
                 <label>{{ role === 'Organization' ? 'Organization Profile Type' : 'Categories' }} </label>
                 <span @focusin="showEventCategorySuggestion()" @focusout="hideEventCategorySuggestion()" v-bind:class="loading ? 'loading' : ''">
+                  <ClientOnly>
                     <vue-tags-input v-model="eventCategorySearch"  :tags="eventCategories"
                     placeholder="Type the first letter of the Interested Category" :validation="[]" :add-only-from-autocomplete="true"
                     class="mt-1  w-full rounded suggestion-container" :autocomplete-items="searchEventCategory(eventCategorySearch)"
                     @tags-changed="newTags => eventCategoryChange(newTags)" :autocomplete-always-open="eventCategorySuggestions" />
-                </span>
+                  </ClientOnly>
+                  </span>
             </span>
         </span>
         </span>
@@ -114,10 +119,12 @@
                 <label>{{ role === 'Organization' ? 'Organization Cultures' : 'Cultures' }}</label>
                 <!-- <input type="text" placeholder="City"> -->
                 <span @focusin="showSuggestion()" class="suggestion-container" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
-                    <vue-tags-input v-model="cultureSearch" :tags="cultures" placeholder="Type the first letter of the Interested Culture"
+                  <ClientOnly>  
+                  <vue-tags-input v-model="cultureSearch" :tags="cultures" placeholder="Type the first letter of the Interested Culture"
                     :validation="[]" :add-only-from-autocomplete="true" class="mt-1 w-100 rounded"
                     :autocomplete-items="searchCulture(cultureSearch)" @tags-changed="newTags => cultureChange(newTags)"
                     :autocomplete-always-open="suggestions" />
+                  </ClientOnly>
                 </span>
             </span>
             <!-- <span class="g-input"  >
