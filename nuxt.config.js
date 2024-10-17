@@ -180,6 +180,12 @@ export default defineNuxtConfig({
       },
     },
   },
+  script: [
+    {
+      src: 'https://code.jquery.com/jquery-3.6.0.min.js',
+      body: true,
+    },
+  ],
   plugins: [
     // "~/src/plugins/localStorage.client.js", // Client-side plugins should be suffixed with .client.js
     "~/src/plugins/vue-query.js",

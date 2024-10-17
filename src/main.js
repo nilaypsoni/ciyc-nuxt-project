@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import App from "./app.vue";
+import App from "../app.vue";
 import router from "./router";
 import VueLazyload from 'vue-lazyload';
 import spinnerGif from "@/assets/gifs/spinner-img.gif"
