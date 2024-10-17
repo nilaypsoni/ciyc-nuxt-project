@@ -1,4 +1,5 @@
 <template>
+   <client-only>
   <footer class="footer-section d-hex-bg pb-0 pt-5">
             <div class="container">
                 <div class="row">
@@ -270,6 +271,7 @@
         <a @click="patchLocal()"  id="patchLocalFooter"></a>
 
         <join-news-letter-modal @handle-close-modal="openJoinNewsLetterModal" :modal-active="isOpenJoinNewsLetterModal"  :toggle-modal="openJoinNewsLetterModal" />
+      </client-only>
 </template>
 <script setup>
 

@@ -75,7 +75,7 @@
       </section>
 
 
-      <review-slider />
+      <client-only> <review-slider /> </client-only>
 
 
 

@@ -1,4 +1,5 @@
 <template>
+  <client-only>
   <section class="country-slider-section l-primary-bg pt-0 overflow-hidden">
     <div class="container-fluid">
       <div class="row mb-5" v-if="showHeading">
@@ -30,6 +31,7 @@
       </div>
     </div>
   </section>
+  </client-only>
 </template>
 
 <script setup>
@@ -40,6 +42,10 @@ import { useRouter, useRoute } from "vue-router";
 import { createSeoFriendlyUrl } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 const router = useRouter();
+import $ from 'jquery';
+// import 'slick-carousel/slick/slick.css'; // Import Slick Carousel CSS
+// import 'slick-carousel/slick/slick-theme.css'; // Import Slick Carousel Theme CSS
+// import 'slick-carousel'; // Import Slick Carousel JS
 
 const props = defineProps({
   showHeading: {
@@ -65,7 +71,10 @@ const goToCultureInfo = (culture) => {
 
 const cultures = ref([]);
 const initializeSlick = () => {
+  if (process.client) {
+  const $ = window.$; // Access jQuery from the global window object
   $(".four-item").slick({
+   
     dots: false,
     infinite: true,
     speed: 300,
@@ -100,7 +109,7 @@ const initializeSlick = () => {
     ],
   });
 };
-
+}
 onMounted(async () => {
   try {
     const response = await ApiClient.get("content/all", {
@@ -122,6 +131,7 @@ onMounted(() => {
     require("slick-carousel/slick/slick-theme.css");
     require("slick-carousel");
     const $ = require("jquery");
+    window.$ = $; // Assign jQuery to the global window object for accessibility
   }
   const observeContent = () => {
     if (cultures.value.length > 0) {

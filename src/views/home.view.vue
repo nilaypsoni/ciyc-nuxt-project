@@ -1,5 +1,5 @@
 <template>
-  <HeroSlider />
+  <client-only><HeroSlider /></client-only>
 
   <section class="pt-0 pb-5 banner-ser l-primary-bg">
     <div class="container">
@@ -526,8 +526,7 @@ import appStore from "@/assets/header/app-store.svg";
 import globeImage from "@/assets/globe.png";
 import footerCallUs01 from "@/assets/footer-call-us/01.svg";
 
-import HeroSlider from "@/components/presentational/home/hero-slider";
-import CultureSlider from "@/components/presentational/home/culture-slider";
+
 import SolutionForCreator from "@/components/presentational/home/solution-for-creator";
 
 import EventsList from "@/components/presentational/home/events-list";
@@ -571,9 +570,8 @@ const { useFetchUserService } = useUserService();
 const isSuccessMessageModal = ref(false);
 const isPayoutAddedModal = ref(false);
 const isCardAddedModal = ref(false);
-const aplace = ref(
-  localStorage.getItem("aplace") ? localStorage.getItem("aplace") : ""
-);
+const props = defineProps();
+const aplace = process.client ? ref(localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '') : '';
 
 const refUserId = ref(!!userData?._id ? userData?._id : null);
 const ComneteEvents = ref([]);
@@ -823,12 +821,12 @@ const eventFilterTypes = reactive({
 });
 
 const patchLatng = () => {
-  latitude.value = Number(localStorage.getItem("alat") || 0);
-  longitude.value = Number(localStorage.getItem("alng") || 0);
-  console.log("latitude home", latitude.value);
-  console.log("longitude home", longitude.value);
-  //   getData()
-};
+    latitude.value = process.client ? Number(localStorage.getItem('alat') || 0) : 0
+    longitude.value = process.client ? Number(localStorage.getItem('alng') || 0) : 0
+    console.log("latitude home", latitude.value);
+    console.log("longitude home", longitude.value);
+    //   getData()
+}
 patchLatng();
 
 const popularEventDetails = reactive({
@@ -974,8 +972,9 @@ const getUpcomingEvents = (byLocationDefault = true, dateFilter = "") => {
   });
   // }
 };
+if (process.client) {
 getUpcomingEvents();
-
+}
 const eventCities = ref([]);
 const getCitiesAccordingEvents = () => {
   eventCities.value = [];
@@ -997,7 +996,10 @@ const getCitiesAccordingEvents = () => {
     }
   });
 };
-getCitiesAccordingEvents();
+if (process.client) {
+    getCitiesAccordingEvents();
+}
+
 
 const organizerDetails = reactive({
   isLocationOrganizer: false,
@@ -1041,7 +1043,7 @@ const getOrganizers = (byLocationDefault = true) => {
     });
   }
 };
-//getOrganizers();
+// getOrganizers();
 
 const organizationDetails = reactive({
   isLocationOrganization: false,
@@ -1144,92 +1146,72 @@ const getImageByCityName = async (cityName) => {
 <script>
 export default {
   mounted() {
+    // Access jQuery from the global window object
+    const $ = window.$;
+
+    // Ensure jQuery is available on the client side
     if (process.client) {
-      require("slick-carousel/slick/slick.css");
-      require("slick-carousel/slick/slick-theme.css");
-      const $ = require("jquery");
-      require("slick-carousel");
+      try {
+        // Require slick carousel styles and script
+        require("slick-carousel/slick/slick.css");
+        require("slick-carousel/slick/slick-theme.css");
+        const slickCarousel = require("slick-carousel");
 
-      $(".two-item").slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 1500,
-        speed: 2000,
-        responsive: [
-          {
-            breakpoint: 991,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true,
-            },
-          },
-        ],
-      });
+        // Check if #my-element exists before manipulating it
+        if ($('#my-element').length) {
+          $('#my-element').text('Hello, jQuery is working!');
+        } else {
+          console.warn('#my-element not found');
+        }
 
-      // $('.three-item').slick({
-      //     dots: true,
-      //     infinite: true,
-      //     speed: 300,
-      //     slidesToShow: 3,
-      //     slidesToScroll: 1,
-      //     autoplay: true,
-      //     autoplaySpeed: 1500,
-      //     speed: 2000,
-      //     responsive: [
-      //         {
-      //             breakpoint: 1024,
-      //             settings: {
-      //                 slidesToShow: 2,
-      //                 slidesToScroll: 2,
-      //                 infinite: true,
-      //                 dots: true
-      //             }
-      //     },
-      //         {
-      //             breakpoint: 600,
-      //             settings: {
-      //                 slidesToShow: 1,
-      //                 slidesToScroll: 1
-      //             }
-      //     }
-      //   ]
-      // });
+        // Initialize slick carousel for elements with class "two-item"
+        if ($('.two-item').length) {
+          $(".two-item").slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            responsive: [
+              {
+                breakpoint: 991,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true,
+                },
+              },
+            ],
+          });
+        } else {
+          console.warn('.two-item not found');
+        }
 
-      // window.onscroll = function() {myFunction()};
+        // Set up click events for incrementing and decrementing input values
+        $(document).ready(function () {
+          $(".minus").click(function () {
+            var $input = $(this).parent().find("input");
+            var count = parseInt($input.val()) - 1;
+            count = count < 1 ? 1 : count;
+            $input.val(count);
+            $input.change();
+            return false;
+          });
 
-      // var header = document.getElementById("myHeader");
-      // var sticky = header.offsetTop;
-
-      // function myFunction() {
-      //     if (window.pageYOffset > sticky) {
-      //         header.classList.add("sticky");
-      //     } else {
-      //         header.classList.remove("sticky");
-      //     }
-      // }
-
-      $(document).ready(function () {
-        $(".minus").click(function () {
-          var $input = $(this).parent().find("input");
-          var count = parseInt($input.val()) - 1;
-          count = count < 1 ? 1 : count;
-          $input.val(count);
-          $input.change();
-          return false;
+          $(".plus").click(function () {
+            var $input = $(this).parent().find("input");
+            $input.val(parseInt($input.val()) + 1);
+            $input.change();
+            return false;
+          });
         });
-        $(".plus").click(function () {
-          var $input = $(this).parent().find("input");
-          $input.val(parseInt($input.val()) + 1);
-          $input.change();
-          return false;
-        });
-      });
+
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
     }
   },
 };

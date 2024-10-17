@@ -3,7 +3,9 @@
     <section class="sign-up-form-cover g-form-cover h-full-screen l-primary-bg overlay-before overlay-after position-relative overflow-hidden align-items-center d-flex">
             <div class="container">
                 <div class="row">
-                    <signup-form :role="signupRole" @open-login="handleLogin" @open-signup="handleRegister"  />
+                    <client-only>
+                        <signup-form :role="signupRole" @open-login="handleLogin" @open-signup="handleRegister"  />
+                    </client-only>
                 </div>
             </div>
         </section>

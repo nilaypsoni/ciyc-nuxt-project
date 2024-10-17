@@ -39,6 +39,10 @@
   import TopBarSearchForm from "@/components/stateful/home/top-bar-search-form";
   import {onMounted, ref, toRef, watch, watchEffect, reactive,nextTick} from "vue";
   import ApiClient from "@/methods/apiclient";
+  import $ from 'jquery'; // Import jQuery
+  import 'slick-carousel/slick/slick.css'; // Import Slick Carousel CSS
+  import 'slick-carousel/slick/slick-theme.css'; // Import Slick Carousel Theme CSS
+  import 'slick-carousel'; // Import Slick Carousel JS
 
   // const {useFetchPageContent} = SiteService()
   // const {data: pageContent, isLoading:isPageContentLoading} = useFetchPageContent(EDITABLE_PAGE_NAMES.HOME)
@@ -49,6 +53,7 @@
   const activeSlideDescription = ref('');
 
   const initializeSlick = () => {
+    const $ = window.$; // Access jQuery from the global window object
     const slider = $('.one-item').slick({
           dots: true,
           infinite: true,
@@ -100,6 +105,7 @@ onMounted(() => {
     require("slick-carousel/slick/slick-theme.css");
     require("slick-carousel");
     const $ = require("jquery");
+    window.$ = $;
   }
   const observeContent = () => {
     if (pageContent.value?.media?.length > 0) {

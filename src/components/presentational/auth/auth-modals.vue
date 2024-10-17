@@ -15,9 +15,11 @@
         @close-modal="() => toggleModal('loginActive')" :login-message="loginMessage" />
     </auth-modal>
     <auth-modal :modal-active="modalActive.signupActive" :toggle-modal="() => signupClose()" :title="(userRole == 'Seeker') ? 'Signup' : `Host Signup`">
-      <signup-form :role="userRole" @open-login="(e) => modalRedirect(e)" @open-signup="(r) => openSignup(r)"  @close-modal="() => toggleModal('signupActive')"
+      <client-only> 
+        <signup-form :role="userRole" @open-login="(e) => modalRedirect(e)" @open-signup="(r) => openSignup(r)"  @close-modal="() => toggleModal('signupActive')"
         @open-organization-details="(arg) => modalRedirect('signupActive', 'organizationDetailsActive', arg)"
         @signup-role="signupRole" />
+      </client-only>
     </auth-modal>
     <auth-modal :modal-active="modalActive.organizationDetailsActive"
       :toggle-modal="() => toggleModal('organizationDetailsActive')" title="Organization Details">
