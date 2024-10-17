@@ -29,11 +29,8 @@ const websiteDomain = 'Cultureinyourcity.com';
 const eventPlaceHolder = `${MEDIA_BASEURL}event-placeholder.png`;
 const websiteLogo = `${BASE_URL}logo.svg`;
 
-Vue.use(Router);
-
-export function createRouter() {
-  return new Router({
-  mode: 'history',
+export default {
+  history: base => import.meta.client ? createMemoryHistory(base) : null,
   routes: (_routes) => [
     //Public Routes
   {
@@ -558,51 +555,39 @@ export function createRouter() {
     component: () => import('../views/not-found.view.vue'),
   },
 ]
-
-});
 }
 
 
 
-// const router = createRouter({
-//   history: createWebHistory(process.env.BASE_URL),
-//   routes,
+
+
+
+// router.beforeEach(async (to, from, next) => {
   
-// })
+//   // await updateMetaTags(to);
 
-const router = createRouter()
-
-console.log({router})
-
-
-
-
-router.beforeEach(async (to, from, next) => {
+//   var toUrl = to.fullPath.split('?')[0];
+//   toUrl = toUrl.split('#')[0];
   
-  // await updateMetaTags(to);
-
-  var toUrl = to.fullPath.split('?')[0];
-  toUrl = toUrl.split('#')[0];
+//   var fromUrl = from.fullPath.split('?')[0];
+//   fromUrl = fromUrl.split('#')[0];
   
-  var fromUrl = from.fullPath.split('?')[0];
-  fromUrl = fromUrl.split('#')[0];
-  
-  if(toUrl  != fromUrl){
-    window.scrollTo(0, 0);
-  }
+//   if(toUrl  != fromUrl){
+//     window.scrollTo(0, 0);
+//   }
 
 
-  localStorage.setItem('page-title',to.meta.title)
-  localStorage.setItem('page-icon',to.meta.icon)
+//   localStorage.setItem('page-title',to.meta.title)
+//   localStorage.setItem('page-icon',to.meta.icon)
 
-  if(to.name == ROUTES.ADD_EVENTS){
-    next();
-  }else{
-    // window.scrollTo(0,0)
-    next()
-  }
+//   if(to.name == ROUTES.ADD_EVENTS){
+//     next();
+//   }else{
+//     // window.scrollTo(0,0)
+//     next()
+//   }
  
-});
+// });
 
 const updateMetaTags = async (to) => {
   return new Promise(async (resolve, reject) => {

@@ -69,11 +69,13 @@
         <div class="w-full capitalize">
           <label class="text-lg text-primary__color">Culture</label>
           <span @focusin="showSuggestion()" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+          <ClientOnly>
             <vue-tags-input v-model="cultureSearch" :tags="cultures" placeholder="Type the first letter of the Culture"
               :validation="[]" :add-only-from-autocomplete="true" class="mt-1 w-full rounded"
               :autocomplete-items="searchCulture(cultureSearch)" @tags-changed="newTags => cultureChange(newTags)"
               :autocomplete-always-open="suggestions" />
-          </span>
+            </ClientOnly>
+            </span>
 
           <!-- <BaseMultiSelect label="Type the first letter of the Culture" :options="cultureSuggestion" :value="cultures" /> -->
 
@@ -81,11 +83,13 @@
         <div class="capitalize  w-full">
           <label class="text-lg text-primary__color">Culture Group</label>
           <span @focusin="showSuggestion1()" @focusout="hideSuggestion1()" v-bind:class="loading ? 'loading' : ''">
+          <ClientOnly> 
             <vue-tags-input v-model="cultureGroupSearch" :tags="cultureGroups"
               placeholder="Type the first letter of the Culture Group" :validation="[]" :add-only-from-autocomplete="true"
               class="mt-1  w-full rounded" :autocomplete-items="searchCultureGroup(cultureGroupSearch)"
               @tags-changed="newTags => cultureGroupChange(newTags)" :autocomplete-always-open="suggestions1" />
-          </span>
+            </ClientOnly>
+            </span>
         </div>
       </div>
 
@@ -93,11 +97,13 @@
         <div class="w-full">
           <label class="text-lg text-primary__color">Event Category</label>
           <span @focusin="showEventCategorySuggestion()" @focusout="hideEventCategorySuggestion()" v-bind:class="loading ? 'loading' : ''">
-              <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
+            <ClientOnly> 
+            <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
               placeholder="Type the first letter of the Event Category" :validation="[]" :add-only-from-autocomplete="true"
               class="mt-1  w-full rounded" :autocomplete-items="searchEventCategory(eventCategorySearch)"
               @tags-changed="newTags => eventCategoryChange(newTags)" :autocomplete-always-open="eventCategorySuggestions" />
-          </span>
+            </ClientOnly>
+            </span>
         </div>
         <!-- <div class="w-full">
          
@@ -109,11 +115,13 @@
               <div v-if="isChicagoAddress" class="w-full  capitalize">
                 <label class="text-lg text-primary__color">Chicago Neighborhood</label>
                 <span @focusin="showNeighborhoodSuggestion()" @focusout="hideNeighborhoodSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+                  <ClientOnly>
                   <vue-tags-input v-model="neighborhood" :tags="fieldDetails.neighborhoods" placeholder="You could start typing and also select multiple	"
                     :validation="[]" :add-only-from-autocomplete="true" class="mt-1 w-full rounded"
                     :autocomplete-items="searchNeighborhood(neighborhood)" @tags-changed="newTags => neighborhoodChange(newTags)"
                     :autocomplete-always-open="neighborhoodSuggestions" />
-                </span>
+                  </ClientOnly>
+                  </span>
 
                 <!-- <BaseMultiSelect label="Type the first letter of the Culture" :options="cultureSuggestion" :value="cultures" /> -->
 

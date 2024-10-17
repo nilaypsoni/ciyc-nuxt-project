@@ -1,10 +1,11 @@
 <template>
+   <client-only>
   <footer class="footer-section d-hex-bg pb-0 pt-5">
             <div class="container">
                 <div class="row">
                     <div class="f-logo-menu d-flex justify-content-between ">
                         <article class="f-logo">
-                          <router-link :to="{ name: ROUTES.HOME }">
+                          <router-link :to="{ name: ROUTES?.HOME }">
                             <a href="#">
                                 <span>
                                     <img :src="logoW" alt="img">
@@ -270,6 +271,7 @@
         <a @click="patchLocal()"  id="patchLocalFooter"></a>
 
         <join-news-letter-modal @handle-close-modal="openJoinNewsLetterModal" :modal-active="isOpenJoinNewsLetterModal"  :toggle-modal="openJoinNewsLetterModal" />
+      </client-only>
 </template>
 <script setup>
 

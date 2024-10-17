@@ -7,14 +7,14 @@
           
           </div>
           <div class="page-title text-center">
-              <h4 style="font-size: 28px;" class="fw-semibold">{{ userRole == ROLES.ORGANIZER ? 'Business ' : '' }}Sign Up</h4>
+              <h4 style="font-size: 28px;" class="fw-semibold">{{ userRole == ROLES?.ORGANIZER ? 'Business ' : '' }}Sign Up</h4>
               <p class="d-hex-color mt-3">Sign up and explore
               </p>
           </div>
 
           <span style="margin-top: 25px;" class="g-input-notif text-end ">
-                  <p style="font-size: 15px;" v-if="userRole == ROLES.ORGANIZER" class="mt-4 ">Don’t you have an account? <a href="javascript:;" style="font-size: 15px;"  @click="divertToCustomerSignup" class="primary-color">Sign Up</a></p>
-                  <p style="font-size: 15px;" v-if="userRole != ROLES.ORGANIZER" class="mt-4" >Do you want to create a <a href="javascript:;" style="font-size: 15px;" @click="divertToOrganizerSignup" class="primary-color">Business Account?</a></p>
+                  <p style="font-size: 15px;" v-if="userRole == ROLES?.ORGANIZER" class="mt-4 ">Don’t you have an account? <a href="javascript:;" style="font-size: 15px;"  @click="divertToCustomerSignup" class="primary-color">Sign Up</a></p>
+                  <p style="font-size: 15px;" v-if="userRole != ROLES?.ORGANIZER" class="mt-4" >Do you want to create a <a href="javascript:;" style="font-size: 15px;" @click="divertToOrganizerSignup" class="primary-color">Business Account?</a></p>
           </span>
 
 
@@ -51,7 +51,7 @@
                   </span>
                   
 
-                  <div class="d-flex mb-2 input-f g-input mt-3" v-if="userRole === ROLES.SEEKER || userRole === ROLES.ORGANIZER">
+                  <div class="d-flex mb-2 input-f g-input mt-3" v-if="userRole === ROLES.SEEKER || userRole === ROLES?.ORGANIZER">
 
                     <div v-bind:class="signupErrorData.firstName && showValidationStatus ? 'error-field' : ''" class="me-2 w-50">
                         <label class="d-flex">
@@ -136,14 +136,14 @@
                       <span class="required primary-color pt-1 error-message" v-if="showValidationStatus && signupErrorData.email">{{ signupErrorData.email }}</span>
                   </span>
 
-                  <span v-if="userRole === ROLES.SEEKER || userRole === ROLES.ORGANIZER" v-bind:class="signupErrorData.firstName && showValidationStatus ? 'error-field' : ''" class="input-f g-input mt-3">
+                  <span v-if="userRole === ROLES.SEEKER || userRole === ROLES?.ORGANIZER" v-bind:class="signupErrorData.firstName && showValidationStatus ? 'error-field' : ''" class="input-f g-input mt-3">
                       <label class="mb-1">First Name</label>
                       <span><input type="text" placeholder="First Name" @input="removeNumbers" autocomplete="off" v-model="signupData.firstName"  required minlength="3" ></span>
                       <span class="required primary-color pt-1 error-message" v-if="showValidationStatus && signupErrorData.firstName">{{ signupErrorData.firstName }}</span>
 
                   </span>
 
-                  <span v-if="userRole === ROLES.SEEKER || userRole === ROLES.ORGANIZER" v-bind:class="signupErrorData.lastName && showValidationStatus ? 'error-field' : ''" class="input-f g-input mt-3">
+                  <span v-if="userRole === ROLES.SEEKER || userRole === ROLES?.ORGANIZER" v-bind:class="signupErrorData.lastName && showValidationStatus ? 'error-field' : ''" class="input-f g-input mt-3">
                       <label class="mb-1">Last Name</label>
                       <span><input type="text" placeholder="Last Name"  @input="removeNumbers" autocomplete="off"  v-model="signupData.lastName"  required minlength="3"></span>
                       <span class="required primary-color pt-1 error-message" v-if="showValidationStatus && signupErrorData.lastName">{{ signupErrorData.lastName }}</span>
@@ -191,7 +191,7 @@
                       <BaseInput
                         minlength="3"
                         v-model="signupData.organization"
-                        v-if="userRole === ROLES.ORGANIZER"
+                        v-if="userRole === ROLES?.ORGANIZER"
                         required
                         is-required
                         label="Organization Name"
@@ -199,7 +199,7 @@
                       />
                       <span class="required primary-color pt-1 error-message" v-if="showValidationStatus && signupErrorData.organization">{{ signupErrorData.organization }}</span>
                  </span>
-                 <!-- <span v-if="userRole == ROLES.ORGANIZER" class="input-f g-input mt-3">
+                 <!-- <span v-if="userRole == ROLES?.ORGANIZER" class="input-f g-input mt-3">
                       <label class="mb-1">Organization Profile Type</label>
                       <span>
                         <select v-model="signupData.organizationProfileType" @change="changeOrganizationProfileType($event.target.value)" class="form-select mt-1" >
@@ -209,14 +209,16 @@
                       </span>
                   </span> -->
 
-                  <span class="input-f g-input mt-3" v-if="userRole == ROLES.ORGANIZER">
+                  <span class="input-f g-input mt-3" v-if="userRole == ROLES?.ORGANIZER">
                       <label class="mb-1 d-flex">Organization Profile Type</label>
                       <span @focusin="showEventCategorySuggestion()" @focusout="hideEventCategorySuggestion()" v-bind:class="loading ? 'loading' : ''">
+                        <ClientOnly>
                             <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
                             placeholder="Select one or more" :validation="[]" :add-only-from-autocomplete="true"
                             class="mt-1  w-full rounded suggestion-container" :autocomplete-items="searchEventCategory(eventCategorySearch)"
                             @tags-changed="newTags => eventCategoryChange(newTags)" :autocomplete-always-open="eventCategorySuggestions" />
-                      </span>
+                          </ClientOnly>
+                          </span>
                  </span>
                  <span v-bind:class="signupErrorData.city && showValidationStatus ? 'error-field' : ''" class="input-f g-input mt-3">
                       <label class="mb-1 d-flex">City<span class="text-danger">*</span></label>
@@ -234,26 +236,30 @@
                  </span>   
 
                  <p class="mt-4 signup-step-2-interest" style="line-height: 20px;" v-if="userRole == ROLES.SEEKER">Please enter one or more of your interests for type of events and cultures.</p>
-                 <p class="mt-4 signup-step-2-interest" style="line-height: 20px;" v-if="userRole == ROLES.ORGANIZER">Please enter one or more of your organization's cultures.</p>
+                 <p class="mt-4 signup-step-2-interest" style="line-height: 20px;" v-if="userRole == ROLES?.ORGANIZER">Please enter one or more of your organization's cultures.</p>
 
                  <span class="input-f g-input mt-3">
                       <label class="mb-1 d-flex">Cultures</label>
                       <span @focusin="showSuggestion()" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
-                              <vue-tags-input v-model="cultureSearch" class="suggestion-container" :tags="cultures" placeholder="Culture (Select one or more)"
+                        <ClientOnly>  
+                        <vue-tags-input v-model="cultureSearch" class="suggestion-container" :tags="cultures" placeholder="Culture (Select one or more)"
                               :validation="[]" :add-only-from-autocomplete="true" 
                               :autocomplete-items="searchCulture(cultureSearch)" @tags-changed="newTags => cultureChange(newTags)"
                               :autocomplete-always-open="suggestions" />
-                      </span>
+                            </ClientOnly>
+                            </span>
                  </span>
                  
                  <span class="input-f g-input mt-3" v-if="userRole == ROLES.SEEKER">
                       <label class="mb-1 d-flex">Categories</label>
                       <span @focusin="showEventCategorySuggestion()" @focusout="hideEventCategorySuggestion()" v-bind:class="loading ? 'loading' : ''">
-                            <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
+                        <ClientOnly>   
+                        <vue-tags-input v-model="eventCategorySearch" :tags="eventCategories"
                             placeholder="Category (Select one or more)" :validation="[]" :add-only-from-autocomplete="true"
                             class="mt-1  w-full rounded suggestion-container" :autocomplete-items="searchEventCategory(eventCategorySearch)"
                             @tags-changed="newTags => eventCategoryChange(newTags)" :autocomplete-always-open="eventCategorySuggestions" />
-                      </span>
+                          </ClientOnly>
+                          </span>
                  </span>
 
                  
@@ -317,8 +323,8 @@
                   </ul>
               </span>
               <span class="g-input-notif text-center ">
-                  <!-- <p  v-if="userRole == ROLES.ORGANIZER" class="mt-4 ">Don’t you have an account? <a href="javascript:;"  @click="divertToCustomerSignup" class="primary-color">Sign Up</a></p>
-                  <p  v-if="userRole != ROLES.ORGANIZER" class="mt-4" >Do you want to create a <a href="javascript:;" @click="divertToOrganizerSignup" class="primary-color">Business Account?</a></p> -->
+                  <!-- <p  v-if="userRole == ROLES?.ORGANIZER" class="mt-4 ">Don’t you have an account? <a href="javascript:;"  @click="divertToCustomerSignup" class="primary-color">Sign Up</a></p>
+                  <p  v-if="userRole != ROLES?.ORGANIZER" class="mt-4" >Do you want to create a <a href="javascript:;" @click="divertToOrganizerSignup" class="primary-color">Business Account?</a></p> -->
                   <p  class="mt-3">Already have an account? <a href="javascript:;"  @click="divertToLogin" class="primary-color">Login</a></p>
 
               </span>
@@ -439,7 +445,7 @@ const getBusinessType = () => {
   })
 }
 
-if(userRole.value == ROLES.ORGANIZER){
+if(userRole.value == ROLES?.ORGANIZER){
   getBusinessType()
 }
 
@@ -460,7 +466,7 @@ watch(() => props.role, () => {
 
   userRole.value=props.role
 
-  if(userRole.value == ROLES.ORGANIZER){
+  if(userRole.value == ROLES?.ORGANIZER){
     getBusinessType()
   }
 
@@ -896,7 +902,7 @@ const goToNextFormStep = () => {
 
   var valid = true;
 
-  if(userRole.value == ROLES.ORGANIZER){
+  if(userRole.value == ROLES?.ORGANIZER){
     
     if(signupData.organization == '' && formStep.value == 2){
       signupErrorData.organization = 'Organization is Required';

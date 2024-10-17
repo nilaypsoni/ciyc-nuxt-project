@@ -7,11 +7,11 @@
 <!--  </div>-->
   <div class="h-full">
     <div class="h-full relative">
-      <hero-slider-content
+      <client-only> <hero-slider-content
           :button-click-handler="()=>{}"
           title="Japan"
           :image-source="japanBG"
-      />
+      /> </client-only>
     </div>
   </div>
   <div class="grid grid-cols-2 gap-10 bg-[#E5E5E5] px-container pt-10 pb-5">

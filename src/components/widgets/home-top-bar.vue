@@ -101,9 +101,9 @@ import { useRoute } from 'vue-router';
 import JoinNewsLetterModal from "@/components/presentational/news-letter/modals/join-news-letter-modal";
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-  navigator.userAgent
+  navigator?.userAgent
 );
-const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+const isIOS = /iPhone|iPad|iPod/i.test(navigator?.userAgent);
 
 const openInApp = () => {
   // Attempt to open the app using the custom URI scheme

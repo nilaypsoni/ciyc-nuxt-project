@@ -3,7 +3,7 @@
   <div class="h-full">
     <div class="h-[350px] w-full bg-site__peach animate-pulse" v-if="isLoading"/>
     <div class="h-full relative" v-if="!isLoading">
-      <hero-slider-content
+      <client-only> <hero-slider-content
           :button-click-handler="()=>{}"
           :title="cultureGroupContent?.title"
           :image-source="cultureGroupContent?.media?.banner"
@@ -11,8 +11,8 @@
           :buttonText="cultureGroupContent?.buttonText"
           :link="cultureGroupContent?.link"
           :bannerlink="cultureGroupContent?.bannerlink"
-      />
-    </div>
+      /> </client-only>
+    </div> 
   </div>
   <div class="grid grid-cols-2 gap-10 bg-[#E5E5E5] px-container pt-10 pb-5" v-if="!isLoading && cultureGroupContent?.sections?.length > 0">
     <div class="laptop:max-w-[650px] tablet:max-w-[450px] min-w-min mobileS:max-w-[950px]" v-for="(section) in cultureGroupContent?.sections">

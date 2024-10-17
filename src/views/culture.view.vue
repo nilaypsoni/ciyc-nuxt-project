@@ -15,12 +15,12 @@
     customClasses="h-full"
 >
   <swiper-slide v-for="(content) in pageContent?.media" :key="content?._id">
-    <HeroSliderContent
+ <client-only> <HeroSliderContent
       :button-click-handler="()=>{}"
       :title="content?.title"
       is-live-media
       :image-source="content?.banner"
-    />
+    />  </client-only> 
   </swiper-slide>
 
 </Slider>
@@ -46,10 +46,12 @@
         <h2 class="text-[#456A87] font-semibold tabletS:text-3xl mobile:text-[27px] mobileS:text-2xl leading-10">Photos</h2>
       </div>
       <div class="flex tablet:flex-row mobileS:flex-col !flex-row items-center flex-wrap justify-between gap-3 mt-1">
+    
         <Slider
             :slides-per-view="3"
             customClasses="h-full culture-detail"
-        >
+        > 
+ 
           <swiper-slide  v-for="media in cultureGroupContent?.media?.photos" :key="media">
             <div class="mobile:w-[426px] mobileS:w-[280px] h-56">
               <img class="mobile:w-[426px] mobileS:w-[280px] h-56 object-contain" alt="Culture" :src="`${MEDIA_BASEURL}${media}`"/>

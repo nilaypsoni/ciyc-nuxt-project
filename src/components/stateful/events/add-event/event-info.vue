@@ -19,19 +19,23 @@
         <span class="input-f g-input">
             <label class="mb-1">Culture</label>
             <span @focusin="showSuggestion()" @focusout="hideSuggestion()" v-bind:class="loading2 ? 'loading' : ''">
+            <ClientOnly>
               <vue-tags-input class="suggestion-container" v-model="cultureSearch" :tags="cultures" :placeholder="cultures != '' ? '' : cultureSearchPlaceholder"
                 :validation="[]" :add-only-from-autocomplete="true" 
                 :autocomplete-items="searchCulture(cultureSearch)" @tags-changed="newTags => cultureChange(newTags)"
                 :autocomplete-always-open="suggestions" @focus="handlePlaceHolderFocus('cultureSearch')" @blur="handlePlaceHolderBlur('cultureSearch')" />
-            </span>
+              </ClientOnly>
+              </span>
         </span>
         <span class="input-f g-input">
             <label class="mb-1">Event Category</label>
             <span @focusin="showEventCategorySuggestion()" @focusout="hideEventCategorySuggestion()" v-bind:class="loading ? 'loading' : ''">
+             <ClientOnly>
               <vue-tags-input class="suggestion-container" v-model="eventCategorySearch" :tags="eventCategories"
                :placeholder="eventCategories != '' ? '' : eventCategorySearchPlaceholder" :validation="[]" :add-only-from-autocomplete="true"
                :autocomplete-items="searchEventCategory(eventCategorySearch)"
               @tags-changed="newTags => eventCategoryChange(newTags)" :autocomplete-always-open="eventCategorySuggestions" @focus="handlePlaceHolderFocus('eventCategorySearch')" @blur="handlePlaceHolderBlur('eventCategorySearch')" />
+            </ClientOnly>
             </span>
         </span>
         <span class="input-f g-input">

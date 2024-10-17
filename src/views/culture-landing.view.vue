@@ -29,7 +29,7 @@
         <related-organizer :culture="culture" />
        
         
-        <culture-slider />
+      <client-only> <culture-slider /></client-only>
 
         
 </template>
