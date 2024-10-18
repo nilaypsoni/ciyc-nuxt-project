@@ -1167,9 +1167,10 @@ export default {
     if (process.client) {
       try {
         // Require slick carousel styles and script
-        require("slick-carousel/slick/slick.css");
-        require("slick-carousel/slick/slick-theme.css");
-        const slickCarousel = require("slick-carousel");
+        // require('slick-carousel');
+        // require("slick-carousel/slick/slick.css");
+        // require("slick-carousel/slick/slick-theme.css");
+        // const slickCarousel = require("slick-carousel");
 
         // Check if #my-element exists before manipulating it
         if ($("#my-element").length) {
