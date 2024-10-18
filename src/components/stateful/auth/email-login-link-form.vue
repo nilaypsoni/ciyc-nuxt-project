@@ -63,7 +63,7 @@ const toggleModal = (key) => {
   modalActive[key] = !modalActive[key]
   if (!modalActive[key]) {
     // props.close('close')
-    document.getElementById("body").classList.remove('modalOpened')
+    document.getElementById("body")?.classList.remove('modalOpened')
   }
 }
 

@@ -20,7 +20,7 @@ const emit = defineEmits()
 
 const close = () => {
   // localStorage.removeItem('cartData')
-  document.getElementById('body').classList.remove('modalOpened')
+  document.getElementById('body')?.classList.remove('modalOpened')
   emit("close");
   if (localStorage.getItem('cartData')) {
     localStorage.setItem('isPurchase', true)

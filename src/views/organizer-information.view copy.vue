@@ -115,7 +115,7 @@ const openSignupModal = (r) => {
   role.value = r
   openSignup.value = r
   // router.push({path:'/?auth-page=organizer-signup'})
-  document.getElementById("body").classList.add('modalOpened')
+  document.getElementById("body")?.classList.add('modalOpened')
 }
 
 </script>
