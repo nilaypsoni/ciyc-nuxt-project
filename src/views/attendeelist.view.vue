@@ -81,7 +81,7 @@ const filters = reactive({
 })
 console.log(data,"data");
 const getattendedData=()=>{
-  ApiClient.get('event/attendents',{userId:userData?._id,...filters}).then(res=>{
+  ApiClient.get('event/attendents',{userId:userData?._id,...filters})?.then(res=>{
     attendData.value=res.data
     console.log(attendData.value,"Here is the response");
   })
@@ -93,7 +93,7 @@ const getData=(loader=false)=>{
  
   
   const userId = tokenService.getUser()?._id
-  ApiClient.get('event/my',{userId:userId,...filters,isPublished:true}).then(res=>{
+  ApiClient.get('event/my',{userId:userId,...filters,isPublished:true})?.then(res=>{
     if(res.data){
       data.value=res.data
     }

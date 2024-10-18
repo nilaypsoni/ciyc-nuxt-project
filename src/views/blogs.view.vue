@@ -53,7 +53,7 @@ import ApiClient from "@/methods/apiclient";
 const blogTypes = ref([]);
 
 const getBlogTypes = () => {
-    ApiClient.get('blog/types',{page:1,limit:100}).then(res=>{
+    ApiClient.get('blog/types',{page:1,limit:100})?.then(res=>{
         if(res.data){
             blogTypes.value = res.data;
         }

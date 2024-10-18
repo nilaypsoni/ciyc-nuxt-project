@@ -80,7 +80,7 @@
                                 <div class="events">
                                     <ol>
                                        <li v-for="(yearVal,index) in allHistoryData">
-                                          <a  :data-date="'01/01/'+yearVal.year" v-bind:class="historyYear==yearVal.year ? 'selected' : ''" @click="changeHistoryYear(yearVal.year)">{{ yearVal.year }}</a>
+                                          <a  :data-date="'01/01/'+yearVal.year" v-bind:class="historyYear==yearVal.year ? 'selected' : '' "@click="changeHistoryYear(yearVal.year)">{{ yearVal.year }}</a>
                                         </li>
                                        
                                     </ol>

@@ -51,153 +51,145 @@
       :event-data="eventData" :query="query" :searched-address="latLngToAddress" @hande-is-organizer-profile="handleIsOrganizerProfile"/>
   </section> -->
 </template>
-
 <script setup>
 import useUrlQuery from "@/composables/use-url-query";
 import { useRoute, useRouter } from "vue-router";
 import FilterOptions from "@/components/presentational/events/search/filter-options";
 import SearchResults from "@/components/presentational/events/search/search-results";
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, watch, onMounted, onBeforeUnmount } from "vue";
 import useEventsService from "@/services/events.service";
 import useReverseGeocoding from "@/composables/use-reverse-geocoding";
 import TopBarSearchForm from "@/components/stateful/home/top-bar-search-form";
 
-const urlQuery = useUrlQuery('q')
-const latQuery = useUrlQuery('lat')
-const lngQuery = useUrlQuery('lng')
-const route = useRoute()
+const urlQuery = useUrlQuery('q');
+const latQuery = useUrlQuery('lat');
+const lngQuery = useUrlQuery('lng');
+const route = useRoute();
 
-const filterOptions =  reactive({
+const filterOptions = reactive({
   cultures: [],
-  categories:[],
-  dateFilter:"",
-  paidFilter:false,
-  freeFilter:false,
-  chicagoNeighborhood:[],
-  sortBy:"",
-  sortByTxt:""
-})
+  categories: [],
+  dateFilter: "",
+  paidFilter: false,
+  freeFilter: false,
+  chicagoNeighborhood: [],
+  sortBy: "",
+  sortByTxt: "",
+});
 
-const eventType = ref('')
-const culture = ref('')
-const neighborhood = ref('')
-const cultureGroup = ref('')
-const query = ref(urlQuery)
-const refLatQuery = ref(route.query['lat'] ? route.query['lat'] : latQuery)
-const refLngQuery = ref(route.query['lng'] ? route.query['lng'] : lngQuery)
-
-const latLngToAddress = ref('')
-
+const eventType = ref('');
+const culture = ref('');
+const neighborhood = ref('');
+const cultureGroup = ref('');
+const query = ref(urlQuery);
+const refLatQuery = ref(route.query['lat'] ? route.query['lat'] : latQuery);
+const refLngQuery = ref(route.query['lng'] ? route.query['lng'] : lngQuery);
+const latLngToAddress = ref('');
 
 watch(() => route.query, async () => {
-  query.value = route.query['q']
-  refLatQuery.value = route.query['lat']
-  refLngQuery.value = route.query['lng']
+  query.value = route.query['q'];
+  refLatQuery.value = route.query['lat'];
+  refLngQuery.value = route.query['lng'];
 
-  let addressData = await useReverseGeocoding(route.query['lat'], route.query['lng'])
-  //Finding City from Google map results
-  latLngToAddress.value = addressData?.data?.results?.find(el => el?.types?.find(innerEl => innerEl === "locality"))?.formatted_address
-  
-})
+  let addressData = await useReverseGeocoding(route.query['lat'], route.query['lng']);
+  latLngToAddress.value = addressData?.data?.results?.find(el => el?.types?.find(innerEl => innerEl === "locality"))?.formatted_address;
+});
 
-const isFree = ref('')
-const dateFilter = ref(1)
-const category = ref('')
-const isOrganizer = ref(false)
-const sortBy = ref('')
-const organizationProfileType = ref('events')
+const isFree = ref('');
+const dateFilter = ref(1);
+const category = ref('');
+const isOrganizer = ref(false);
+const sortBy = ref('');
+const organizationProfileType = ref('events');
 
-const { useHandleSearchEventService } = useEventsService()
+const { useHandleSearchEventService } = useEventsService();
 
-const { isLoading: isSearchEventLoading, data: eventData } = useHandleSearchEventService(eventType, culture, isFree, category, dateFilter, query, refLatQuery, refLngQuery, cultureGroup,neighborhood,organizationProfileType,sortBy)
-const { isLoading: isSearchOrganizationLoading, data: organizationsData } = useHandleSearchEventService(eventType, culture, isFree, category, dateFilter, query, refLatQuery, refLngQuery, cultureGroup,neighborhood,'',sortBy)
+const { isLoading: isSearchEventLoading, data: eventData } = useHandleSearchEventService(
+  eventType, culture, isFree, category, dateFilter, query, refLatQuery, refLngQuery, cultureGroup, neighborhood, organizationProfileType, sortBy
+);
+const { isLoading: isSearchOrganizationLoading, data: organizationsData } = useHandleSearchEventService(
+  eventType, culture, isFree, category, dateFilter, query, refLatQuery, refLngQuery, cultureGroup, neighborhood, '', sortBy
+);
 
-
+// Handling filter changes
 const handleDateFilter = (filter) => {
-  dateFilter.value = filter
+  dateFilter.value = filter;
 
-  if(filter > 1){
-    filterOptions.dateFilter = filter
-  }else{
-    filterOptions.dateFilter = ''
+  if (filter > 1) {
+    filterOptions.dateFilter = filter;
+  } else {
+    filterOptions.dateFilter = '';
   }
 };
 
-
-
 const handleIsFreeFilter = (filter) => {
-  isFree.value = filter
-
-  
-}
+  isFree.value = filter;
+};
 
 const handleEventTypeFilter = (filter) => {
-  eventType.value = filter
-  filterOptions.categories = filter
-}
+  eventType.value = filter;
+  filterOptions.categories = filter;
+};
 
 const handleIsOrganizerProfile = (data) => {
-  isOrganizer.value = data.isOrganizer
-  organizationProfileType.value = data.organizationProfileType
-}
+  isOrganizer.value = data.isOrganizer;
+  organizationProfileType.value = data.organizationProfileType;
+};
 
 const handleSortByFilter = (data) => {
-  sortBy.value = data.sortBy
+  sortBy.value = data.sortBy;
   filterOptions.sortBy = data.sortBy;
   filterOptions.sortByTxt = data.sortByTxt;
-}
+};
 
 const handleResetFilter = () => {
-
   filterOptions.sortBy = '';
   filterOptions.sortByTxt = '';
-
-}
+};
 
 const handleCultureFilter = (filter) => {
- 
-  culture.value = filter
-
-  filterOptions.cultures = filter
-  
-}
+  culture.value = filter;
+  filterOptions.cultures = filter;
+};
 
 const handleNeighborhoodFilter = (filter) => {
-  neighborhood.value = filter
-
-  filterOptions.chicagoNeighborhood = filter
-}
+  neighborhood.value = filter;
+  filterOptions.chicagoNeighborhood = filter;
+};
 
 const handleEventCategoryFilter = (filter) => {
-  category.value = filter
-
-  
-}
+  category.value = filter;
+};
 
 const handleCultureGroupFilter = (filter) => {
-  cultureGroup.value = filter
-}
+  cultureGroup.value = filter;
+};
 
 const handleFilterPrice = (filterObj) => {
   filterOptions.paidFilter = filterObj.isPaid;
   filterOptions.freeFilter = filterObj.isFree;
-}
+};
 
 const removeRequest = ref({});
 
 const handleRemoveAppliedFilter = (data) => {
-  removeRequest.value = data
+  removeRequest.value = data;
+};
 
-}
+// Handle adding/removing the 'search-page' class to/from the body
+onMounted(() => {
+  document.body.classList.add('search-page');
+});
 
+onBeforeUnmount(() => {
+  document.body.classList.remove('search-page');
+});
+
+// Watch for route changes to manage class removal if needed
 watch(() => route.fullPath, (newPath, oldPath) => {
   if (newPath !== oldPath) {
-    $('body').removeClass('search-page');
+    document.body.classList.remove('search-page');
   }
 });
-
-watch(() => {
-    $('body').addClass('search-page');
-});
-
 </script>
+

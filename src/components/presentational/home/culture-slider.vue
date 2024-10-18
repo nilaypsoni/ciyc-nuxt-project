@@ -36,16 +36,18 @@
 
 <script setup>
 import ApiClient from "@/methods/apiclient";
-import { onMounted, ref, toRef, watch, watchEffect, nextTick } from "vue";
+import { onMounted, ref , toRef, watch, watchEffect, nextTick } from "vue";
 import { MEDIA_BASEURL } from "@/utils/constants";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter,useRoute  } from "vue-router";
 import { createSeoFriendlyUrl } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
+
+// Import Slick Carousel CSS and JS
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css'; 
+import $ from 'jquery'; // Import jQuery
+
 const router = useRouter();
-import $ from 'jquery';
-// import 'slick-carousel/slick/slick.css'; // Import Slick Carousel CSS
-// import 'slick-carousel/slick/slick-theme.css'; // Import Slick Carousel Theme CSS
-// import 'slick-carousel'; // Import Slick Carousel JS
 
 const props = defineProps({
   showHeading: {
@@ -70,11 +72,9 @@ const goToCultureInfo = (culture) => {
 };
 
 const cultures = ref([]);
+
 const initializeSlick = () => {
-  if (process.client) {
-  const $ = window.$; // Access jQuery from the global window object
   $(".four-item").slick({
-   
     dots: false,
     infinite: true,
     speed: 300,
@@ -109,7 +109,7 @@ const initializeSlick = () => {
     ],
   });
 };
-}
+
 onMounted(async () => {
   try {
     const response = await ApiClient.get("content/all", {
@@ -117,29 +117,25 @@ onMounted(async () => {
       searchQuery: "",
       limit: props.limit,
     });
-    cultures.value = [...response.data];
-    console.log("culaa", cultures.value);
-    // Initialize Slick Carousel after DOM update
+
+    console.log("API Response:", response); // Log the entire response
+
+    // Check if response.data is an array before spreading
+    if (Array.isArray(response.data)) {
+      cultures.value = [...response.data];
+    } else {
+      console.error("Expected response.data to be an array but got:", response.data);
+      cultures.value = []; // Set cultures to an empty array if data is not iterable
+    }
+
+    console.log("cultures:", cultures.value);
+
+    // Initialize Slick Carousel after cultures are loaded
+    initializeSlick();
   } catch (error) {
-    // Handle errors
+    console.error("Error fetching cultures:", error);
+    // Handle errors, e.g., show a message to the user
   }
 });
 
-onMounted(() => {
-  if (process.client) {
-    require("slick-carousel/slick/slick.css");
-    require("slick-carousel/slick/slick-theme.css");
-    require("slick-carousel");
-    const $ = require("jquery");
-    window.$ = $; // Assign jQuery to the global window object for accessibility
-  }
-  const observeContent = () => {
-    if (cultures.value.length > 0) {
-      initializeSlick();
-    } else {
-      setTimeout(observeContent, 100);
-    }
-  };
-  observeContent();
-});
 </script>
