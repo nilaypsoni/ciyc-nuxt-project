@@ -652,11 +652,11 @@ const getCultureContents = () => {
 
 const getEventTyps = () => {
   ApiClient.get('event-types/all', { page: 1, limit: 999 }).then(res => {
-    let arr = res.data.map(itm => {
+    let arr = res.data?.map(itm => {
       return itm.name
     }).sort()
 
-    eventCategorySuggestion.value = arr.map(itm => {
+    eventCategorySuggestion.value = arr?.map(itm => {
       return itm.trim()
     })
   })

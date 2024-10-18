@@ -272,11 +272,11 @@ const openSignupModal = (r = "") => {
 };
 
 const mobileMenuDropdown = (show = true) => {
-  if ($("#dropdown-menu-ul").hasClass("show")) {
-    $("#dropdown-menu-ul").removeClass("show");
+  if ($("#dropdown-menu-ul")?.hasClass("show")) {
+    $("#dropdown-menu-ul")?.removeClass("show");
   } else {
     if (show == true) {
-      $("#dropdown-menu-ul").addClass("show");
+      $("#dropdown-menu-ul")?.addClass("show");
     }
   }
 };
