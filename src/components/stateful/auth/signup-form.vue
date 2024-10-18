@@ -680,7 +680,7 @@ const getCuture = () => {
   // loading2.value = true
   ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value }).then(res => {
     let arr = []
-    res.data.map(itm => {
+    res.data?.map(itm => {
       arr = [...arr, ...itm.cultures.map(itm => {
         let str = itm.trim()
         let str2 = str.charAt(0).toUpperCase() + str.slice(1);

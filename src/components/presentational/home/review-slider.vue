@@ -101,14 +101,13 @@ const initializeSlick = () => {
     });
 };
 
-  mounted(() => {
+onMounted(async () => {
     if (process.client) {
-    require("slick-carousel/slick/slick.css");
-    require("slick-carousel/slick/slick-theme.css");
-    require("slick-carousel");
-    const $ = require("jquery");
-    window.$ = $;
-  }
+        await import('slick-carousel/slick/slick.css');
+        await import('slick-carousel/slick/slick-theme.css');
+        const $ = await import('jquery');
+        window.$ = $;
+    }
   const observeContent = () => {
     if (reviews.value.length > 0) {
       initializeSlick();

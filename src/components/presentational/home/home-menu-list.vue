@@ -81,12 +81,12 @@
 
       <li class="nav-item" v-if="userData?.role != 'guest' && userData">
         <ClientOnly>
-        <logged-in-user-nav-dropdown
-          @user-logged-out="userLoggedOut"
-          :user-id="userId"
-          :logged-in-user-role="userData?.role"
-        />
-      </ClientOnly>
+          <logged-in-user-nav-dropdown
+            @user-logged-out="userLoggedOut"
+            :user-id="userId"
+            :logged-in-user-role="userData?.role"
+          />
+        </ClientOnly>
       </li>
       <!-- v-if="userData?.role === ROLES.SEEKER || userData?.role === ROLES.GUEST" -->
       <!-- <li  class="nav-item cart-menu " >
@@ -228,7 +228,7 @@ watch(
 );
 
 const updateHeader = () => {
-  if (!process.client) return
+  if (!process.client) return;
   let el = document.getElementById("loginupdate");
   if (el) el.click();
   userData.value = TokenService.getUser();
@@ -272,11 +272,16 @@ const openSignupModal = (r = "") => {
 };
 
 const mobileMenuDropdown = (show = true) => {
-  if ($("#dropdown-menu-ul")?.hasClass("show")) {
-    $("#dropdown-menu-ul")?.removeClass("show");
-  } else {
-    if (show == true) {
-      $("#dropdown-menu-ul")?.addClass("show");
+  if (process.client) {
+    const dropdown = $("#dropdown-menu-ul");
+    if (dropdown.lenght) {
+      if (dropdown.hasClass("show")) {
+        dropdown.removeClass("show");
+      } else {
+        if (show == true) {
+          dropdown.addClass("show");
+        }
+      }
     }
   }
 };
@@ -347,7 +352,6 @@ if (authPage == "organizer-login") {
 if (process.client) {
   document.getElementById("body")?.classList.remove("modalOpened");
 }
-
 </script>
 
 <style>
