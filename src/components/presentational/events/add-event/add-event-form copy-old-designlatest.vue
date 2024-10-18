@@ -2358,20 +2358,20 @@ export default {
       
         const currentElement = event.target;
         const nextElement = this.getNextFocusableElement(currentElement);
-        currentElement.classList.contains('ti-new-tag-input')
+        currentElement?.classList.contains('ti-new-tag-input')
         
 
         
         if (nextElement) {
-          if (nextElement.classList.contains('ckeditor-cs')) {
+          if (nextElement?.classList.contains('ckeditor-cs')) {
             const ckeditorInstance = this.ckeditorInstances.find((instance) => instance.name == nextElement.id);
 
             if (ckeditorInstance) {
               ckeditorInstance.focus();
             }
-          }else if(event.key === 'Enter' && !nextElement.classList.contains('ti-new-tag-input') && !currentElement.classList.contains('tags-cs')){
+          }else if(event.key === 'Enter' && !nextElement?.classList.contains('ti-new-tag-input') && !currentElement?.classList.contains('tags-cs')){
             nextElement.focus();
-          }else if(event.key === 'ArrowDown' && !nextElement.classList.contains('ti-new-tag-input')){
+          }else if(event.key === 'ArrowDown' && !nextElement?.classList.contains('ti-new-tag-input')){
             nextElement.focus();
           }
         }

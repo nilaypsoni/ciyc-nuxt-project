@@ -260,7 +260,7 @@ const openLogin = (p, r = "") => {
   role.value = r;
 
   isOpenLoginModal.value = !isOpenLoginModal.value;
-  document.getElementById("body").classList.add("modalOpened");
+  document.getElementById("body")?.classList.add("modalOpened");
 };
 
 const openSignupModal = (r = "") => {
@@ -268,7 +268,7 @@ const openSignupModal = (r = "") => {
   role.value = r;
   openSignup.value = r;
   // router.push({path:'/?auth-page=organizer-signup'})
-  document.getElementById("body").classList.add("modalOpened");
+  document.getElementById("body")?.classList.add("modalOpened");
 };
 
 const mobileMenuDropdown = (show = true) => {
@@ -345,7 +345,7 @@ if (authPage == "organizer-login") {
   }, 100);
 }
 if (process.client) {
-  document.getElementById("body").classList.remove("modalOpened");
+  document.getElementById("body")?.classList.remove("modalOpened");
 }
 
 </script>

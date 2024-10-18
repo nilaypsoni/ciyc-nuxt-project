@@ -54,7 +54,7 @@ const openAddCardModal = () => {
 
   window.scrollTo(0,0)
   isOpenAddCardModal.value = !isOpenAddCardModal.value;
-  document.getElementById("body").classList.add('modalOpened')
+  document.getElementById("body")?.classList.add('modalOpened')
 }
 
 

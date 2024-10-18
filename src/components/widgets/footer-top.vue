@@ -310,7 +310,7 @@ const openLogin = (p, r = '') => {
  
   role.value = r
   isOpenLoginModal.value = !isOpenLoginModal.value
-  document.getElementById("body").classList.add('modalOpened')
+  document.getElementById("body")?.classList.add('modalOpened')
 }
 
 const isOpenJoinNewsLetterModal = ref(false)
@@ -318,7 +318,7 @@ const openJoinNewsLetterModal = () => {
 
   window.scrollTo(0,0)
   isOpenJoinNewsLetterModal.value = !isOpenJoinNewsLetterModal.value;
-  document.getElementById("body").classList.add('modalOpened')
+  document.getElementById("body")?.classList.add('modalOpened')
 }
 
 const handleCloseJoinNewLetterModal = ()=>{
@@ -517,7 +517,7 @@ const PlannerClick = () => {
 };
 
 if (process.client) {
-  document.getElementById('body').classList.remove('modalOpened')
+  document.getElementById('body')?.classList.remove('modalOpened')
 }
 
 
