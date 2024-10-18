@@ -274,7 +274,7 @@ const openSignupModal = (r = "") => {
 const mobileMenuDropdown = (show = true) => {
   if (process.client) {
     const dropdown = $("#dropdown-menu-ul");
-    if (dropdown.lenght) {
+    if (dropdown.length) {
       if (dropdown.hasClass("show")) {
         dropdown.removeClass("show");
       } else {
