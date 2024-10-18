@@ -1,6 +1,4 @@
 // import { createRouter, createWebHistory } from 'vue-router'
-import Vue from 'vue';
-import Router from 'vue-router';
 import HomeView from '@/views/home.view.vue';
 import {ROUTES} from "@/utils/constants/routes";
 import MainLayout from "@/layouts/main.layout"
@@ -11,8 +9,8 @@ import CreateEventLayout from "@/layouts/create-event.layout"
 import TokenService from "@/services/token.service";
 import AuthGuard from "@/router/auth-guard";
 import {ROLES} from "@/utils/constants";
-import EventsListGuard from "@/router/events-list-guard";
-import SearchGuard from "@/router/search-guard";
+// import EventsListGuard from "@/router/events-list-guard";
+// import SearchGuard from "@/router/search-guard";
 
 import HomeTopSvg from "@/assets/g-img/header-t-l/d-home-top-l.svg";
 import TicketOrderTopSvg from "@/assets/g-img/header-t-l/d-ticket-orders-top-l.svg";
@@ -30,7 +28,7 @@ const eventPlaceHolder = `${MEDIA_BASEURL}event-placeholder.png`;
 const websiteLogo = `${BASE_URL}logo.svg`;
 
 export default {
-  history: base => import.meta.client ? createMemoryHistory(base) : null,
+  // history: base => import.meta.client ? createMemoryHistory(base) : null,
   routes: (_routes) => [
     //Public Routes
   {

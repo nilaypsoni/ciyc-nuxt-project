@@ -129,7 +129,7 @@ const openJoinNewsLetterModal = () => {
 
   window.scrollTo(0,0)
   isOpenJoinNewsLetterModal.value = !isOpenJoinNewsLetterModal.value;
-  document.getElementById("body").classList.add('modalOpened')
+  document.getElementById("body")?.classList.add('modalOpened')
 }
 
 const route = useRoute();
@@ -166,9 +166,9 @@ export default {
 
     // function myFunction() {
     //     if (window.pageYOffset > sticky) {
-    //         header.classList.add("sticky");
+    //         header?.classList.add("sticky");
     //     } else {
-    //         header.classList.remove("sticky");
+    //         header?.classList.remove("sticky");
     //     }
     // }
    

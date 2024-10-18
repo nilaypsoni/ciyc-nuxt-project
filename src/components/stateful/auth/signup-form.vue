@@ -652,11 +652,11 @@ const getCultureContents = () => {
 
 const getEventTyps = () => {
   ApiClient.get('event-types/all', { page: 1, limit: 999 }).then(res => {
-    let arr = res.data.map(itm => {
+    let arr = res.data?.map(itm => {
       return itm.name
     }).sort()
 
-    eventCategorySuggestion.value = arr.map(itm => {
+    eventCategorySuggestion.value = arr?.map(itm => {
       return itm.trim()
     })
   })
@@ -680,7 +680,7 @@ const getCuture = () => {
   // loading2.value = true
   ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value }).then(res => {
     let arr = []
-    res.data.map(itm => {
+    res.data?.map(itm => {
       arr = [...arr, ...itm.cultures.map(itm => {
         let str = itm.trim()
         let str2 = str.charAt(0).toUpperCase() + str.slice(1);
@@ -751,7 +751,7 @@ watch(()=>isSuccess.value,()=>{
           }
         })
       // },2500)
-      // document.getElementById("body").classList.remove('modalOpened')
+      // document.getElementById("body")?.classList.remove('modalOpened')
     }
 
     

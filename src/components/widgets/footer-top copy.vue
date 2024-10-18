@@ -422,7 +422,7 @@ const openLogin = (p, r = '') => {
  
   role.value = r
   isOpenLoginModal.value = !isOpenLoginModal.value
-  document.getElementById("body").classList.add('modalOpened')
+  document.getElementById("body")?.classList.add('modalOpened')
 }
 
 
@@ -610,5 +610,5 @@ const PlannerClick = () => {
   document.getElementById("plannerSignup").click();
 };
 
-document.getElementById('body').classList.remove('modalOpened')
+document.getElementById('body')?.classList.remove('modalOpened')
 </script>

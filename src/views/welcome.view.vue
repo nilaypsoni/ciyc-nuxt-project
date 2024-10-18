@@ -450,7 +450,7 @@ export default {
 
       this.setDatePosition(timelineComponents, this.eventsMinDistance);
       const timelineTotWidth = this.setTimelineWidth(timelineComponents, this.eventsMinDistance);
-      timeline.classList.add('loaded');
+      timeline?.classList.add('loaded');
 
       timelineComponents['timelineNavigation'].querySelector('.next').addEventListener('click', (event) => {
         event.preventDefault();
@@ -466,9 +466,9 @@ export default {
         if (event.target.tagName === 'A') {
           event.preventDefault();
           timelineComponents['timelineEvents'].forEach((el) => {
-            el.classList.remove('selected');
+            el?.classList.remove('selected');
           });
-          event.target.classList.add('selected');
+          event.target?.classList.add('selected');
           this.updateOlderEvents(event.target);
           this.updateFilling(event.target, timelineComponents['fillingLine'], timelineTotWidth);
           this.updateVisibleContent(event.target, timelineComponents['eventsContent']);
