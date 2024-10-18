@@ -2,5 +2,6 @@
   <NuxtPage />
 </template>
 <script>
-console.log("Hello")
+import "@/assets/slider/slick.css";
+import "@/assets/slider/slick-theme.css";
 </script>
