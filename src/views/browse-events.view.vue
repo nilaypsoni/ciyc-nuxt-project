@@ -174,7 +174,7 @@ const filters = reactive({
 });
 
 onMounted(() => {
-  $(".js-example-basic-single").select2({
+  $(".js-example-basic-single").select({
     width: "100%",
     // minimumResultsForSearch: -1
   });
@@ -182,18 +182,18 @@ onMounted(() => {
     cultureChange(e.target.value);
   });
   // var cName = document.getElementsByClassName('js-example-basic-single');
-  // cName.select2();
+  // cName.""();
 });
 
 // mounted = () => {
-//   document.getElementsByClassName('.js-example-basic-single').select2();
+//   document.getElementsByClassName('.js-example-basic-single').""();
 //   // document.addEventListener('DOMContentLoaded', () => {
 //   //   // INSERT CODE HERE
 //   // });
 // }
 
 // $(document).ready(function () {
-//   $('.js-example-basic-single').select2();
+//   $('.js-example-basic-single').""();
 // });
 
 const eventTypes = ref([]);
@@ -202,10 +202,12 @@ const cultures = ref([]);
 const longitude = ref(0);
 const latitude = ref(0);
 const patchLatng = () => {
-  latitude.value = Number(localStorage.getItem("alat") || 0);
-  longitude.value = Number(localStorage.getItem("alng") || 0);
-  console.log("latitude events", latitude.value);
-  console.log("longitude events", longitude.value);
+  if (process.client) {
+    latitude.value = Number(localStorage.getItem("alat") || 0);
+    longitude.value = Number(localStorage.getItem("alng") || 0);
+    console.log("latitude events", latitude.value);
+    console.log("longitude events", longitude.value);
+  }
 };
 patchLatng();
 
@@ -223,17 +225,18 @@ const clearaddress = () => {
   latitude.value = "";
   latitude.value = "";
 
-  // address.value = ''
-  localStorage.setItem("alat", "");
-  localStorage.setItem("alng", "");
-  localStorage.setItem("aplace", "");
+  if (process.client) {
+    localStorage.setItem("alat", "");
+    localStorage.setItem("alng", "");
+    localStorage.setItem("aplace", "");
+  }
   // fieldValues.events=''
   // searchEvent()
   getData({ page: 1 }, true);
 };
 
 const eventTypeList = () => {
-  ApiClient.get("event-types/all", { page: 1, limit: 5 }).then((res) => {
+  ApiClient.get("event-types/all", { page: 1, limit: 5 })?.then((res) => {
     if (res.data) {
       eventTypes.value = res.data;
     }
@@ -308,7 +311,7 @@ const changeOrganizationProfileType = async (e) => {
   if(filters.organizationProfileType == 1 || filters.organizationProfileType == ''){
       isOrganizer.value = false
       await nextTick();
-      $(".js-example-basic-single").select2({
+      $(".js-example-basic-single").select({
         width: "100%",
         // minimumResultsForSearch: -1
       });
@@ -356,12 +359,12 @@ const clear = async () => {
     all: true,
     limit: 100,
   };
-  Object.keys(f).map((itm) => {
+  Object.keys(f)?.map((itm) => {
     filters[itm] = f[itm];
   });
 
   await nextTick();
-  $(".js-example-basic-single").select2({
+  $(".js-example-basic-single").select({
     width: "100%",
     // minimumResultsForSearch: -1
   });
@@ -380,7 +383,7 @@ const priceChange = () => {
 
 const filter = (p = "") => {
   if (p) {
-    Object.keys(p).map((itm) => {
+    Object.keys(p)?.map((itm) => {
       filters[itm] = p[itm];
     });
   }
@@ -407,7 +410,7 @@ const getData = (p = {}, isLoad) => {
   }
   let url = "event/browse";
   // let url='event-types/events'
-  ApiClient.get(url, filter).then((res) => {
+  ApiClient.get(url, filter)?.then((res) => {
     if (res.data) {
       list.value = res.data;
     }
@@ -422,12 +425,12 @@ if (typeof route.query["event_type"] != "undefined") {
 }
 
 const getCuture = () => {
-  ApiClient.get("culture/all", { page: 1, limit: 100 }).then((res) => {
+  ApiClient.get("culture/all", { page: 1, limit: 100 })?.then((res) => {
     let arr = [];
-    res.data.map((itm) => {
+    res.data?.map((itm) => {
       arr = [
         ...arr,
-        ...itm.cultures.map((itm) => {
+        ...itm.cultures?.map((itm) => {
           let str = itm.trim();
           let str2 = str.charAt(0).toUpperCase() + str.slice(1);
           return str2;
@@ -437,7 +440,7 @@ const getCuture = () => {
 
     let newarr = [...new Set(arr)];
     newarr = newarr.sort();
-    cultures.value = newarr.map((itm) => {
+    cultures.value = newarr?.map((itm) => {
       return { culture: itm.trim() };
     });
   });

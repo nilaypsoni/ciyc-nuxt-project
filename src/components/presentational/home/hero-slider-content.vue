@@ -1,7 +1,5 @@
 <template>
-  
-            
-      <div class="banner-section-content d-flex align-items-center slide-one" :data-title="title" :data-description="description ? description : ''" :style="'background: url('+(isLiveMedia ? `${MEDIA_BASEURL}${imageSource}` : imageSource)+' );'">
+ <div class="banner-section-content d-flex align-items-center slide-one" :data-title="title" :data-description="description ? description : ''" :style="'background: url('+(isLiveMedia ? `${MEDIA_BASEURL}${imageSource}` : imageSource)+' );'">
           <div class="container">
               <div class="row">
                                      
@@ -17,35 +15,30 @@
             </a>
           </div>
       </div>
-      
-
-
 </template>
 
-
-
 <script setup>
-  import Button from "@/components/common/buttons/button";
-  import {MEDIA_BASEURL} from "@/utils/constants";
-  import TopBarSearchForm from "@/components/stateful/home/top-bar-search-form";
-  import {watch, watchEffect} from "vue";
-
- defineProps({
-    imageSource:String,
-    title:String,
-    description:String,
-    isLiveMedia:Boolean,
-    buttonText:String,
-    buttonClickHandler:Function,
-    showButton:Boolean,
-    link:String,
-    bannerlink:String
-  })
-
-
-
+import { defineProps } from 'vue';
+import ligo from "../.././../assets/1871.jpg"
+const props = defineProps({
+  title: String,
+  description: String,
+  imageSource: String,
+  link: String,
+  showButton: Boolean,
+  buttonText: String,
+  bannerlink: String,
+  buttonClickHandler: Function,
+});
 </script>
 
 <style scoped>
-
+.banner-section-content {
+  position: relative;
+  text-align: center;
+}
+.banner-image {
+  width: 100%;
+  height: auto;
+}
 </style>

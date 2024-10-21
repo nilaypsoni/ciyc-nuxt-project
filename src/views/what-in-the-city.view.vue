@@ -304,7 +304,7 @@ const filters = reactive({
 });
 
 onMounted(() => {
-  $(".js-example-basic-single").select2({
+  $(".js-example-basic-single").select({
     width: "100%",
     // minimumResultsForSearch: -1
   });
@@ -312,21 +312,21 @@ onMounted(() => {
     cultureChange(e.target.value);
   });
   // var cName = document.getElementsByClassName('js-example-basic-single');
-  // cName.select2();
+  // cName.select();
 
   getBusinessType();
   
 });
 
 // mounted = () => {
-//   document.getElementsByClassName('.js-example-basic-single').select2();
+//   document.getElementsByClassName('.js-example-basic-single').select();
 //   // document.addEventListener('DOMContentLoaded', () => {
 //   //   // INSERT CODE HERE
 //   // });
 // }
 
 // $(document).ready(function () {
-//   $('.js-example-basic-single').select2();
+//   $('.js-example-basic-single').select();
 // });
 
 
@@ -337,10 +337,13 @@ const cultures = ref([]);
 const longitude = ref(0);
 const latitude = ref(0);
 const patchLatng = () => {
-  latitude.value = Number(localStorage.getItem("alat") || 0);
+  if (process.client) {
+    latitude.value = Number(localStorage.getItem("alat") || 0);
   longitude.value = Number(localStorage.getItem("alng") || 0);
   console.log("latitude events", latitude.value);
   console.log("longitude events", longitude.value);
+  }
+ 
 };
 patchLatng();
 
@@ -354,7 +357,9 @@ watchEffect(async () => {
 });
 
 const clearaddress = () => {
-  latLngToAddress.value = "";
+
+  if (process.client) {
+    latLngToAddress.value = "";
   latitude.value = "";
   latitude.value = "";
 
@@ -364,11 +369,14 @@ const clearaddress = () => {
   localStorage.setItem("aplace", "");
   // fieldValues.events=''
   // searchEvent()
+ 
+  }
   getData({ page: 1 }, true);
+  
 };
 
 const eventTypeList = () => {
-  ApiClient.get("event-types/all", { page: 1, limit: 5 }).then((res) => {
+  ApiClient.get("event-types/all", { page: 1, limit: 5 })?.then((res) => {
     if (res.data) {
       eventTypes.value = res.data;
     }
@@ -446,7 +454,7 @@ const changeOrganizationProfileType = async (e) => {
   if(filters.organizationProfileType == 'events' || filters.organizationProfileType == ''){
       isOrganizer.value = false
       await nextTick();
-      $(".js-example-basic-single").select2({
+      $(".js-example-basic-single").select({
         width: "100%",
         // minimumResultsForSearch: -1
       });
@@ -538,7 +546,7 @@ const getAllData = (p = {}, isLoad) => {
   }
   let url = "event/browse/all";
   // let url='event-types/events'
-  ApiClient.get(url, filter).then((res) => {
+  ApiClient.get(url, filter)?.then((res) => {
 
     if(res.events.data.length > 0){
       filters.organizationProfileType = 1
@@ -584,7 +592,7 @@ const getData = (p = {}, isLoad) => {
   }
   let url = "event/browse";
   // let url='event-types/events'
-  ApiClient.get(url, filter).then((res) => {
+  ApiClient.get(url, filter)?.then((res) => {
     if (res.data) {
       list.value = res.data;
     }
@@ -610,7 +618,7 @@ const getBusinessType = () => {
     filter.all = false;
   }
 
-  ApiClient.get('business-type/event/all', filter).then(res => {
+  ApiClient.get('business-type/event/all', filter)?.then(res => {
     // let arr = res.data.map(itm => {
     //   return itm.businessType
     // }).sort()
@@ -630,7 +638,7 @@ if (typeof route.query["event_type"] != "undefined") {
 }
 
 const getCuture = () => {
-  ApiClient.get("culture/all", { page: 1, limit: 100 }).then((res) => {
+  ApiClient.get("culture/all", { page: 1, limit: 100 })?.then((res) => {
     let arr = [];
     res.data.map((itm) => {
       arr = [
@@ -768,7 +776,7 @@ select#validationCustom04 {
   font-weight: 600;
 }
 
-.select2-container .select2-selection--single {
+.select-container .select-selection--single {
   height: auto !important;
   padding: 0.375rem 2.25rem 0.375rem 0.75rem;
   font-size: 1rem;
@@ -779,24 +787,24 @@ select#validationCustom04 {
   border-radius: 0.25rem;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+.select-container--default .select-selection--single .select-selection__rendered {
   color: #496987;
   line-height: 24px;
   padding-left: 0px;
 }
 
-.select2-results__option {
+.select-results__option {
   font-weight: 400;
   padding: 0px 12px;
   font-size: 1rem;
 }
 
-.select2-results__option:hover {
+.select-results__option:hover {
   background: #e07a5f;
   color: #fff;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.select-container--default .select-selection--single .select-selection__arrow {
   height: 38px !important;
   right: 10px !important;
   width: 25px;
@@ -805,7 +813,7 @@ select#validationCustom04 {
   justify-content: center;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
+.select-container--default .select-selection--single .select-selection__arrow b {
   background-image: url(@/assets/arrow.svg);
   background-repeat: no-repeat;
   /* background-position: right 0.75rem center; */
@@ -817,7 +825,7 @@ select#validationCustom04 {
   left: auto;
 }
 
-.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+.select-container--default.select-container--open .select-selection--single .select-selection__arrow b {
   border-color: transparent;
   border-width: inherit;
 }

@@ -1,4 +1,5 @@
 <template>
+    
     <section class="it-works-about-us primary-bg inner-page-bg">
           <div class="container">
             <div class="row">
@@ -40,6 +41,7 @@
             </div>
           </div>
       </section>
+
 </template>
 <script setup>
 
@@ -48,6 +50,7 @@ import $ from 'jquery'; // Import jQuery
 import 'slick-carousel/slick/slick.css'; // Import Slick Carousel CSS
 import 'slick-carousel/slick/slick-theme.css'; // Import Slick Carousel Theme CSS
 import 'slick-carousel'; // Import Slick Carousel JS
+// window.$ = $;
 const reviews = ref([
     {
         title:"IT Professional",
@@ -103,9 +106,9 @@ const initializeSlick = () => {
 
 onMounted(async () => {
     if (process.client) {
-        await import('slick-carousel/slick/slick.css');
-        await import('slick-carousel/slick/slick-theme.css');
-        const $ = await import('jquery');
+        // await import('slick-carousel/slick/slick.css');
+        // await import('slick-carousel/slick/slick-theme.css');
+        // const $ = await import('jquery');
         window.$ = $;
     }
   const observeContent = () => {

@@ -1,4 +1,3 @@
-
 <template>
   <section class="inner-search-banner primary-bg inner-page-bg  position-relative pb-5 pt-5 about-inner-page">
             <div class="container">
@@ -80,7 +79,7 @@
                                 <div class="events">
                                     <ol>
                                        <li v-for="(yearVal,index) in allHistoryData">
-                                          <a  :data-date="'01/01/'+yearVal.year" v-bind:class="historyYear==yearVal.year ? 'selected' : ''" @click="changeHistoryYear(yearVal.year)">{{ yearVal.year }}</a>
+                                          <a  :data-date="'01/01/'+yearVal.year" v-bind:class="historyYear==yearVal.year ? 'selected' : '' "@click="changeHistoryYear(yearVal.year)">{{ yearVal.year }}</a>
                                         </li>
                                        
                                     </ol>
@@ -264,11 +263,12 @@ export default {
       eventsMinDistance: 60,
     };
   },
-  onMounted() {
+
+mounted() {    
     this.initTimeline();
     this.initCounts();
-    if (import.meta.client) {
-      require('slick-carousel');
+    if (process.client) {
+      // require('slick-carousel');
       this.initSlick();
     }
   },

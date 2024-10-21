@@ -291,7 +291,7 @@ const searchChicagoNeighborhood = () =>{
 }
 
 const getChicagoNeighborhoods = () => {
-  ApiClient.get('timezone/chicagoNeighborhood/all', { page: 1, limit: 999 }).then(res => {
+  ApiClient.get('timezone/chicagoNeighborhood/all', { page: 1, limit: 999 })?.then(res => {
     if (res.data) {
       chicagoNeighborhood.value = res.data
     }
@@ -420,7 +420,7 @@ const onNeighborhoodChange = (filter) => {
 }
 
 const getCutureGroup = () => {
-  ApiClient.get('culture/group', { page: 1, limit: 100 }).then(res => {
+  ApiClient.get('culture/group', { page: 1, limit: 100 })?.then(res => {
     let arr = res.data.map(itm => {
         return itm.cultureGroup
     }).sort()
@@ -439,7 +439,7 @@ const getCutureGroup = () => {
 
 const getCultureContents = () => {
 //   loading2.value = true
-  ApiClient.get('content/all', { page: 1, limit: 999999999 }).then(res => {
+  ApiClient.get('content/all', { page: 1, limit: 999999999 })?.then(res => {
     
     let newarr = [];
     const elementToRemove = 'All';
@@ -453,7 +453,7 @@ const getCultureContents = () => {
 // getCultureContents()
 
 const getCuture = () => {
-  ApiClient.get('culture/all', { page: 1, limit: 100 }).then(res => {
+  ApiClient.get('culture/all', { page: 1, limit: 100 })?.then(res => {
     let arr = []
     res.data.map(itm => {
       arr = [...arr, ...itm.cultures.map(itm => {
@@ -480,7 +480,7 @@ const getCuture = () => {
 getCuture();
 
 const getEventypes = () => {
-  ApiClient.get('event-types/all', { page: 1, limit: 100 }).then(res => {
+  ApiClient.get('event-types/all', { page: 1, limit: 100 })?.then(res => {
     let arr = []
     res.data.map(itm => {
       arr = [...arr, itm.name]
