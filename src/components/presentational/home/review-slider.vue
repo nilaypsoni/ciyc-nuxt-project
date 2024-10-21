@@ -106,9 +106,6 @@ const initializeSlick = () => {
 
 onMounted(async () => {
     if (process.client) {
-        // await import('slick-carousel/slick/slick.css');
-        // await import('slick-carousel/slick/slick-theme.css');
-        // const $ = await import('jquery');
         window.$ = $;
     }
   const observeContent = () => {
