@@ -1,5 +1,5 @@
 <template>
-  <client-only><HeroSlider /></client-only>
+  <client-only><hero-slider /></client-only>
 
   <section class="pt-0 pb-5 banner-ser l-primary-bg">
     <div class="container">
@@ -544,7 +544,10 @@ import useUrlQuery from "@/composables/use-url-query";
 import useToaster from "@/composables/use-toaster";
 import { ROUTES } from "@/utils/constants/routes";
 import { EVENTS_LIST } from "@/utils/constants/events";
-
+// import heroSlider from "../components/presentational/home/hero-slider.vue";
+// import HeroSlider from "@/components/presentational/home/hero-slider";
+import HeroSlider from "@/components/presentational/home/hero-slider";
+import CultureSlider from "@/components/presentational/home/culture-slider";
 import useUserService from "@/services/user.service";
 import TokenService from "@/services/token.service";
 import { BASE_URL, USER_IMAGE_UPLOADED_PATH, ROLES } from "@/utils/constants";

@@ -1,4 +1,5 @@
 <template>
+    
     <section class="it-works-about-us primary-bg inner-page-bg">
           <div class="container">
             <div class="row">
@@ -40,6 +41,7 @@
             </div>
           </div>
       </section>
+
 </template>
 <script setup>
 
