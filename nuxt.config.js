@@ -200,4 +200,9 @@ export default defineNuxtConfig({
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
   ],
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.NUXT_ENV_API_URL || 'http://default-url.com', // Set a fallback value if the environment variable is missing
+    },
+  },
 });
