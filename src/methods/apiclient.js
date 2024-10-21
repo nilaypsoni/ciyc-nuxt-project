@@ -36,13 +36,14 @@ const handleError = (err, hideError) => {
 
 class ApiClient {
   static post(url1, params, base = "") {
+    const { $axios } = useNuxtApp();
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;
 
-      setAuthorizationToken(axios);
+      setAuthorizationToken($axios);
       return new Promise(function (fulfill, reject) {
-        axios
+        $axios
           .post(url, JSON.stringify(params), config)
           ?.then(function (response) {
             fulfill(response && response.data);
@@ -63,12 +64,13 @@ class ApiClient {
   }
 
   static put(url1, params, base = "") {
+    const { $axios } = useNuxtApp();
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;
-      setAuthorizationToken(axios);
+      setAuthorizationToken($axios);
       return new Promise(function (fulfill, reject) {
-        axios
+        $axios 
           .put(url, JSON.stringify(params), config)
           ?.then(function (response) {
             fulfill(response && response.data);
@@ -88,10 +90,11 @@ class ApiClient {
   }
 
   static putForm(url1, params, base = "") {
+    const { $axios } = useNuxtApp();
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;
-      setAuthorizationToken(axios);
+      setAuthorizationToken($axios);
 
       var body = new FormData();
       let oArr = Object.keys(params);
@@ -100,7 +103,7 @@ class ApiClient {
       });
 
       return new Promise(function (fulfill, reject) {
-        axios
+        $axios
           .putForm(url, body, config)
           ?.then(function (response) {
             fulfill(response && response.data);
@@ -120,15 +123,16 @@ class ApiClient {
   }
 
   static get(url1, params = {}, base = "", hideError = "") {
+    const { $axios } = useNuxtApp();
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;
 
       let query = querystring.stringify(params);
       url = query ? `${url}?${query}` : url;
-      setAuthorizationToken(axios);
+      setAuthorizationToken($axios);
       return new Promise(function (fulfill, reject) {
-        axios
+        $axios
           .get(url, config)
           ?.then(function (response) {
             if (response && response.data) {
@@ -153,6 +157,7 @@ class ApiClient {
   }
 
   static delete(url1, params = {}, base = "", type = "query") {
+    const { $axios } = useNuxtApp();
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;
@@ -168,9 +173,9 @@ class ApiClient {
 
       if (type == "form") config = body;
 
-      setAuthorizationToken(axios);
+      setAuthorizationToken($axios);
       return new Promise(function (fulfill, reject) {
-        axios
+        $axios
           .delete(url, config)
           ?.then(function (response) {
             fulfill(response && response.data);
@@ -202,9 +207,10 @@ class ApiClient {
 
   /*************** Form-Data Method ***********/
   static postFormData(url, params) {
+    const { $axios } = useNuxtApp();
     if (process.client) {
       url = baseUrl + url;
-      setAuthorizationToken(axios);
+      setAuthorizationToken($axios);
       return new Promise(function (fulfill, reject) {
         var body = new FormData();
         let oArr = Object.keys(params);
@@ -212,7 +218,7 @@ class ApiClient {
           body.append(itm, params[itm]);
         });
 
-        axios
+        $axios
           .post(url, body, config)
 
           ?.then(function (response) {

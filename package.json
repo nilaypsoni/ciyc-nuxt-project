@@ -2,14 +2,14 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "start": "nuxt start",
-    "postinstall": "nuxt prepare"
-  },
+ "scripts": {
+  "serve": "cross-env NUXT_ENV_API_URL=https://endpoint.cultureinyourcity.com/ nuxt dev",
+  "build": "cross-env NUXT_ENV_API_URL=https://endpoint.cultureinyourcity.com/ nuxt build",
+  "serve-dev": "cross-env NUXT_ENV_API_URL=http://endpoint.jcsoftwaresolution.com:6048/ nuxt dev",
+  "build-dev": "cross-env NUXT_ENV_API_URL=http://endpoint.jcsoftwaresolution.com:6048/ nuxt build",
+  "serve-staging": "cross-env NUXT_ENV_API_URL=https://cultureinyourcity.com/ nuxt dev",
+  "build-staging": "cross-env NUXT_ENV_API_URL=https://cultureinyourcity.com/ nuxt build"
+},
   "dependencies": {
     "@fawmi/vue-google-maps": "^0.9.79",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
