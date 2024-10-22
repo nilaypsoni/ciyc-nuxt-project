@@ -21,7 +21,9 @@
                                 <span class="info-box-img position-relative overflow-hidden mb-3">
                                     <ul class="one-item">
                                         <li>
-                                          <span class="e-d-slider-img"><img  :src="`${eventImg(eventData?.media ? eventData?.media[0] : 'event-placeholder.png')}`" alt="img"></span></li>
+                                          <span class="e-d-slider-img">
+                                            <img  :src="`${eventImg(eventData?.media ? eventData?.media[0] : 'event-placeholder.png')}`" alt="img"/>
+                                          </span></li>
                                     </ul>
                                     <a href="javascript:;" v-if="userData"  @click="handleFavIconClick" class="text-white pt-2 pb-2 ps-3 pe-3 d-inline-flex heart-icon">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
@@ -496,10 +498,8 @@ import SingleEventAbout from "@/components/presentational/events/single-event/si
 import SingleEventTicket from "@/components/presentational/events/single-event/single-event-ticket";
 
 import LiveEventsCard from "@/components/common/card/live-events-card";
-
-
 import Button from "@/components/common/buttons/button";
-import { inject, ref, provide, watch, watchEffect,onMounted } from "vue";
+import { inject, ref, provide, watch, watchEffect, onMounted } from "vue";
 import { dateToTimeRange, userCurrentTimezone } from "@/utils/helpers";
 import TokenService from "@/services/token.service";
 import { ROLES } from "@/utils/constants";
@@ -508,29 +508,29 @@ import PrimaryLoader from "@/components/common/loaders/primary-loader";
 import EventModals from "@/components/presentational/events/modals/event-modals";
 import EventCouponModal from "@/components/presentational/events/modals/event-coupon-modal";
 import EventShareModal from "@/components/presentational/events/modals/event-share-modal";
-import SingleEventShare from "@/components/presentational/events/single-event/single-event-share.vue";
+import SingleEventShare from "@/components/presentational/events/single-event/single-event-share";
 import useEventsService from "@/services/events.service";
 import ApiResponse from "@/components/common/text/api-response";
-
 import useReverseGeocoding from "@/composables/use-reverse-geocoding";
 import CustomModal from "@/components/common/modal/custom-modal";
-import TicketModel from "@/components/presentational/events/modals/ticket-model.vue";
+import TicketModel from "@/components/presentational/events/modals/ticket-model";
 import router from "~/src/router";
 import { ROUTES } from "@/utils/constants/routes";
 import ApiClient from "@/methods/apiclient";
 import useToaster from "@/composables/use-toaster";
 import dateModel from "@/models/date.model";
-import {MEDIA_BASEURL,BASE_URL} from "@/utils/constants";
+import { MEDIA_BASEURL, BASE_URL } from "@/utils/constants";
 
 const emit = defineEmits(["following-confirmed", "event-favourite-confirmed"]);
-const injectedEventData = inject("eventData", {});
-const eventData = ref(injectedEventData.value);
+
+const injectedEventData = inject("eventData", { location: { coordinates: [] }, isPublished: true, creator: {} });
+const eventData = ref(injectedEventData || {});  // Ensure it's an object
 const userData = ref(TokenService.getUser())
 
 const ogTitle = ref('Event Title');
 const ogDescription = ref('Event Description');
 
-if (eventData.value) {
+if (process.client && eventData.value) {
   localStorage.setItem("eventRole", eventData.value?.creator?.role);
 }
 
@@ -542,8 +542,8 @@ const props = defineProps({
 const appliedCoupon = ref(false);
 
 
-const url = window.location.href;
-const lastParam = url.split("/").slice(-1)[0];
+const url = window?.location.href;
+const lastParam = url?.split("/").slice(-1)[0];
 const Attanding = ref(false);
 
 const proceed = (e) => {
@@ -561,13 +561,13 @@ const ticketData = ref(
 );
 
 const isPageLoading = ref(true);
-onMounted(()=>{
-  setTimeout(function(){
-    isPageLoading.value = false;
-  },950)
-
-})
-
+onMounted(() => {
+  if (process.client) {
+    setTimeout(function(){
+      isPageLoading.value = false;
+    }, 950);
+  }
+});
 
 
 
@@ -585,17 +585,21 @@ const isAllTicketFree = ref(true);
 watch(
   () => injectedEventData.value,
   () => {
-    eventData.value = injectedEventData.value;
-    localStorage.setItem("eventRole", eventData.value?.creator?.role);
-   
-    if(eventData.value){
+    eventData.value = injectedEventData.value || {}; 
+    if (process.client) {
+      localStorage.setItem("eventRole", eventData.value?.creator?.role);
+    }
+
+    if (eventData.value) {
       const eventTickets = eventData.value.tickets.categories;
-      if(eventTickets.length > 0){
-    
+      if (eventTickets.length > 0) {
         for (let index = 0; index < eventTickets.length; index++) {
           var ticket = eventTickets[index];
-
-          if(ticket.price > 0 && currentDate >= new Date(ticket.saleStartDateTime).getTime() && currentDate <  new Date(ticket.saleEndDateTime).getTime() ){
+          if (
+            ticket.price > 0 &&
+            currentDate >= new Date(ticket.saleStartDateTime).getTime() &&
+            currentDate < new Date(ticket.saleEndDateTime).getTime()
+          ) {
             isAllTicketFree.value = false;
           }
         }
@@ -606,8 +610,7 @@ watch(
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": eventData.value.title,
-      "datePublished":eventData.value?.createdAt,
-      
+      "datePublished": eventData.value?.createdAt,
       "publisher": {
         "@type": "Organization",
         "name": eventData.value?.creator?.organization,
@@ -629,8 +632,6 @@ watch(
     script.type = "application/ld+json";
     script.textContent = JSON.stringify(article);
     document.head.appendChild(script);
-
-    
   }
 );
 
@@ -638,7 +639,10 @@ watch(
 
 
 if (eventData.value) {
-  localStorage.setItem("eventRole", eventData.value?.creator?.role);
+  if (process.client) {
+    
+    localStorage.setItem("eventRole", eventData.value?.creator?.role);
+  }
 }
 
 watchEffect(() => {
@@ -658,23 +662,35 @@ watchEffect(() => {
 console.log(eventData,"eventdata")
 
 watchEffect(async () => {
-  console.log('eventData.value.isPubli',eventData.value)
+  console.log("eventData.value.isPublished", eventData.value);
 
-  if(eventData.value.isPublished == false  ){
-    if(userData.value && eventData.value.creator._id != userData.value._id){
-      router.push({name:ROUTES.HOME});
-    }else if(!userData.value){
-      router.push({name:ROUTES.HOME});
+  // Check if eventData is defined
+  if (eventData.value) {
+    if (eventData.value?.isPublished === false) {
+      if (userData.value && eventData.value?.creator?._id !== userData.value._id) {
+        router.push({ name: ROUTES.HOME });
+      } else if (!userData.value) {
+        router.push({ name: ROUTES.HOME });
+      }
+    }
+
+    // Check if location and coordinates exist before accessing them
+    if (eventData.value?.location && eventData.value?.location.coordinates?.length) {
+      try {
+        let addressData = await useReverseGeocoding(
+          eventData.value?.location.coordinates[1],
+          eventData.value?.location.coordinates[0]
+        );
+        latLngToAddress.value = addressData?.data?.results[0]?.formatted_address;
+      } catch (error) {
+        console.error("Error during reverse geocoding:", error);
+      }
     }
   }
-
-  let addressData = await useReverseGeocoding(
-    eventData?.value?.location?.coordinates?.[1],
-    eventData?.value?.location?.coordinates?.[0]
-  );
-  //Finding City from Google map results
-  latLngToAddress.value = addressData?.data?.results[0]?.formatted_address;
 });
+
+
+
 
 const isFollowOrFav = inject("isFollowOrFav", {});
 const userRole = TokenService?.getUser()?.role;
@@ -747,7 +763,7 @@ const onApplyCoupon = () => {
 const eventsAttanding = () => {
   let userid = TokenService.getUser()?._id;
   if (userid) {
-    ApiClient.get(`booking/check?userId=${userid}&eventId=${lastParam}`).then(
+    ApiClient.get(`booking/check?userId=${userid}&eventId=${lastParam}`)?.then(
       (res) => {
         Attanding.value = res.isBooked;
       }
@@ -761,7 +777,7 @@ const plannerEvents = () => {
   if (userid) {
     ApiClient.post(
       `booking/event?userId=${userid}&eventId=${eventData.value._id}&organizerId=${eventData.value.creator._id}`
-    ).then((res) => {
+    )?.then((res) => {
       // useToaster("success", "", "Attended Successfully");
       eventsAttanding();
       if (res.message == "Success") {
@@ -877,11 +893,12 @@ const salesEnded = () => {
   return value;
 };
 
-const eventImg=(img)=>{
-  let value=`${MEDIA_BASEURL}${img}`
-  if(img=='event-placeholder.png') value='/event-placeholder.png'
-  return value
-}
+const eventImg = (img) => {
+  let value = `${MEDIA_BASEURL}${img}`;
+  if (img === 'event-placeholder.png') value = '/event-placeholder.png';
+  return value;
+};
+
 
 const copyUrlToClipboard = async (eventTitle,eventStartDateTime,eventTimeZone) => {
   const url = BASE_URL+'event/'+eventTitle;
@@ -945,7 +962,7 @@ let parms = {
   is_event_not_found: true,
 }
 
-  ApiClient.get('event/browse', parms).then(res => {
+  ApiClient.get('event/browse', parms)?.then(res => {
     events.value = res.data
   })
 

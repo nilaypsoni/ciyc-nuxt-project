@@ -23,26 +23,25 @@ import { VALIDATION_MESSAGE_TIMEOUT,SUCCESS_REDIRECT_TIMEOUT } from "@/utils/con
 const errorMessage = ref('');
 const successMessage = ref('');
 
-const showResponseMessage = (successMsg,errorMsg) =>{
-  if(successMsg != ''){
-
+const showResponseMessage = (successMsg, errorMsg) => {
+  if (successMsg != '') {
     errorMessage.value = '';
-    successMessage.value = successMsg
-  }else if(errorMsg != ''){
+    successMessage.value = successMsg;
+  } else if (errorMsg != '') {
     errorMessage.value = errorMsg;
     successMessage.value = '';
-  }else{
   }
 
-    window.scrollTo(0,0)
+  if (import.meta.client) {
+    window.scrollTo(0, 0);
+  }
 
-    setTimeout(() => {
-      errorMessage.value = '';
-      successMessage.value = '';
-
-    }, VALIDATION_MESSAGE_TIMEOUT);
-
+  setTimeout(() => {
+    errorMessage.value = '';
+    successMessage.value = '';
+  }, VALIDATION_MESSAGE_TIMEOUT);
 }
+
 
 const emit = defineEmits(['following-confirmed'])
 
@@ -64,11 +63,14 @@ const { isLoading, mutate: handleFollowOrganizer, isSuccess: isFollowSuccess } =
 const { isLoading: isUnFollowLoading, mutate: handleUnFollowOrganizer, isSuccess: isUnFollowSuccess } = useHandleUnFollowOrganizerService()
 
 const getData = () => {
-  if (eventD.value?._id)
+  if (eventD.value?._id) {
     ApiClient.get(`event/?eventId=${eventD.value?._id}`).then(res => {
       eventData.value = res.data
     })
-  window.scrollTo(0, 0);
+  }
+  if (import.meta.client) {
+    window.scrollTo(0, 0);
+  }
 }
 getData()
 

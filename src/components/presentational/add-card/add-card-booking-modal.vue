@@ -96,7 +96,7 @@
   }
 
   const getData=()=>{
-    ApiClient.get('profile-settings/card',{userId:tokenService.getUser()?._id}).then(res=>{
+    ApiClient.get('profile-settings/card',{userId:tokenService.getUser()?._id})?.then(res=>{
         cardData.value=res.data
     })
   }
