@@ -14,14 +14,14 @@ import { BASE_URL } from "@/utils/constants";
 const useEventsService = () => {
     const router = useRouter()
     const queryClient = new useQueryClient()
-
+    const { $axios } = useNuxtApp();
     //Search Tags
     const useHandleSearchTagsService = (isEnabled,tagValue) => {
 
         const handleSearchTags = (tagValue) => {
             const page = 1;
             const limit = 20
-            return axios.get(`/tags/search?page=${page}&limit=${limit}&searchQuery=${tagValue.value}`)
+            return $axios.get(`/tags/search?page=${page}&limit=${limit}&searchQuery=${tagValue.value}`)
         }
 
         return useQuery(
@@ -49,7 +49,7 @@ const useEventsService = () => {
         const handleSearchCulture = (cultureValue) => {
             const page = 1;
             const limit = 20
-            return axios.get(`/culture/search?page=${page}&limit=${limit}&searchQuery=${cultureValue.value}`)
+            return $axios.get(`/culture/search?page=${page}&limit=${limit}&searchQuery=${cultureValue.value}`)
         }
 
         return useQuery(
@@ -77,7 +77,7 @@ const useEventsService = () => {
         const handleSearchCultureGroup = (cultureGroupValue) => {
             const page = 1;
             const limit = 20
-            return axios.get(`/culture/search-group?page=${page}&limit=${limit}&searchQuery=${cultureGroupValue.value}`)
+            return $axios.get(`/culture/search-group?page=${page}&limit=${limit}&searchQuery=${cultureGroupValue.value}`)
         }
 
         return useQuery(
@@ -105,7 +105,7 @@ const useEventsService = () => {
         const fetchEventTypes = () => {
             const page = 1;
             const limit = 99
-            return axios.get(`/event-types/all?page=${page}&limit=${limit}`)
+            return $axios.get(`/event-types/all?page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -126,7 +126,7 @@ const useEventsService = () => {
         const fetchTimezones = () => {
             const page = 1;
             const limit = 999
-            return axios.get(`/timezone/all?page=${page}&limit=${limit}`)
+            return $axios.get(`/timezone/all?page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -151,7 +151,7 @@ const useEventsService = () => {
     const useHandleCreateEventService = () => {
         const userId = TokenService.getUser()?._id
         const handleCreateEventRequest = (data) => {
-            return axios.post(`/event/?userId=${userId}`,data)
+            return $axios.post(`/event/?userId=${userId}`,data)
         }
 
         const onSuccess = (data) => {
@@ -172,7 +172,7 @@ const useEventsService = () => {
         const userId = TokenService.getUser()?._id
         console.log(event_data,"Event Data is Here");
         const handleEditEventRequest = (data,id) => {
-            return axios.put(`/event/?userId=${userId}&eventId=${id.value}`,data)
+            return $axios.put(`/event/?userId=${userId}&eventId=${id.value}`,data)
         }
 
         const onSuccess = (data) => {
@@ -193,7 +193,7 @@ const useEventsService = () => {
         const userId = TokenService.getUser()?._id
 
         const handleDeleteEventMediaRequest = (id,media) => {
-            return axios.delete(`/event/image?userId=${userId}&eventId=${id.value}`, {data: {fileName:media}})
+            return $axios.delete(`/event/image?userId=${userId}&eventId=${id.value}`, {data: {fileName:media}})
         }
 
 
@@ -244,7 +244,7 @@ const useEventsService = () => {
             if(!parms.longitude) delete parms.longitude
             if(parms.isFree==='') parms.all=true
         
-            return axios.get(`/event/browse`,{params:parms})
+            return $axios.get(`/event/browse`,{params:parms})
         }
 
         const onError = () => {
@@ -268,7 +268,7 @@ const useEventsService = () => {
         const fetchUserEventsRequest = () => {
             const page = 1;
             const limit = 999
-            return axios.get(`/event/my?userId=${userId}&page=${page}&limit=${limit}`)
+            return $axios.get(`/event/my?userId=${userId}&page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -284,7 +284,7 @@ const useEventsService = () => {
     //Fetch Event By Id
     const useFetchEventByIdService = (eventId) => {
         const fetchEventByIdRequest = (id) => {
-            return axios.get(`/event/?eventId=${id.value}`)
+            return $axios.get(`/event/?eventId=${id.value}`)
         }
         const onError = (error) => {
             if(error.response?.status === 400){
@@ -308,7 +308,7 @@ const useEventsService = () => {
     //Fetch Remaining Tickets By Event id
     const useFetchRemainingTickets = (eventId) => {
         const fetchRemainingTicketsByIdRequest = (id) => {
-            return axios.get(`/event/remaining-tickets?eventId=${id.value}`)
+            return $axios.get(`/event/remaining-tickets?eventId=${id.value}`)
         }
 
         return useQuery(
@@ -326,7 +326,7 @@ const useEventsService = () => {
     //Fetch Events by Event Types
     const useFetchEventByTypesService = () => {
         const fetchEventByTypesRequest = () => {
-            return axios.get(`/event-types/events`)
+            return $axios.get(`/event-types/events`)
         }
 
         return useQuery(
@@ -344,7 +344,7 @@ const useEventsService = () => {
     //Fetch Events by Single Event Type
     const useFetchEventBySingleEventTypeService = (isEnabled=true,eventType) => {
         const fetchEventBySingleEventTypeRequest = () => {
-            return axios.get(`/event/type?eventType=${eventType.value}&page=1&limit=99`)
+            return $axios.get(`/event/type?eventType=${eventType.value}&page=1&limit=99`)
         }
 
         const onError = () => {
@@ -372,7 +372,7 @@ const useEventsService = () => {
         const fetchFavouriteEventsRequest = () => {
             const page = 1
             const limit = 999
-            return axios.get(`/favourite?userId=${userId}&page=${page}&limit=${limit}`)
+            return $axios.get(`/favourite?userId=${userId}&page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -398,7 +398,7 @@ const useEventsService = () => {
         const fetchFeaturedEventsRequest = () => {
             const page = 1
             const limit = 999
-            return axios.get(`/event/featured-popular?isFeatured=true&page=${page}&limit=${limit}`)
+            return $axios.get(`/event/featured-popular?isFeatured=true&page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -420,7 +420,7 @@ const useEventsService = () => {
             let lat=localStorage.getItem('alat')
             let lng=localStorage.getItem('alng')
             if(isEnabled)
-            return axios.get(`/event/featured-popular?isFeatured=false&page=${page}&limit=${limit}&latitude=${lat?lat:0}&longitude=${lng?lng:0}`)
+            return $axios.get(`/event/featured-popular?isFeatured=false&page=${page}&limit=${limit}&latitude=${lat?lat:0}&longitude=${lng?lng:0}`)
         }
 
         return useQuery(
@@ -439,7 +439,7 @@ const useEventsService = () => {
         const fetchUpcomingEventsRequest = () => {
             const page = 1
             const limit = 999
-            return axios.get(`/event/upcoming-events`)
+            return $axios.get(`/event/upcoming-events`)
         }
 
         return useQuery(
@@ -460,7 +460,7 @@ const useEventsService = () => {
             const page = 1
             const limit = 4
             if(long?.value && lat?.value){
-                return axios.get(`/event/near-by?longitude=${long?.value}&latitude=${lat?.value}&page=${page}&limit=${limit}`)
+                return $axios.get(`/event/near-by?longitude=${long?.value}&latitude=${lat?.value}&page=${page}&limit=${limit}`)
             }
         }
 
@@ -485,7 +485,7 @@ const useEventsService = () => {
     //Fetch Popular/Upcoming/Featured Events
     const useFetchPUFEventsService = () => {
         const fetchPUFEventsRequest = () => {
-            return axios.get(`/event/home-page`)
+            return $axios.get(`/event/home-page`)
         }
 
         return useQuery(
@@ -507,7 +507,7 @@ const useEventsService = () => {
         const fetchFavouriteEventsRequest = (isCurrent) => {
             const page = 1
             const limit = 999
-            return axios.get(`/event/past-current?page=${page}&limit=${limit}&organizerId=${organizerId}&current=${isCurrent.value}`)
+            return $axios.get(`/event/past-current?page=${page}&limit=${limit}&organizerId=${organizerId}&current=${isCurrent.value}`)
         }
 
         return useQuery(
@@ -529,7 +529,7 @@ const useEventsService = () => {
         const fetchSeekerEventTicketsRequest = () => {
             const page = 1
             const limit = 999
-            return axios.get(`/booking/?seekerId=${userId}&page=${page}&limit=${limit}`)
+            return $axios.get(`/booking/?seekerId=${userId}&page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -551,7 +551,7 @@ const useEventsService = () => {
         const fetchOrganizerTicketOrdersRequest = () => {
             const page = 1
             const limit = 999
-            return axios.get(`/booking/orders?organizerId=${userId}&page=${page}&limit=${limit}`)
+            return $axios.get(`/booking/orders?organizerId=${userId}&page=${page}&limit=${limit}`)
         }
 
         return useQuery(
@@ -571,7 +571,7 @@ const useEventsService = () => {
     const useHandlePublishEventService = (eventId,status) => {
         const userId = TokenService?.getUser()?._id
         const HandlePublishEventRequest = (eventId,status) => {
-            return axios.put(`/event/publish?eventId=${eventId.value}&userId=${userId}`, {status:status.value})
+            return $axios.put(`/event/publish?eventId=${eventId.value}&userId=${userId}`, {status:status.value})
         }
 
         const onSuccess = () => {
@@ -591,7 +591,7 @@ const useEventsService = () => {
     const useHandleDeleteEventService = () => {
         const userId = TokenService?.getUser()?._id
         const HandleDeleteEventRequest = (eventId) => {
-            return axios.delete(`/event/?eventId=${eventId}`)
+            return $axios.delete(`/event/?eventId=${eventId}`)
         }
 
         const onSuccess = () => {
@@ -612,7 +612,7 @@ const useEventsService = () => {
 
         const HandlePurchaseTicketsRequest = (ticketData,organizerId) => {
             const userId = !!TokenService?.getUser()?._id ? TokenService?.getUser()?._id : TokenService.getGuest()?._id
-            return axios.post(`/booking/?userId=${userId}&organizerId=${organizerId}`, {purchase:ticketData})
+            return $axios.post(`/booking/?userId=${userId}&organizerId=${organizerId}`, {purchase:ticketData})
         }
 
         const onSuccess = (response,ticketData) => {
@@ -664,7 +664,7 @@ const useEventsService = () => {
     //Get Site Commission
     const useFetchAllCommissionService = () => {
         const FetchAllCommissionRequest = () => {
-            return axios.get(`/commission/all?page=1&limit=999`)
+            return $axios.get(`/commission/all?page=1&limit=999`)
         }
         return useQuery(
             ['all-commissions'],
@@ -682,7 +682,7 @@ const useEventsService = () => {
         const userId = TokenService?.getUser()?._id
 
         const HandleAddEventToFavouriteRequest = (eventId) => {
-            return axios.post(`/favourite?userId=${userId}&eventId=${eventId}`)
+            return $axios.post(`/favourite?userId=${userId}&eventId=${eventId}`)
         }
 
         return useMutation(
@@ -699,7 +699,7 @@ const useEventsService = () => {
         const userId = TokenService?.getUser()?._id
 
         const handleRemoveEventFromFavouriteRequest = (eventId) => {
-            return axios.delete(`/favourite?userId=${userId}&eventId=${eventId}`)
+            return $axios.delete(`/favourite?userId=${userId}&eventId=${eventId}`)
         }
 
         return useMutation(

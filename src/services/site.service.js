@@ -8,11 +8,12 @@ import {ROUTES} from "@/utils/constants/routes";
 const useSiteService = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
+    const { $axios } = useNuxtApp();
 
     //Submit Contact Us
     const useHandleContactUsService = () => {
         const handleContactUsRequest = (data) => {
-            return axios.post(`/contact-us/`,data)
+            return $axios.post(`/contact-us/`,data)
         }
         const onSuccess = () => {
             // useToaster("success","","Form Submitted Successfully")
@@ -38,7 +39,7 @@ const useSiteService = () => {
 
     const useHandleBecomeAmbassadorService = () => {
         const handleBecomeAmbassadorRequest = (data) => {
-            return axios.post(`/become-ambassador-request/`,data)
+            return $axios.post(`/become-ambassador-request/`,data)
         }
         const onSuccess = () => {
             // useToaster("success","","Thanks for showing your interest. We will get back to you soon")
@@ -64,7 +65,7 @@ const useSiteService = () => {
 
     const useHandleDeleteAccountRequestService = () => {
         const handleDeleteAccountRequest = (data) => {
-            return axios.post(`/account-delete-request/`,data)
+            return $axios.post(`/account-delete-request/`,data)
         }
         const onSuccess = () => {
             // useToaster("success","","Form Submitted Successfully. Your account will be deleted")
@@ -89,7 +90,7 @@ const useSiteService = () => {
 
     const useHandleInquiryService = () =>{
         const handleInquiryRequest = (data) => {
-            return axios.post(`/contact-us/inquiry`,data)
+            return $axios.post(`/contact-us/inquiry`,data)
         }
         const onSuccess = () => {
             // useToaster("success","","Form Submitted Successfully")
@@ -115,7 +116,7 @@ const useSiteService = () => {
     const useFetchPageContent = (page) => {
 
         const fetchPageContent = (page) => {
-            return axios.get(`/page-content/page-name?pageName=${page}`)
+            return $axios.get(`/page-content/page-name?pageName=${page}`)
         }
 
         return useQuery(
@@ -131,7 +132,7 @@ const useSiteService = () => {
     //Fetch Culture Group Content
     const useFetchCultureGroupContent = (cultureGroupId) => {
         const fetchCultureGroupContent = (cultureGroupId) => {
-            return axios.get(`/content/culture-group?cultureGroupId=${cultureGroupId.value}`)
+            return $axios.get(`/content/culture-group?cultureGroupId=${cultureGroupId.value}`)
         }
 
         const onError = () => {

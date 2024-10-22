@@ -47,12 +47,13 @@ const errorHandler = async (err) => {
                 }
                 originalConfig._retry = true;
                 try {
-                    const rs = await axios.get(`/auth/tokens?userId=${userId}`)
+                    const { $axios } = useNuxtApp();
+                    const rs = await $axios.get(`/auth/tokens?userId=${userId}`)
                     const { access_token, refresh_token } = rs.data.data.tokens;
                     TokenService.saveLocalRefreshToken(refresh_token)
                     TokenService.saveLocalAccessToken(access_token);
                     TokenService.setTokenRetries(5)
-                    return axios(originalConfig);
+                    return $axios(originalConfig);
                 } catch (error) {
                     return Promise.reject(error);
                 }
@@ -77,12 +78,13 @@ const errorHandler = async (err) => {
 };
 
 const setup = () => {
-    axios.interceptors.request.use(
+    const { $axios } = useNuxtApp();
+    $axios.interceptors.request.use(
         (request) => requestHandler(request),
         (error) => Promise.reject(error)
     );
 
-    axios.interceptors.response.use(
+    $axios.interceptors.response.use(
         (response) => responseHandler(response),
         (error) => errorHandler(error)
     );
