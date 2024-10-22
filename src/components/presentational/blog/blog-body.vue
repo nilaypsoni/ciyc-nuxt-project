@@ -38,7 +38,7 @@
 <script setup>
 import {watch,watchEffect ,ref, computed,onMounted} from "vue";
 
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ROUTES } from "@/utils/constants/routes";
 import { useRoute,useRouter } from "vue-router";
 import { ROLES } from "@/utils/constants";
@@ -54,7 +54,7 @@ import twitterSvg from "@/assets/blog/b-twitter.svg";
 import youtubeSvg from "@/assets/blog/b-youtube.svg";
 import ApiClient from "@/methods/apiclient";
 
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const $route = useRoute();
 
 const props = defineProps({

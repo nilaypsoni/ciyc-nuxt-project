@@ -24,8 +24,8 @@
 
 <script setup>
   import Button from "@/components/common/buttons/button";
-  import {MEDIA_BASEURL} from "@/utils/constants";
-
+  import useMediaBaseUrl from '@/composables/media-base-url';
+  const { MEDIA_BASEURL } = useMediaBaseUrl();
   defineProps({
     imageSource:String,
     title:String,

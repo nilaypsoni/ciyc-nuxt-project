@@ -16,7 +16,7 @@
 import EventListHeader from "@/components/presentational/events/events/event-list-header";
 import { reactive, ref, watch } from "vue";
 import PrimaryLoader from "@/components/common/loaders/primary-loader";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { eventTimeStatus, isoDateToNormalDate, twentyFourHourToTwelveHourFormat, viewError } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import ApiResponse from "@/components/common/text/api-response";
@@ -41,7 +41,7 @@ import EventList from "@/components/presentational/events/events/event-list";
 
 
 
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const currentPage = ref(1);
 const lastPage = ref(1);
 const totalEventLimit = ref(20);
@@ -59,7 +59,7 @@ let parms = {
 
 
 if(eventListType.value == EVENTS_LIST.FAVOURITES){
-  ApiClient.get('event/browse', parms).then(res => {
+  ApiClient.get('event/browse', parms)?.then(res => {
     events.value = res.data
 
     lastPage.value = res.lastPage;
@@ -69,7 +69,7 @@ if(eventListType.value == EVENTS_LIST.FAVOURITES){
   parms.latitude = 0
   parms.longitude = 0
 
-  ApiClient.get('event/featured-popular', parms).then(res => {
+  ApiClient.get('event/featured-popular', parms)?.then(res => {
     events.value = res.data
 
     lastPage.value = res.lastPage;
@@ -78,13 +78,13 @@ if(eventListType.value == EVENTS_LIST.FAVOURITES){
 }else if(eventListType.value == EVENTS_LIST.COMNETE){
 
   parms.isPublished = true
-  ApiClient.get('event/event-planer/event-without-auth',parms).then(res=>{
+  ApiClient.get('event/event-planer/event-without-auth',parms)?.then(res=>{
     events.value=res.data
   })
 
 }else if(eventListType.value == EVENTS_LIST.UPCOMING){
 
-  ApiClient.get('event/upcoming-events',parms).then(res=>{
+  ApiClient.get('event/upcoming-events',parms)?.then(res=>{
     events.value = res.data.upcomingEvents
   })
 
@@ -92,25 +92,26 @@ if(eventListType.value == EVENTS_LIST.FAVOURITES){
 
   parms.isFeatured = true
 
-  ApiClient.get('event/featured-popular', parms).then(res => {
+  ApiClient.get('event/featured-popular', parms)?.then(res => {
     events.value = res.data
 
     lastPage.value = res.lastPage;
   })
 
-}else if(eventListType.value == EVENTS_LIST.NEARBY){
+} else if (eventListType.value == EVENTS_LIST.NEARBY) {
+
+if (process.client) {
   parms.longitude = localStorage.getItem('alng') ? 0 : 0;
   parms.latitude = localStorage.getItem('alat') ? 0 : 0;
+}
 
-  ApiClient.get('event/near-by', parms).then(res => {
-    events.value = res.data
-
-    lastPage.value = res.lastPage;
-  })
-
+ApiClient.get('event/near-by', parms)?.then(res => {
+  events.value = res.data;
+  lastPage.value = res.lastPage;
+});
 }else{
 
-  ApiClient.get('event/browse', parms).then(res => {
+  ApiClient.get('event/browse', parms)?.then(res => {
     events.value = res.data
 
     lastPage.value = res.lastPage;

@@ -27,7 +27,7 @@
 import Title from "@/components/common/text/title";
 import AssetUploader from "@/components/common/asset-uploader";
 import Paragraph from "@/components/common/text/paragraph";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ref, toRef, watch } from "vue";
 import EventsService from "@/services/events.service";
 import ApiClient from "@/methods/apiclient";
@@ -40,7 +40,7 @@ const props = defineProps({
   getData: Function
 })
 const emit = defineEmits([])
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const { useHandleDeleteEventMediaService } = EventsService()
 
 const medias = ref(props.eventImages || [])

@@ -11,13 +11,13 @@
 
 <script setup>
 import {inject} from "vue";
-import {MEDIA_BASEURL} from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import carbonTime from "@/assets/g-img/carbon_time.svg";
 import tablerBuilding from "@/assets/g-img/tabler_building.svg";
 import materialSymbolsTag from "@/assets/g-img/material-symbols_tag.svg";
 import locationSvg from "@/assets/event-details/e-d-map.svg";
 import organizationSvg from "@/assets/event-details/e-d-housebuilding.svg";
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const eventData = inject("eventData",{})
 const eventImg=(img)=>{
   let value=`${MEDIA_BASEURL}${img}`

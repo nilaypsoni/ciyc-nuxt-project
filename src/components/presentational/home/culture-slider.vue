@@ -37,7 +37,7 @@
 <script setup>
 import ApiClient from "@/methods/apiclient";
 import { onMounted, ref , toRef, watch, watchEffect, nextTick } from "vue";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { useRouter,useRoute  } from "vue-router";
 import { createSeoFriendlyUrl } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
@@ -46,7 +46,7 @@ import { ROUTES } from "@/utils/constants/routes";
 import 'slick-carousel/slick/slick.css'; 
 import 'slick-carousel/slick/slick-theme.css'; 
 import $ from 'jquery'; // Import jQuery
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const router = useRouter();
 
 const props = defineProps({

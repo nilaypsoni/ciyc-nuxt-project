@@ -25,7 +25,7 @@
   <script setup>
   import router from "~/src/router";
   import {ROUTES} from "@/utils/constants/routes";
-  import {MEDIA_BASEURL} from "@/utils/constants";
+  import useMediaBaseUrl from '@/composables/media-base-url';
   
   defineProps({
     organizer : Object,
@@ -34,7 +34,7 @@
       default:true
     }
   })
-  
+  const { MEDIA_BASEURL } = useMediaBaseUrl();
   const viewProfile=(type,id)=>{
     // router.push({name:ROUTES.ORGANIZER_PUBLIC_PROFILE,params:{organizerId:id}})
     if(type == 'Organization'){

@@ -52,7 +52,7 @@
 <script setup>
 import useEventsService from "@/services/events.service";
 import PrimaryLoader from "@/components/common/loaders/primary-loader";
-import {MEDIA_BASEURL} from "@/utils/constants"
+import useMediaBaseUrl from '@/composables/media-base-url';
 import {twentyFourHourToTwelveHourFormat,isoDateToNormalDate} from "@/utils/helpers"
 import Dropdown from "@/components/common/dropdown/dropdown"
 import DropdownContent from "@/components/common/dropdown/dropdown-content"
@@ -78,7 +78,7 @@ const deleteEvent = (id) => {
   handleDeleteEvent(id)
 }
 
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const getData=()=>{
   const userId = tokenService.getUser()?._id
   ApiClient.get('event/my',{userId:userId,page:1,limit:100}).then(res=>{

@@ -17,12 +17,12 @@
 <script setup>
 import router from "~/src/router";
 import {ROUTES} from "@/utils/constants/routes";
-import {MEDIA_BASEURL} from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 
 defineProps({
   organizer : Object
 })
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const viewevent=(id)=>{
   router.push({name:ROUTES.ORGANIZATION,params:{organizerId:id}})
 }

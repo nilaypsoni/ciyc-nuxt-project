@@ -235,7 +235,7 @@ import organizerLocSvg from "@/assets/landing-page/organizers-loc.svg";
 import category05 from "@/assets/category/category/category-05.svg";
 
 import {toRef,ref, watch,reactive,computed} from "vue";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';;
 import { useRouter,useRoute } from "vue-router";
 import ApiClient from "@/methods/apiclient";
 import useReverseGeocoding from "@/composables/use-reverse-geocoding";
@@ -252,7 +252,7 @@ const organizerFourEvents = ref([]);
 const events = ref([]);
 const currentPage = ref(1);
 const lastPage = ref(1);
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 
 const pastEvents = ref([]);
 const pastEventCurrentPage = ref(1);

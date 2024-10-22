@@ -18,13 +18,13 @@
     </section>
 </template>
 <script setup>
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 
 const props = defineProps({
     cultureInfo: Object,
     culture:String
 })
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 function getCultureImg(){
     let fullImg = `${MEDIA_BASEURL}${props.cultureInfo.banner}`
 

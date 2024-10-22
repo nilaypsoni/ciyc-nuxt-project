@@ -37,7 +37,7 @@
 <script setup>
 import {watch,watchEffect ,ref} from "vue";
 
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ROUTES } from "@/utils/constants/routes";
 import { useRouter } from "vue-router";
 import methodModel from "@/models/method.model";
@@ -51,7 +51,7 @@ import ApiClient from "@/methods/apiclient";
 
 
 const blogTypes = ref([]);
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const getBlogTypes = () => {
     ApiClient.get('blog/types',{page:1,limit:100})?.then(res=>{
         if(res.data){

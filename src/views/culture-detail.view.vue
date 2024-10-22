@@ -53,13 +53,13 @@ import {useRoute} from "vue-router";
 import {ref} from "vue";
 import SiteService from "@/services/site.service";
 import PageLoader from "@/components/common/loaders/page-loader";
-import {MEDIA_BASEURL} from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import {SwiperSlide} from "swiper/vue"
 import Slider from "@/components/common/slider";
 
 const route = useRoute()
 const cultureId = ref(route.params?.cultureId)
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const {useFetchCultureGroupContent} = SiteService()
 
 const {data:cultureGroupContent,isLoading} = useFetchCultureGroupContent(cultureId)

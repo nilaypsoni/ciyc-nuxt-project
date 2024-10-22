@@ -10,7 +10,7 @@
 <script setup>
 import {watch,watchEffect ,ref, computed,onMounted} from "vue";
 
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ROUTES } from "@/utils/constants/routes";
 import { useRoute,useRouter } from "vue-router";
 import methodModel from "@/models/method.model";
@@ -24,7 +24,7 @@ const pageSlug = ref($route.params.pageSlug);
 const props = defineProps({
     blogDetails:Object
 })
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const blogDetails = ref(props.blogDetails);
 
 var defaultImage = BASE_URL+'event-placeholder.png'

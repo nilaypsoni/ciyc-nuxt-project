@@ -172,7 +172,7 @@ import ManageEventsHeader from "@/components/presentational/events/manage-events
 import { reactive, ref, watch } from "vue";
 import PrimaryLoader from "@/components/common/loaders/primary-loader";
 import BaseTable from "@/components/common/tables/base-table";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { eventTimeStatus, isoDateToNormalDate, twentyFourHourToTwelveHourFormat, viewError } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import ApiResponse from "@/components/common/text/api-response";
@@ -188,7 +188,7 @@ import { BASE_URL } from "@/utils/constants";
 import { VALIDATION_MESSAGE_TIMEOUT,SUCCESS_REDIRECT_TIMEOUT } from "@/utils/constants";
 import useUrlQuery from "@/composables/use-url-query";
 
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const router = useRouter()
 const userRole = tokenService.getUser().role
 

@@ -31,7 +31,7 @@
 <script setup>
 import {watch,watchEffect ,ref, computed,onMounted} from "vue";
 
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ROUTES } from "@/utils/constants/routes";
 import { useRoute,useRouter } from "vue-router";
 import methodModel from "@/models/method.model";
@@ -44,7 +44,7 @@ import 'vue3-carousel/dist/carousel.css';
 
 const currentSlide = ref(0);
 const carousel = ref(null);
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const slideTo = (val) => {
   currentSlide.value = val;
 };

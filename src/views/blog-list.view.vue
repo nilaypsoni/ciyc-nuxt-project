@@ -22,7 +22,7 @@
 <script setup>
 import {watch,watchEffect ,ref} from "vue";
 
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ROUTES } from "@/utils/constants/routes";
 import { useRoute,useRouter } from "vue-router";
 import methodModel from "@/models/method.model";
@@ -34,14 +34,14 @@ import BlogCard from "@/components/common/card/blog-card";
 import materialSymbolsTag from "@/assets/g-img/material-symbols_tag.svg";
 import ApiClient from "@/methods/apiclient";
 
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const $route = useRoute();
 const blogType = ref($route.params.blogType);
 
 const blogs = ref([]);
 
 const getBlogsByType = () => {
-    ApiClient.get('blog/all',{page:1,limit:999,blogType:blogType.value}).then(res=>{
+    ApiClient.get('blog/all',{page:1,limit:999,blogType:blogType.value})?.then(res=>{
         if(res.data){
             blogs.value = res.data;
         }
