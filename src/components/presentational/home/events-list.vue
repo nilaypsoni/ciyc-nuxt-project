@@ -55,12 +55,13 @@
 
 <script setup>
 import Title from "@/components/common/text/title";
+import { ref, onMounted } from 'vue';
 import { useRoute } from "vue-router"
 import LiveEventsCard from "@/components/common/card/live-events-card";
 
 const route = useRoute();
 const emit = defineEmits();
-
+const isLoading = ref(true);
 const props = defineProps({
   title: {
     type: String,
@@ -88,7 +89,12 @@ const props = defineProps({
   isFeatured:Boolean
 })
 
-
+onMounted(() => {
+  // Delay the rendering by 1 second
+  setTimeout(() => {
+    isLoading.value = false; // Show content after 1 second
+  }, 1000);
+});
 const changeFilterType = (filterType) => {
     
     var data = {
