@@ -15,7 +15,7 @@
 <script setup>
 import router from "~/src/router";
 import {ROUTES} from "@/utils/constants/routes";
-import {MEDIA_BASEURL} from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 
 defineProps({
   organizer : Object
@@ -24,7 +24,7 @@ defineProps({
 const viewevent=(id)=>{
   router.push({name:ROUTES.ORGANIZATION,params:{organizerId:id}})
 }
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const useImg=(img)=>{
   let value='/placeholder.png'
   if(img && !img.includes('placeholder.png')) value=`${MEDIA_BASEURL}${img}`

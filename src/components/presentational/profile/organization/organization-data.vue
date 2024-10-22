@@ -198,7 +198,8 @@
 
 <script setup>
 import useReverseGeocoding from "@/composables/use-reverse-geocoding";
-import { MEDIA_BASEURL,ROLES } from "@/utils/constants";
+import { ROLES } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { reactive, ref, toRef, watchEffect, inject, watch } from 'vue';
 import ApiClient from "@/methods/apiclient";
 import { useRoute } from "vue-router";
@@ -215,7 +216,7 @@ import { VALIDATION_MESSAGE_TIMEOUT, SUCCESS_REDIRECT_TIMEOUT } from "@/utils/co
 import TokenService from "@/services/token.service";
 
 const route = useRoute()
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const countryCodeErrorMessage = ref('');
 const countryCodeSuccessMessage = ref('');
 

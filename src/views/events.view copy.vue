@@ -25,7 +25,7 @@
 import ManageEventsHeader from "@/components/presentational/events/manage-events/manage-events-header";
 import { reactive, ref, watch } from "vue";
 import PrimaryLoader from "@/components/common/loaders/primary-loader";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { eventTimeStatus, isoDateToNormalDate, twentyFourHourToTwelveHourFormat, viewError } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import ApiResponse from "@/components/common/text/api-response";
@@ -48,7 +48,7 @@ const filters = reactive({
   limit: 100,
   isDraft: ''
 })
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const role = localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization';
 const loading = ref(false)
 

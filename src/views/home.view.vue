@@ -558,7 +558,7 @@ import {
   createSeoFriendlyUrl,
   createSeoFriendlyUrlNonLower,
 } from "@/utils/helpers";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { dateToTimeRange, userCurrentTimezone } from "@/utils/helpers";
 import OrganizerEventCountCard from "@/components/common/card/organizer-event-count-card";
 
@@ -595,7 +595,7 @@ const onCardAddedModal = () => {
 };
 
 const route = useRoute();
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 watch(
   () => route.fullPath,
   (newPath, oldPath) => {

@@ -41,7 +41,7 @@
 <script setup>
 import useEventsService from "@/services/events.service";
 import PrimaryLoader from "@/components/common/loaders/primary-loader";
-import {MEDIA_BASEURL} from "@/utils/constants"
+import useMediaBaseUrl from '@/composables/media-base-url';
 import {twentyFourHourToTwelveHourFormat,isoDateToNormalDate} from "@/utils/helpers"
 import Dropdown from "@/components/common/dropdown/dropdown"
 import DropdownContent from "@/components/common/dropdown/dropdown-content"
@@ -49,7 +49,7 @@ import DropdownItem from "@/components/common/dropdown/dropdown-item"
 import {ROUTES} from "@/utils/constants/routes";
 import {ref} from "vue";
 import { createSeoFriendlyUrl } from "@/utils/helpers";
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const {useFetchOrganizerTicketOrdersService} = useEventsService()
 
 const {isLoading,data : ticketOrdersList} = useFetchOrganizerTicketOrdersService()

@@ -49,7 +49,7 @@ import homeTopSvg from "@/assets/g-img/header-t-l/d-home-top-l.svg"
 import {reactive} from "vue";
 import tokenService from "@/services/token.service";
 import { useRouter } from "vue-router";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import TokenService from "@/services/token.service";
 import { ROLES } from "@/utils/constants";
 import { BASE_URL } from "@/utils/constants";
@@ -61,7 +61,7 @@ const userData = ref(TokenService.getUser())
 const activeProfile = ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? localStorage.getItem('activeProfile') : ((userData?.value?.role==ROLES.ORGANIZATION) ? ROLES.ORGANIZATION : ROLES.SEEKER) ));
 
 const router = useRouter()
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const logout = () => {
   tokenService.clearStorage()
   localStorage.removeItem('activeProfile')

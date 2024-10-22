@@ -25,8 +25,8 @@
     </section>
 </template>
 <script setup>
-import { MEDIA_BASEURL } from "@/utils/constants";
-
+import useMediaBaseUrl from '@/composables/media-base-url';
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const props = defineProps({
     media:String,
     title:String,

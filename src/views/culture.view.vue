@@ -75,7 +75,7 @@ import CultureList from "@/components/presentational/culture/culture-list";
 import SiteService from "@/services/site.service";
 import {SwiperSlide} from "swiper/vue"
 import Slider from "@/components/common/slider";
-import {MEDIA_BASEURL} from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import slider1 from "@/assets/hero-slider/slider-1.jpg"
 import {EDITABLE_PAGE_NAMES} from "@/utils/constants/content-editing";
 import japaneseImg from "@/assets/cultures/art/4.png"
@@ -92,7 +92,7 @@ import {ROUTES} from "@/utils/constants/routes";
 
 const {useFetchPageContent} = SiteService()
 const {useFetchAllCultureGroupsService} = CultureService()
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const artList = reactive([
   {
     title:"Japanese",

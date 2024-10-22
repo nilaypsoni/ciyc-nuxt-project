@@ -248,7 +248,7 @@ import useToaster from "@/composables/use-toaster";
 import tokenService from "@/services/token.service";
 import { $ } from "dom7";
 import ApiClient from "@/methods/apiclient";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 
 const userData = ref(TokenService.getUser())
 const role = ref('')
@@ -257,7 +257,7 @@ const toggleVal =  ref(((localStorage.getItem('activeProfile') && localStorage.g
 const activeProfile = ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? localStorage.getItem('activeProfile') : ((userData?.value?.role==ROLES.ORGANIZATION || userData?.value?.role==ROLES.ORGANIZER) ? ROLES.ORGANIZATION : ROLES.SEEKER) ));
 console.log('activeProfile',activeProfile.value)
 const router = useRouter()
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 let userName = 'My Personal Dashboard';
 let organization = 'Business Dashboard';
 

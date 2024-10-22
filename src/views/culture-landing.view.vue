@@ -35,7 +35,7 @@
 </template>
 <script setup>
 import {toRef,ref, watch,reactive} from "vue";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { isoDateToNormalDate, userCurrentTimezone } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import { useRouter,useRoute } from "vue-router";
@@ -72,7 +72,7 @@ const culture = $route.params.culture;
 const currentPage = ref(1);
 const lastPage = ref(1);
 const totalEventLimit = ref(8);
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 
 
 
@@ -94,7 +94,7 @@ const capitalizeEachWord = (input) => {
 
 const getData=()=>{
 
-    ApiClient.get('content/by-culture-slug?cultureSlug='+culture).then(res=>{
+    ApiClient.get('content/by-culture-slug?cultureSlug='+culture)?.then(res=>{
 
        
       if(res.data){
@@ -129,6 +129,7 @@ getData();
 const fourEvents = ref([]);
 const events = ref([]);
 
+
 const getFourEvents = () => {
   const lng = localStorage.getItem('alng')
   const lat = localStorage.getItem('alat')
@@ -145,7 +146,7 @@ const getFourEvents = () => {
 
   parms.culture.push(culture);
  
-  ApiClient.get('event/browse', parms).then(res => {
+  ApiClient.get('event/browse', parms)?.then(res => {
     fourEvents.value = res.data
   })
 }
@@ -166,7 +167,7 @@ const getEvents = (page=1) => {
 
   parms.culture.push(culture);
  
-  ApiClient.get('event/browse', parms).then(res => {
+  ApiClient.get('event/browse', parms)?.then(res => {
     events.value = res.data
 
     lastPage.value = res.lastPage;
