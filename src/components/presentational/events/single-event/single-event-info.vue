@@ -524,7 +524,6 @@ const { MEDIA_BASEURL } = useMediaBaseUrl();
 const injectedEventData = inject("eventData", {});
 const eventData = ref(injectedEventData.value); // Ensure it's an object
 const userData = ref(TokenService.getUser())
-console.log(MEDIA_BASEURL,"texttttttt");
 
 
 const ogTitle = ref('Event Title');
