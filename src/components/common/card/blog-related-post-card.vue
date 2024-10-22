@@ -34,7 +34,9 @@
 import {watch,watchEffect ,ref, computed,onMounted} from "vue";
 import iconArrowRightSvg from "@/assets/blog/icon_arrow_right.svg";
 import audioBtn from "@/assets/blog/audio-btn.svg";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
+
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 
 const props = defineProps({
     blogDetails:Object

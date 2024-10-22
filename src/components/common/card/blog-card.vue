@@ -75,9 +75,12 @@
 import { computed } from 'vue';
 import router from "~/src/router";
 import {ROUTES} from "@/utils/constants/routes";
-import {MEDIA_BASEURL,BASE_URL} from "@/utils/constants";
+import {BASE_URL} from "@/utils/constants";
 import audioBtn from "@/assets/blog/audio-btn.svg";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { createSeoFriendlyUrl } from "@/utils/helpers";
+
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 
 const props = defineProps({
   blogDetails : Object
