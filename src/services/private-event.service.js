@@ -8,11 +8,12 @@ import {ROUTES} from "@/utils/constants/routes";
 const usePrivateEventService = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
+    const { $axios } = useNuxtApp();
 
     //Submit Contact Us
     const useHandlePrivateEventFormService = () => {
         const handlePrivateEvent = (data) => {
-            return axios.post(`/private-event/request/`,data)
+            return $axios.post(`/private-event/request/`,data)
         }
         const onSuccess = () => {
             // useToaster("success","",)

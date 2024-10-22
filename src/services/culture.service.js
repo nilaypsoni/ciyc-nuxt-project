@@ -13,7 +13,8 @@ const useCultureService = () => {
     //Get All Cultures
     const useFetchAllCulturesService = () => {
         const FetchAllCulturesRequest = () => {
-            return axios.get(`/culture/all?page=1&limit=9999`)
+            const { $axios } = useNuxtApp();
+            return $axios.get(`/culture/all?page=1&limit=9999`)
         }
         return useQuery(
             ['all-cultures'],
@@ -42,7 +43,8 @@ const useCultureService = () => {
     //Get All Culture Groups
     const useFetchAllCultureGroupsService = () => {
         const FetchAllCultureGroupsRequest = () => {
-            return axios.get(`/culture/group?page=1&limit=999`)
+            const { $axios } = useNuxtApp();
+            return $axios.get(`/culture/group?page=1&limit=999`)
         }
         return useQuery(
             ['all-culture-groups'],

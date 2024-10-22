@@ -10,6 +10,7 @@ import {ACCESS_TYPE} from "@/utils/constants/auth";
 import tokenService from "./token.service";
 
 const useSettingsService = () => {
+    const { $axios } = useNuxtApp();
     const router = useRouter()
     const queryClient = new QueryClient()
 
@@ -18,7 +19,7 @@ const useSettingsService = () => {
         const userId = TokenService.getUser()?._id
         const handleChangeProfilePictureRequest = (data) => {
             return (
-                axios.put(`/profile-settings/profile-picture?userId=${userId}`,data)
+                $axios.put(`/profile-settings/profile-picture?userId=${userId}`,data)
             )
         }
 
@@ -51,7 +52,7 @@ const useSettingsService = () => {
     const useHandleChangeUserInformationService = (profileType) => {
         const userId = TokenService.getUser()?._id
         const handleChangeUserInformationRequest = (data) => {
-            return axios.put(`/profile-settings/info?userId=${userId}`,data)
+            return $axios.put(`/profile-settings/info?userId=${userId}`,data)
         }
         const onSuccess = (response) => {
             const userRole = TokenService.getUser()?.role
@@ -86,7 +87,7 @@ const useSettingsService = () => {
     const useHandleChangeUserPasswordService = () => {
         const userId = TokenService.getUser()?._id
         const handleChangeUserPasswordRequest = (data) => {
-            return axios.put(`/profile-settings/password?userId=${userId}`,data)
+            return $axios.put(`/profile-settings/password?userId=${userId}`,data)
         }
 
 
@@ -104,7 +105,7 @@ const useSettingsService = () => {
 
         return [];
         // const handleFetchStripeCountriesRequest = () => {
-        //     return axios.get(`/profile-settings/countries/new`)
+        //     return $axios.get(`/profile-settings/countries/new`)
         // }
 
         // return useQuery(
@@ -121,7 +122,7 @@ const useSettingsService = () => {
     const useFetchIsFollowingOrgAndFavEventService = (eventId,userId) => {
         const userRole = TokenService.getUser()?.role
         const fetchIsFollowingOrgAndFavEvent = (eventId,userId) => {
-            return axios.get(`/event/favourite-followed?seekerId=${userId.value}&eventId=${eventId.value}`)
+            return $axios.get(`/event/favourite-followed?seekerId=${userId.value}&eventId=${eventId.value}`)
         }
         return useQuery(
             ['is-following-or-favourite',eventId],
@@ -138,7 +139,7 @@ const useSettingsService = () => {
     const useHandleFollowOrganizerService = () => {
         const userId = TokenService.getUser()?._id
         const handleFollowOrganizerRequest = (id) => {
-            return axios.post(`/follow?seekerId=${userId}&organizerId=${id}`)
+            return $axios.post(`/follow?seekerId=${userId}&organizerId=${id}`)
         }
 
         const onSuccess = () => {
@@ -162,7 +163,7 @@ const useSettingsService = () => {
     const useHandleUnFollowOrganizerService = () => {
         const userId = TokenService.getUser()?._id
         const handleUnFollowOrganizerRequest = (id) => {
-            return axios.delete(`/follow?seekerId=${userId}&organizerId=${id}`)
+            return $axios.delete(`/follow?seekerId=${userId}&organizerId=${id}`)
         }
 
         const onSuccess = () => {
@@ -188,7 +189,7 @@ const useSettingsService = () => {
         const handleFetchFollowersRequest = () => {
             const page = 1
             const limit = 999
-            return axios.get(`/follow?userId=${userId}&page=${page}&limit=${limit}&followType=${followType}`)
+            return $axios.get(`/follow?userId=${userId}&page=${page}&limit=${limit}&followType=${followType}`)
         }
 
         const onError = (error) => {
@@ -209,7 +210,7 @@ const useSettingsService = () => {
     const useHandleSaveCreditCardService = () => {
         const userId = TokenService.getUser()?._id
         const handleSaveCreditCardRequest = () => {
-            return axios.post(`/profile-settings/card?userId=${userId}`)
+            return $axios.post(`/profile-settings/card?userId=${userId}`)
         }
 
         const onSuccess = (response) => {
@@ -230,7 +231,7 @@ const useSettingsService = () => {
     const useHandleSavePayoutService = () => {
         const userId = TokenService.getUser()?._id
         const handleSavePayoutRequest = () => {
-            return axios.put(`/profile-settings/payout?userId=${userId}`)
+            return $axios.put(`/profile-settings/payout?userId=${userId}`)
         }
 
         const onSuccess = (response) => {
@@ -255,7 +256,7 @@ const useSettingsService = () => {
         
         const handleVisitStripeDashboardRequest = (role) => {
             
-            return axios.get(`profile-settings/payout/dashboard?role=${role}&userId=${userId}`)
+            return $axios.get(`profile-settings/payout/dashboard?role=${role}&userId=${userId}`)
         }
 
         const onSuccess = (response) => {
@@ -279,7 +280,7 @@ const useSettingsService = () => {
         const userId = TokenService.getUser()?._id
         const queryClient = useQueryClient()
         const handleDeleteCreditCardRequest = () => {
-            return axios.delete(`/profile-settings/card?userId=${userId}`)
+            return $axios.delete(`/profile-settings/card?userId=${userId}`)
         }
 
         const onSuccess = () => {
@@ -308,7 +309,7 @@ const useSettingsService = () => {
     const useFetchCreditCardService = () => {
         const userId = TokenService.getUser()?._id
         const FetchCreditCardRequest = () => {
-            return axios.get(`/profile-settings/card?userId=${userId}`)
+            return $axios.get(`/profile-settings/card?userId=${userId}`)
         }
 
         return useQuery(

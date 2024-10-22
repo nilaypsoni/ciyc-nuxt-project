@@ -9,12 +9,13 @@ import {ROUTES} from "@/utils/constants/routes";
 const useUserService = () => {
     const router = useRouter()
     const queryClient = new useQueryClient()
+    const { $axios } = useNuxtApp();
 
 
     //Fetch User Data
     const useFetchUserService = (userId,isEnabled) => {
         const fetchUserRequest = (id) => {
-            return axios.get(`/user/?userId=${id}`)
+            return $axios.get(`/user/?userId=${id}`)
         }
 
         return useQuery(

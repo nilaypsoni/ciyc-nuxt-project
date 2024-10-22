@@ -14,8 +14,9 @@ const useAuthService = () => {
 
   //User Log In
   const useHandleLoginInService = (emit) => {
+    const { $axios } = useNuxtApp();
     const handleLogInRequest = (data) => {
-      return axios.post(`/auth/login`, data);
+      return $axios.post(`/auth/login`, data);
     };
 
     const onSuccess = (response) => {
@@ -60,8 +61,9 @@ const useAuthService = () => {
 
   //Guest Log In
   const useHandleGuestLoginInService = (emit) => {
+    const { $axios } = useNuxtApp();
     const handleLogInRequest = (data) => {
-      return axios.post(`/guest`, data);
+      return $axios.post(`/guest`, data);
     };
     const onSuccess = (response, data) => {
       TokenService.setUser({ ...response.data?.data, role: ROLES.GUEST });
@@ -94,8 +96,9 @@ const useAuthService = () => {
 
   //Forgot Password
   const useHandleForgotPasswordService = () => {
+    const { $axios } = useNuxtApp();
     const handleForgotPasswordRequest = (data) => {
-      return axios.post(`/auth/forgot-password`, data);
+      return $axios.post(`/auth/forgot-password`, data);
     };
 
     return useMutation(
@@ -108,8 +111,9 @@ const useAuthService = () => {
 
   //Change Password
   const useHandleChangePasswordService = () => {
+    const { $axios } = useNuxtApp();
     const handleChangePasswordRequest = (data) => {
-      return axios.post(`/auth/forgot-password/change-password`, data);
+      return $axios.post(`/auth/forgot-password/change-password`, data);
     };
 
     return useMutation(
@@ -127,7 +131,8 @@ const useAuthService = () => {
     };
 
     const handleOrganizationDetailsRequest = (data) => {
-      return axios.patch(`/auth/organization?userId=${userId.value}`, data);
+      const { $axios } = useNuxtApp();
+      return $axios.patch(`/auth/organization?userId=${userId.value}`, data);
     };
 
     return useMutation(
@@ -143,7 +148,8 @@ const useAuthService = () => {
   //User Email Verification
   const useHandleEmailVerificationService = (userId) => {
     const handleEmailVerificationRequest = (data) => {
-      return axios.post(`/auth/email-verification?userId=${userId}`, data);
+      const { $axios } = useNuxtApp();
+      return $axios.post(`/auth/email-verification?userId=${userId}`, data);
     };
 
     return useMutation(
@@ -187,7 +193,8 @@ const useAuthService = () => {
 
     const handleSignupRequest = (data) => {
       console.log(data, "data is here");
-      return axios.post(`/auth/signup`, data);
+      const { $axios } = useNuxtApp();
+      return $axios.post(`/auth/signup`, data);
     };
 
     return useMutation((signUpData) => handleSignupRequest(signUpData), {
