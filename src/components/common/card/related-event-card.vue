@@ -93,7 +93,7 @@
     </article>
 </template>
 <script setup>
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import methodModel from "@/models/method.model";
 import dateModel from "@/models/date.model";
 import iconArrowRightSvg from "@/assets/blog/icon_arrow_right.svg";
@@ -105,7 +105,7 @@ const router = useRouter()
 const props = defineProps({
     eventData: Object
 });
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const detail = (pageSlug) => {
     router.push({ name: ROUTES.EVENT, params: { eventTitle:pageSlug } }).then(() => {
       location.href = window.location.href; // Force reload by updating the URL

@@ -103,7 +103,7 @@
   </template>
   
   <script setup>
-  import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
   import { isoDateToNormalDate, userCurrentTimezone } from "@/utils/helpers";
   import { ROUTES } from "@/utils/constants/routes";
   import { useRouter } from "vue-router";
@@ -131,7 +131,7 @@
     isOrganizer:Boolean
   })
   const router = useRouter()
-  
+  const { MEDIA_BASEURL } = useMediaBaseUrl();
   const user = credentialModel.getUser()
   const userRole = credentialModel.getUser().role
   

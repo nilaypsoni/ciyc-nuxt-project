@@ -105,9 +105,11 @@ const props = defineProps({
     default:{}
   }
 })
+const aplace = ref('');
 
-const aplace = ref(localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '');
-
+if (import.meta.client) {
+  aplace.value = localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '';
+}
 
 const category = props.category;
 const culture = props.culture;
@@ -157,7 +159,7 @@ if(culture != ''){
     locationUsers.value = false;
     parms.culture = culture
 
-    ApiClient.get('user/culture/organizer', parms).then(res => {
+    ApiClient.get('user/culture/organizer', parms)?.then(res => {
     organizers.value = res.data
 
     lastPageOrganizer.value = res.lastPage;
@@ -169,7 +171,7 @@ if(culture != ''){
             parms.isPopular = false;
             locationUsers.value = true;
             
-            ApiClient.post('user/organizers', {...parms,longitude:props.location.longitude,latitude:props.location.latitude}).then(res => {
+            ApiClient.post('user/organizers', {...parms,longitude:props.location.longitude,latitude:props.location.latitude})?.then(res => {
                 if(res.data.length > 0){
                     organizers.value = res.data
 
@@ -187,7 +189,7 @@ if(culture != ''){
             
 
             parms.isPopular = true;
-            ApiClient.post('user/organizers', parms).then(res => {
+            ApiClient.post('user/organizers', parms)?.then(res => {
                 if(res.data.length > 0){
                     organizers.value = res.data
 
@@ -215,7 +217,7 @@ if(culture != ''){
             locationUsers.value = false;
         }
 
-        ApiClient.get('user/eventCategory/organizer', parms).then(res => {
+        ApiClient.get('user/eventCategory/organizer', parms)?.then(res => {
             if(res.data.length > 0){
                 organizers.value = res.data
                 lastPageOrganizer.value = res.lastPage;
@@ -228,7 +230,7 @@ if(culture != ''){
         })
     }else{
         parms.isPopular = true;
-        ApiClient.post('user/organizers', parms).then(res => {
+        ApiClient.post('user/organizers', parms)?.then(res => {
             if(res.data.length > 0){
                 organizers.value = res.data
 
@@ -271,7 +273,7 @@ let parms = {
 if(culture != ''){
     parms.culture = culture
     locationOrganizations.value = false;
-    ApiClient.get('user/culture/organizer', parms).then(res => {
+    ApiClient.get('user/culture/organizer', parms)?.then(res => {
         organizations.value = res.data
 
         lastPageOrganization.value = res.lastPage;
@@ -282,7 +284,7 @@ if(culture != ''){
             parms.isPopular = false;
             locationOrganizations.value = true;
             
-            ApiClient.post('user/organizers', {...parms,longitude:props.location.longitude,latitude:props.location.latitude}).then(res => {
+            ApiClient.post('user/organizers', {...parms,longitude:props.location.longitude,latitude:props.location.latitude})?.then(res => {
                 if(res.data.length > 0){
                     organizations.value = res.data
 
@@ -300,7 +302,7 @@ if(culture != ''){
             
 
             parms.isPopular = true;
-            ApiClient.post('user/organizers', parms).then(res => {
+            ApiClient.post('user/organizers', parms)?.then(res => {
                 if(res.data.length > 0){
                     organizations.value = res.data
 
@@ -330,7 +332,7 @@ if(culture != ''){
             locationOrganizations.value = false;
         }
 
-        ApiClient.get('user/eventCategory/organizer', parms).then(res => {
+        ApiClient.get('user/eventCategory/organizer', parms)?.then(res => {
             if(res.data.length > 0){
                 organizations.value = res.data
                 lastPageOrganization.value = res.lastPage;
@@ -343,7 +345,7 @@ if(culture != ''){
         })
     }else{
         parms.isPopular = true;
-        ApiClient.post('user/organizers', parms).then(res => {
+        ApiClient.post('user/organizers', parms)?.then(res => {
             if(res.data.length > 0){
                 organizations.value = res.data
 

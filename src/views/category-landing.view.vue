@@ -89,7 +89,7 @@
 </template>
 <script setup>
 import {toRef,ref, watch,reactive,onMounted} from "vue";
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { isoDateToNormalDate, userCurrentTimezone } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import { useRouter,useRoute } from "vue-router";
@@ -104,9 +104,9 @@ import Organization from "@/components/presentational/event-type/organization";
 import EventList from "@/components/presentational/events/events/event-list";
 
 import notFoundIcon from "@/assets/not-found-icon.png";
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 import ApiClient from "@/methods/apiclient";
-
+const aplace = ref('');
 
 const $route = useRoute();
 
@@ -117,14 +117,18 @@ const lastPage = ref(1);
 const totalEventLimit = ref(8);
 
 
-const aplace = ref(localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '');
+if (import.meta.client) {
+  aplace.value = localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '';
+}
 const longitude = ref(0)
 const latitude = ref(0)
 
-const patchLatng=()=>{
-  latitude.value=Number(localStorage.getItem('alat')||0)
-  longitude.value=Number(localStorage.getItem('alng')||0)
-}
+const patchLatng = () => {
+  if (import.meta.client) {
+    latitude.value = Number(localStorage.getItem('alat') || 0);
+    longitude.value = Number(localStorage.getItem('alng') || 0);
+  }
+};
 patchLatng()
 
 
@@ -147,7 +151,7 @@ const eventDetails = reactive({
 
 const getData=()=>{
 
-    ApiClient.get('event-types/byName?eventType='+eventTypeTxt).then(res=>{
+    ApiClient.get('event-types/byName?eventType='+eventTypeTxt)?.then(res=>{
 
     
       if(res.data){
@@ -203,7 +207,7 @@ const getEventsByCity = () => {
         
         // params.cityName = aplace.value;
 
-        ApiClient.get('event/byCityName',params).then(res=>{
+        ApiClient.get('event/byCityName',params)?.then(res=>{
     
             if(res.data){
             
@@ -263,8 +267,8 @@ const getPopularEvents = (byLocationDefault=true,dateFilter = '',excludeCity='')
     if(latitude.value != 0 && longitude.value != 0 && byLocationDefault){
         params.excludeCity = aplace.value;
 
-        // ApiClient.get('event/featured-popular', {...params,latitude:latitude.value,longitude:longitude.value }).then(res => {
-        ApiClient.get('event/featured-popular', {...params }).then(res => {
+        // ApiClient.get('event/featured-popular', {...params,latitude:latitude.value,longitude:longitude.value })?.then(res => {
+        ApiClient.get('event/featured-popular', {...params })?.then(res => {
             if(res.data && res.data.length > 0){
                 // Location Event
                 
@@ -315,7 +319,7 @@ const setAllEventsWithoutLocation = (page=1) =>{
         // }
 
 
-        ApiClient.get('event/browse', parms).then(res => {
+        ApiClient.get('event/browse', parms)?.then(res => {
             if(res.data){
                 
                 lastPage.value = res.lastPage;
@@ -343,7 +347,7 @@ const getEvents = (page=1) => {
     //         excludeCity:aplace.value
     //     };
 
-    //     ApiClient.get('event/near-by', parms).then(res => {
+    //     ApiClient.get('event/near-by', parms)?.then(res => {
     //         if(res.data.length > 0){
     //             eventListDetails.initialResponseData = true;
                 

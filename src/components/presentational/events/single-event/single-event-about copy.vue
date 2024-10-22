@@ -35,8 +35,8 @@
 
 <script setup>
 import {inject} from "vue";
-import {MEDIA_BASEURL} from "@/utils/constants";
-
+import useMediaBaseUrl from '@/composables/media-base-url';
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const eventData = inject("eventData",{})
 const eventImg=(img)=>{
   let value=`${MEDIA_BASEURL}${img}`

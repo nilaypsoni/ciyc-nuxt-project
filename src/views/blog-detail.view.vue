@@ -37,7 +37,7 @@
 <script setup>
 import {watch,watchEffect ,ref, computed,onMounted} from "vue";
 
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { ROUTES } from "@/utils/constants/routes";
 import { useRoute,useRouter } from "vue-router";
 import methodModel from "@/models/method.model";
@@ -52,14 +52,14 @@ import BlogBody from "@/components/presentational/blog/blog-body.vue";
 import BlogRelatedPost from "@/components/presentational/blog/blog-related-post.vue";
 import OrganizerEventCountCard from "@/components/common/card/organizer-event-count-card";
 import useGetUserIpAddress from "@/composables/use-get-user-ip-address.js";
-
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 const $route = useRoute();
 const pageSlug = ref($route.params.pageSlug);
 
 const blogDetails = ref({});
 
 const getDetails = () => {
-    ApiClient.get('blog/by-slug',{pageSlug:pageSlug.value}).then(res=>{
+    ApiClient.get('blog/by-slug',{pageSlug:pageSlug.value})?.then(res=>{
         if(res.data){
             blogDetails.value = res.data;
             getRelatedOrganization();
@@ -78,7 +78,7 @@ const getRelatedOrganization = () =>{
         limit:6,
         tags:JSON.stringify(blogDetails.value.tags)
     }
-    ApiClient.get('user/related-users-by-tags',params).then(res=>{
+    ApiClient.get('user/related-users-by-tags',params)?.then(res=>{
         if(res.data){
             organizations.value = res.data;
         }
@@ -91,7 +91,7 @@ const registerVisitor = async() => {
     const userNetworkDetails = await useGetUserIpAddress();
 
     if(userNetworkDetails && userNetworkDetails.data && userNetworkDetails.data.ip){
-        ApiClient.get('blog/register-visitor',{blogId:blogDetails.value._id,ipAddress:userNetworkDetails.data.ip}).then(res=>{
+        ApiClient.get('blog/register-visitor',{blogId:blogDetails.value._id,ipAddress:userNetworkDetails.data.ip})?.then(res=>{
         if(res.data){
             
         }

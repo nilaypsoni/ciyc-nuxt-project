@@ -75,8 +75,10 @@ const props = defineProps({
     type: Function
   }
 })
-
-const aplace = ref(localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '');
+const aplace = ref('');
+if (import.meta.client) {
+  aplace.value = localStorage.getItem('aplace') ? localStorage.getItem('aplace') : '';
+}
 
 
 const category = props.category;
@@ -99,7 +101,7 @@ const getOrganizations = (page=1) => {
 
     parms.category = category
 
-    ApiClient.get('user/eventCategory/organizer', parms).then(res => {
+    ApiClient.get('user/eventCategory/organizer', parms)?.then(res => {
         if(res.data.length > 0){
             organizations.value = res.data
             lastPageOrganization.value = res.lastPage;

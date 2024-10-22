@@ -20,10 +20,8 @@
 
                                 <span class="info-box-img position-relative overflow-hidden mb-3">
                                     <ul class="one-item">
-                                        <li>
-                                          <span class="e-d-slider-img">
-                                            <img  :src="`${eventImg(eventData?.media ? eventData?.media[0] : 'event-placeholder.png')}`" alt="img"/>
-                                          </span></li>
+                                      <li>
+                                        <span class="e-d-slider-img"><img  :src="`${eventImg(eventData?.media ? eventData?.media[0] : 'event-placeholder.png')}`" alt="img"></span></li>
                                     </ul>
                                     <a href="javascript:;" v-if="userData"  @click="handleFavIconClick" class="text-white pt-2 pb-2 ps-3 pe-3 d-inline-flex heart-icon">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
@@ -519,13 +517,15 @@ import { ROUTES } from "@/utils/constants/routes";
 import ApiClient from "@/methods/apiclient";
 import useToaster from "@/composables/use-toaster";
 import dateModel from "@/models/date.model";
-import { MEDIA_BASEURL, BASE_URL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 
 const emit = defineEmits(["following-confirmed", "event-favourite-confirmed"]);
-
-const injectedEventData = inject("eventData", { location: { coordinates: [] }, isPublished: true, creator: {} });
-const eventData = ref(injectedEventData || {});  // Ensure it's an object
+const { MEDIA_BASEURL } = useMediaBaseUrl();
+const injectedEventData = inject("eventData", {});
+const eventData = ref(injectedEventData.value); // Ensure it's an object
 const userData = ref(TokenService.getUser())
+console.log(MEDIA_BASEURL,"texttttttt");
+
 
 const ogTitle = ref('Event Title');
 const ogDescription = ref('Event Description');
@@ -893,11 +893,14 @@ const salesEnded = () => {
   return value;
 };
 
-const eventImg = (img) => {
-  let value = `${MEDIA_BASEURL}${img}`;
-  if (img === 'event-placeholder.png') value = '/event-placeholder.png';
-  return value;
-};
+
+const eventImg=(img)=>{
+  let value=`${MEDIA_BASEURL}${img}`
+  console.log(MEDIA_BASEURL,"textggg1111");
+  if(img ==='event-placeholder.png') value='/event-placeholder.png'
+  console.log(value,"textggg");
+  return value
+}
 
 
 const copyUrlToClipboard = async (eventTitle,eventStartDateTime,eventTimeZone) => {
