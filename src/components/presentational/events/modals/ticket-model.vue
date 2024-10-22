@@ -7,11 +7,14 @@
                 </h2>
             </div>
             <div>
-                <img src="Event_Images.png" class="eventimg"/>
+                <img src="../../../../assets/Event_ Images.png" class="eventimg"/>
             </div>
         </div>
     </div>
 </template>
+<script setup>
+// import Event from "../../../../assets/Event_ Images.png"
+</script>
 <style>
 h1{
     color: red;

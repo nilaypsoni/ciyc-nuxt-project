@@ -301,7 +301,7 @@ let parms = {
 }
 
 
-ApiClient.get('user/organizer', parms).then(res => {
+ApiClient.get('user/organizer', parms)?.then(res => {
     organizerFourEvents.value = res.data.events;
 })
 
@@ -324,7 +324,7 @@ let parms = {
 }
 
 
-ApiClient.get('user/organizer', parms).then(async res => {
+ApiClient.get('user/organizer', parms)?.then(async res => {
     var userData = res.data.userDetails;
 
     
@@ -451,7 +451,7 @@ const getPastEvents = (page=1) => {
     current:false
   }
 
-  ApiClient.get('event/past-current',params).then(res=>{
+  ApiClient.get('event/past-current',params)?.then(res=>{
     if(res.data){
         pastEvents.value=res.data
         pastEventLastPage.value = res.lastPage
@@ -502,7 +502,7 @@ let parms = {
 
 parms.type = roleTxt.value.toLowerCase();
 
-ApiClient.post('user/organizers', parms).then(res => {
+ApiClient.post('user/organizers', parms)?.then(res => {
   organizers.value = res.data
 
   lastPageOrganizer.value = res.lastPage;

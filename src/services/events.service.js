@@ -287,7 +287,7 @@ const useEventsService = () => {
             return axios.get(`/event/?eventId=${id.value}`)
         }
         const onError = (error) => {
-            if(error.response.status === 400){
+            if(error.response?.status === 400){
                 router.push({name:ROUTES.HOME})
             }
         }
@@ -465,7 +465,7 @@ const useEventsService = () => {
         }
 
         const onError = (error) => {
-            if(error.response.status === 400){
+            if(error.response?.status === 400){
                 console.log('error')
             }
         }
