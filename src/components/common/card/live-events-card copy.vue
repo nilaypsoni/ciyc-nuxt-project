@@ -320,7 +320,7 @@
 </template>
 
 <script setup>
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { isoDateToNormalDate, userCurrentTimezone } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import { useRouter } from "vue-router";
@@ -329,6 +329,8 @@ import methodModel from "@/models/method.model";
 import { ROLES } from "@/utils/constants";
 import dateModel from "@/models/date.model";
 import { createSeoFriendlyUrl } from "@/utils/helpers";
+
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 
 const props = defineProps({
   eventData: {

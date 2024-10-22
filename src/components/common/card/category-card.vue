@@ -11,10 +11,11 @@
 </article>
 </template>
 <script setup>
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import {ROUTES} from "@/utils/constants/routes";
 import bannerSer01 from "@/assets/banner-ser/earth.svg"
 
+const { MEDIA_BASEURL } = useMediaBaseUrl();
 
 const props = defineProps({
   categoryData:Object,

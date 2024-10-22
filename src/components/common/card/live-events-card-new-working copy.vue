@@ -248,7 +248,7 @@
 </template>
 
 <script setup>
-import { MEDIA_BASEURL } from "@/utils/constants";
+import useMediaBaseUrl from '@/composables/media-base-url';
 import { isoDateToNormalDate, userCurrentTimezone } from "@/utils/helpers";
 import { ROUTES } from "@/utils/constants/routes";
 import { useRouter } from "vue-router";
@@ -261,6 +261,9 @@ import { createSeoFriendlyUrl } from "@/utils/helpers";
 import carbonTime from "@/assets/g-img/carbon_time.svg";
 import tablerBuilding from "@/assets/g-img/tabler_building.svg";
 import materialSymbolsTag from "@/assets/g-img/material-symbols_tag.svg";
+
+const { MEDIA_BASEURL } = useMediaBaseUrl();
+
 const props = defineProps({
   eventData: {
     type: Object,
