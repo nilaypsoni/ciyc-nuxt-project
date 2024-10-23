@@ -71,7 +71,7 @@ let parms = {
   is_event_not_found: true,
 }
 
-  ApiClient.get('event/browse', parms).then(res => {
+  ApiClient.get('event/browse', parms)?.then(res => {
     events.value = res.data
   })
 

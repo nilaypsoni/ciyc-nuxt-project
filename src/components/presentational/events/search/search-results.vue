@@ -188,7 +188,11 @@ const props = defineProps({
 console.log(props.organizationData, 'organizationsData')
 
 const emit = defineEmits(['handle-event-category-filter','hande-is-organizer-profile','handle-remove-applied-filter','handle-sort-by-filter'])
-const screenWidth = screen.width
+const screenWidth = ref(0); 
+if (process.client) {
+  screenWidth.value = screen.width; // Access screen width only if client-side
+}
+
 const prevData = ref('')
 
 const organizationProfileType = ref('events');
@@ -288,28 +292,29 @@ const changeSortBy = (selectedOption) =>{
 
 
 const allData = () => {
-  const lng = localStorage.getItem('alng')
-  const lat = localStorage.getItem('alat')
-  let parms = {
-    limit: 20,
-    page: 1,
-    all: true,
-    dateFilter: 1,
-    category: 1,
-    searchQuery: '',
-    is_event_not_found: true,
-    organizationProfileType:organizationProfileType.value
-  }
+  if (process.client) {
+    const lng = localStorage.getItem('alng');
+    const lat = localStorage.getItem('alat');
+    let parms = {
+      limit: 20,
+      page: 1,
+      all: true,
+      dateFilter: 1,
+      category: 1,
+      searchQuery: '',
+      is_event_not_found: true,
+      organizationProfileType: organizationProfileType.value,
+    };
 
-  if (lat) {
-    parms.latitude = lat
-    parms.longitude = lng
+    if (lat) {
+      parms.latitude = lat;
+      parms.longitude = lng;
+    }
+    ApiClient.get('event/browse', parms).then((res) => {
+      prevData.value = res.data;
+    });
   }
-  ApiClient.get('event/browse', parms).then(res => {
-    prevData.value = res.data
-    
-  })
-}
+};
 
 const getBusinessType = () => {
   ApiClient.get('business-type/all', { page: 1, limit: 9999999, search: '' }).then(res => {
@@ -333,9 +338,11 @@ const toggleSortByOptions = () => {
   }
 }
 
-
-allData()
-getBusinessType();
+onMounted(() => {
+  // Call your functions here
+  allData();
+  getBusinessType();
+});
 
 watch(() => props.eventData, () => {
   allData()
@@ -344,11 +351,13 @@ watch(() => props.eventData, () => {
 const longitude = ref(0)
 const latitude = ref(0)
 const patchLatng = () => {
-  latitude.value = Number(localStorage.getItem('alat') || 0)
-  longitude.value = Number(localStorage.getItem('alng') || 0)
-  console.log("latitude events", latitude.value);
-  console.log("longitude events", longitude.value);
-}
+  if (process.client) {
+    latitude.value = Number(localStorage.getItem('alat') || 0);
+    longitude.value = Number(localStorage.getItem('alng') || 0);
+    console.log('latitude events', latitude.value);
+    console.log('longitude events', longitude.value);
+  }
+};
 patchLatng()
 
 const address = ref({ lat: 0, lng: 0 })
