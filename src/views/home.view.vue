@@ -227,7 +227,7 @@
 
   <events-list
     v-if="upcomingEventDetails?.initialResponse"
-    :filter-type="eventFilterTypes.upcoming"
+    :filter-type="eventFilterTypes?.upcoming"
     :event-list-type="EVENTS_LIST.UPCOMING"
     @handle-filter-type-change="handleFilterTypeChange"
     :custom-class="
@@ -596,16 +596,13 @@ const onCardAddedModal = () => {
 
 const route = useRoute();
 const { MEDIA_BASEURL } = useMediaBaseUrl();
-watch(
-  () => route.fullPath,
-  (newPath, oldPath) => {
-    if (process.client) {
-      if (newPath !== oldPath) {
-        $("body").removeClass("home-page");
-      }
-    }
+
+
+router.afterEach((to, from) => {
+  if (process.client) {
+    $("body").removeClass("home-page");
   }
-);
+});
 
 watch(() => {
   if (process.client) {
