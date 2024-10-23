@@ -27,7 +27,7 @@ export const EVENTS_LIST = Object.freeze({
     POPULAR : 'popular',
     NEARBY : 'nearby',
     EVENT_TYPE : 'event-type',
-    UPCOMING:'upcomming',
+    UPCOMING:'upcoming',
     COMNETE:'comnete'
 
 
