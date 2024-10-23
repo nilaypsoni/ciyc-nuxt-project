@@ -130,26 +130,28 @@ const fourEvents = ref([]);
 const events = ref([]);
 
 
-const getFourEvents = () => {
-  const lng = localStorage.getItem('alng')
-  const lat = localStorage.getItem('alat')
-  let parms = {
-    limit: 4,
-    page: 1,
-    all: true,
-    dateFilter: 1,
-    category: 1,
-    searchQuery: '',
-    is_event_not_found: true,
-    culture:[]
-  }
-
-  parms.culture.push(culture);
- 
-  ApiClient.get('event/browse', parms)?.then(res => {
-    fourEvents.value = res.data
-  })
-}
+onMounted(() => {
+    const getFourEvents = () => {
+        if (process.client || import.meta.client) {
+            const lng = localStorage.getItem('alng');
+            const lat = localStorage.getItem('alat');
+            
+            let parms = {
+                limit: 4,
+                page: 1,
+                all: true,
+                dateFilter: 1,
+                category: 1,
+                searchQuery: '',
+                is_event_not_found: true,
+                culture: []
+            };
+            parms.culture.push(culture);
+            ApiClient.get('event/browse', parms)?.then(res => {
+                fourEvents.value = res.data;
+            });
+        }
+    };
 getFourEvents();
 
 const getEvents = (page=1) => {
@@ -212,4 +214,5 @@ getEvents(currentPage.value)
 
 
 getEvents(1)
+});
 </script>

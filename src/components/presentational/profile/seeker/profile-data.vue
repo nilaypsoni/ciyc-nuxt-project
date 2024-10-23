@@ -76,7 +76,7 @@ let fieldDetails = reactive({
 
 const getUser=()=>{
   
-  ApiClient.get(`profile-settings/detail?userId=${userData.value._id}`).then(res=>{
+  ApiClient.get(`profile-settings/detail?userId=${userData.value._id}`)?.then(res=>{
     fieldDetails.firstName=res.data.firstName
     fieldDetails.organization=res.data.organization
     fieldDetails.lastName=res.data.lastName
