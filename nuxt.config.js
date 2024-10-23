@@ -148,7 +148,7 @@ export default defineNuxtConfig({
 
   // Global CSS
   css: [
-    "bootstrap/dist/css/bootstrap.min.css",
+    // "bootstrap/dist/css/bootstrap.min.css",
     "~/src/assets/css/reset.css",         // Updated path
     "~/src/assets/css/global.css",        // Updated path
     "~/src/assets/css/responsive.css",    // Updated path
@@ -199,6 +199,7 @@ export default defineNuxtConfig({
     "~/src/plugins/fontawesome.js",
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
+    { src: '~/src/plugins/vue-datepicker.js', mode: 'client' }
   ],
   runtimeConfig: {
     public: {

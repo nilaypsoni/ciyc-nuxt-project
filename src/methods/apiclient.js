@@ -23,7 +23,10 @@ const handleError = (err, hideError) => {
         // localStorage.clear()
 
         tokenService.clearStorage();
-        window.location.assign("/");
+        if (process.client) {
+          window.location.assign("/");
+        }
+       
       }
       message = err && err.error && err.error.message;
       if (!message) message = err.message;
@@ -37,10 +40,10 @@ const handleError = (err, hideError) => {
 class ApiClient {
   static post(url1, params, base = "") {
     const { $axios } = useNuxtApp();
+    console.log({$axios})
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;
-
       setAuthorizationToken($axios);
       return new Promise(function (fulfill, reject) {
         $axios

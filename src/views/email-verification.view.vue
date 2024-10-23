@@ -34,7 +34,7 @@ import { ROUTES } from "@/utils/constants/routes";
 import { useRoute, useRouter } from "vue-router"
 import useUrlQuery from "@/composables/use-url-query";
 import useToaster from "@/composables/use-toaster";
-import VueTagsInput from '@sipec/vue3-tags-input';
+// import VueTagsInput from '@sipec/vue3-tags-input';
 import methodModel from "@/models/method.model";
 import BaseTimepicker from "@/components/common/form/base-timepicker";
 import ApiClient from "@/methods/apiclient"
