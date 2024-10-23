@@ -60,7 +60,6 @@ import LiveEventsCard from "@/components/common/card/live-events-card";
 
 const route = useRoute();
 const emit = defineEmits();
-
 const props = defineProps({
   title: {
     type: String,
