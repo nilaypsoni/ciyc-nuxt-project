@@ -40,7 +40,6 @@ const handleError = (err, hideError) => {
 class ApiClient {
   static post(url1, params, base = "") {
     const { $axios } = useNuxtApp();
-    console.log({$axios})
     if (process.client) {
       let url = baseUrl + url1;
       if (base) url = base + url1;

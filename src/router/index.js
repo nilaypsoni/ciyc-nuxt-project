@@ -1,4 +1,4 @@
-// import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 import HomeView from '@/views/home.view.vue';
 import {ROUTES} from "@/utils/constants/routes";
 import MainLayout from "@/layouts/main.layout"
@@ -27,9 +27,9 @@ const websiteDomain = 'Cultureinyourcity.com';
 const eventPlaceHolder = `${MEDIA_BASEURL}event-placeholder.png`;
 const websiteLogo = `${BASE_URL}logo.svg`;
 
-export default {
-  // history: base => import.meta.client ? createMemoryHistory(base) : null,
-  routes: (_routes) => [
+// export default {
+//   history: base => import.meta.client ? createWebHistory(base) : createMemoryHistory(base),
+ const routes = [
     //Public Routes
   {
     path: '/',
@@ -553,16 +553,24 @@ export default {
     component: () => import('../views/not-found.view.vue'),
   },
 ]
-}
 
 
+const isClient = typeof window !== 'undefined';
 
+const router = createRouter({
+  history: isClient ? createWebHistory() : createMemoryHistory(),
+  routes,  
+})
+
+// const routeArr = 
+
+export default { routes: (_routes) => routes, router }
 
 
 
 // router.beforeEach(async (to, from, next) => {
   
-//   // await updateMetaTags(to);
+//   await updateMetaTags(to);
 
 //   var toUrl = to.fullPath.split('?')[0];
 //   toUrl = toUrl.split('#')[0];

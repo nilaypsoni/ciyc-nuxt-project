@@ -101,18 +101,18 @@ createApp(App)
 //   )
   .mount("#app");
 
-router.beforeEach((to, from, next) => {
-  // console.log("to,from,next", to, from, next);
-  if (typeof to.name === "string") {
-    const title = to.name;
-    if (title) {
-      document.title = 'Culture City | '+camelCaseToTitleCase(title);
-    }
-  }
+// router.beforeEach((to, from, next) => {
+//   // console.log("to,from,next", to, from, next);
+//   if (typeof to.name === "string") {
+//     const title = to.name;
+//     if (title) {
+//       document.title = 'Culture City | '+camelCaseToTitleCase(title);
+//     }
+//   }
 
-    next();
-  // next();
-});
+//     next();
+//   // next();
+// });
 function camelCaseToTitleCase(inputString) {
     // Split the string by the uppercase letters and spaces.
     let words = inputString.split(/(?=[A-Z])/);

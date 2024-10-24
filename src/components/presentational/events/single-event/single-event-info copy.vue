@@ -1004,11 +1004,14 @@ import GuestLogin from "@/components/stateful/auth/guest-login";
 import useReverseGeocoding from "@/composables/use-reverse-geocoding";
 import CustomModal from "@/components/common/modal/custom-modal";
 import TicketModel from "@/components/presentational/events/modals/ticket-model.vue";
-import router from "~/src/router";
+// import router from "~/src/router";
+import { useRouter } from 'vue-router';
 import { ROUTES } from "@/utils/constants/routes";
 import ApiClient from "@/methods/apiclient";
 import useToaster from "@/composables/use-toaster";
 import dateModel from "@/models/date.model";
+
+const router = useRouter();
 
 const emit = defineEmits(["following-confirmed", "event-favourite-confirmed"]);
 const injectedEventData = inject("eventData", {});

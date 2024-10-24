@@ -15,11 +15,12 @@
 <script setup>
 import { reactive, ref, watch } from "vue";
 import SignupForm from "@/components/stateful/auth/signup-form";
-import router from "~/src/router";
+// import router from "~/src/router";
 import {ROUTES} from "@/utils/constants/routes";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute()
+const router = useRouter();
 
 const signupRole = ref(route.params?.role)
 
