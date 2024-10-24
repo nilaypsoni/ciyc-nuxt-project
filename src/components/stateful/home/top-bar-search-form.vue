@@ -1,6 +1,6 @@
 <template>
 
-  
+<client-only>
   <form @submit.prevent="searchEvent">
       <div class="banner-content bg-white" v-if="bannerTitle ">
         <h1 class="fw-bolder d-hex-color">
@@ -11,8 +11,8 @@
       <span class="position-relative s-input-banner d-flex align-items-center">
       <span class="location-input d-flex align-items-center">
           <img :src="elmapMarker">
-          <GMapAutocomplete placeholder="Location" @place_changed="setPlace" :value="latLngToAddress" @keyup="locationkeyup"
-          :types="['(cities)']"
+            <GMapAutocomplete placeholder="Location" @place_changed="setPlace" :value="latLngToAddress" @keyup="locationkeyup"
+            :types="['(cities)']"
            /> 
            <i class="fa fa-times crose" v-if="latLngToAddress" v-on:click="clearaddress()"></i>
           <div class="error" v-if="!address?.lat && latLngToAddress">Please Select Location Suggestion</div>
@@ -30,6 +30,7 @@
     </span>
   </form>
   <a id="clearSearch" v-on:click="clear()"></a>
+</client-only>
 </template>
 
 <script setup>

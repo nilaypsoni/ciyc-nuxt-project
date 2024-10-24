@@ -8,8 +8,8 @@
       :placeholder="placeholder"
       :auto-apply="true"
       :class="`${customClasses} ${isBorderless ? `` : `border-0`}`"
-      :value="modelValue"
-      v-model="modelValue"
+      :value="props.modelValue"
+      v-model="props.modelValue"
       :enable-time-picker="false"
       @input="$emit('update:modelValue',$event.target.value)"
   />

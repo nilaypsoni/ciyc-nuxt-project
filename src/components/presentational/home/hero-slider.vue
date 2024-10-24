@@ -1,4 +1,5 @@
 <template>
+    <client-only> 
   <!-- <section class="h-[350px] w-full bg-site__peach animate-pulse" v-if="isPageContentLoading"></section> -->
   <section class="banner-section pt-0 pb-0 overflow-hidden" >
 
@@ -22,12 +23,13 @@
 
         </div>
       
-        <TopBarSearchForm :banner-title="activeSlideTitle" :banner-description="activeSlideDescription"/>
+       <TopBarSearchForm :banner-title="activeSlideTitle" :banner-description="activeSlideDescription"/>
       <!-- </swiper-slide> -->
       
     <!-- </Slider> -->
 
   </section>
+</client-only>
 </template>
 
 <script setup>

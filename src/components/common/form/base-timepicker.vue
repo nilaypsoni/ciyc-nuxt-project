@@ -16,9 +16,9 @@
       :auto-apply="true"
       time-picker
       :class="`${customClasses} ${isBorderless ? `` : `border-0`}`"
-      :value="modelValue"
+      :value="props.modelValue"
       format="hh:mm a"
-      v-model="modelValue"
+      v-model="props.modelValue"
   />
 </template>
 
@@ -29,6 +29,7 @@ const props = defineProps({
   label:String,
   placeholder:String,
   modelValue:[String,Number],
+
   customClasses:String,
   isBorderless : Boolean,
   description : String,

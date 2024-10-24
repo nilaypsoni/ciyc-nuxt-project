@@ -2,6 +2,11 @@ import { resolve } from 'path';
 import { createResolver } from '@nuxt/kit';
 
 export default defineNuxtConfig({
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => tag === 'g-map-autocomplete'
+    }
+  },
   alias: {
     '@': resolve(__dirname, 'src'), // Set alias @ to src directory
   },
@@ -13,6 +18,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
+    
       meta: [
         { property: "og:type", content: "article" },
         { property: "og:ttl", content: "2419100" },
@@ -75,6 +81,11 @@ export default defineNuxtConfig({
           integrity: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=",
           crossorigin: "anonymous",
           defer: true, // Load after parsing the document
+        },
+        {
+          src: `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_KEY}&libraries=places`,
+          async: true,
+          defer: true,
         },
         {
           src: "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js",
@@ -194,15 +205,25 @@ export default defineNuxtConfig({
     { src: '~/src/plugins/jquery.js', mode: 'client' },
     { src: "~/src/plugins/bootstrap.client.js", mode: 'client' }, // Add mode 'client' if Bootstrap requires it
     // "~/src/plugins/vue-google-login.js",
-    // { src: "~/src/plugins/vue-google-maps.js", mode: "client" }, // Ensure this is client-side only
+    { src: "~/src/plugins/vue-google-maps.js", mode: "client" }, // Ensure this is client-side only
     { src: "~/src/plugins/slick.client.js", mode: 'client' },
     "~/src/plugins/fontawesome.js",
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
+    // {src: '~/src/plugins/v-model-prop-plugin.client.js', mode: 'client'},
+    {src: '~/src/plugins/date-picker.js', mode: 'client'},
+    
+    
   ],
   runtimeConfig: {
     public: {
-      apiUrl: process.env.NUXT_ENV_API_URL || 'http://default-url.com', // Set a fallback value if the environment variable is missing
+      apiUrl: process.env.NUXT_ENV_API_URL || 'http://default-url.com',
+      googleClientId: process.env.VUE_APP_GOOGLE_MAP_KEY,
+      facebookClientId: process.env.VUE_APP_FACEBOOK_CLIENT_ID,
+      googleMapKey: process.env.VUE_APP_GOOGLE_MAP_KEY,
+      squareApiKey: process.env.SQUARE_API_KEY,
+      squareLocationKey: process.env.SQUARE_LOCATION_KEY,// Set a fallback value if the environment variable is missing
     },
+
   },
 });
