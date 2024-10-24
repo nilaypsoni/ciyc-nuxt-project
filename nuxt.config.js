@@ -199,7 +199,6 @@ export default defineNuxtConfig({
     "~/src/plugins/fontawesome.js",
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
-    { src: '~/src/plugins/vue-datepicker.js', mode: 'client' }
   ],
   runtimeConfig: {
     public: {
