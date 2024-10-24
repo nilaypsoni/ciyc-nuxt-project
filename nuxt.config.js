@@ -205,9 +205,9 @@ export default defineNuxtConfig({
     "~/src/plugins/vue-query.js",
     { src: '~/src/plugins/jquery.js', mode: 'client' },
     { src: "~/src/plugins/bootstrap.client.js", mode: 'client' }, // Add mode 'client' if Bootstrap requires it
-    // "~/src/plugins/vue-google-login.js",
     "~/src/plugins/google-maps-config.js", // Ensure this is client-side only
     { src: "~/src/plugins/slick.client.js", mode: 'client' },
+    { src:  "~/src/plugins/vue-google-login.js", mode: 'client' },
     "~/src/plugins/fontawesome.js",
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
@@ -219,7 +219,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: process.env.NUXT_ENV_API_URL || 'http://default-url.com',
-      googleClientId: process.env.VUE_APP_GOOGLE_MAP_KEY,
+      googleClientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
       facebookClientId: process.env.VUE_APP_FACEBOOK_CLIENT_ID,
       googleMapKey: process.env.VUE_APP_GOOGLE_MAP_KEY,
       squareApiKey: process.env.SQUARE_API_KEY,

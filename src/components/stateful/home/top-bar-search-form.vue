@@ -174,13 +174,9 @@ const fetchUsersAddress = async () => {
 }
 
 watchEffect(async () => {
-
-  
-
   if (address?.value && address?.value.lat) {
     let addressData = await useReverseGeocoding(address?.value?.lat, address?.value?.lng)
     // latLngToAddress.value = addressData?.data?.results?.find(el => el?.types?.find(innerEl => innerEl === "locality"))?.formatted_address
-
     latLngToAddress.value = addressData?.data?.results?.find(el => el?.types?.find(innerEl => innerEl === "locality")).address_components.find(childEl => childEl?.types?.find(childTypeEl => childTypeEl === "locality")).long_name
   
     localStorage.setItem('aplace', latLngToAddress.value)
