@@ -6,9 +6,11 @@
 
 <script setup>
 import LoginForm from "@/components/stateful/auth/login-form";
-import router from "~/src/router";
+// import router from "~/src/router";
+import { useRouter } from 'vue-router';
 import {ROUTES} from "@/utils/constants/routes";
 
+const router = useRouter();
 
 
 const handleSignUp = (role) => {

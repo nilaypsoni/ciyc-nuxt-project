@@ -34,7 +34,9 @@ import { useRoute, useRouter } from "vue-router"
 import useUrlQuery from "@/composables/use-url-query";
 import useToaster from "@/composables/use-toaster";
 import AuthModals from "@/components/presentational/auth/auth-modals";
-import router from "~/src/router";
+// import router from "~/src/router";
+
+const router = useRouter();
 
 const role = ref('')
 const openSignup = ref('')

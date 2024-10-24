@@ -13,9 +13,11 @@
 </template>
 
 <script setup>
-import router from "~/src/router";
+import { useRouter } from 'vue-router';
 import {ROUTES} from "@/utils/constants/routes";
 import useMediaBaseUrl from '@/composables/media-base-url';
+
+const router = useRouter();
 
 defineProps({
   organizer : Object

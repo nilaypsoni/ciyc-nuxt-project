@@ -94,7 +94,7 @@ import {computed, ref} from "vue"
 import BaseNumberIncrementer from "@/components/common/form/base-number-incrementer";
 import Button from "@/components/common/buttons/button";
 import {userCurrentTimezone} from "@/utils/helpers";
-import router from "~/src/router";
+import { useRouter } from 'vue-router';
 import { ROUTES } from "@/utils/constants/routes";
 import tokenService from "@/services/token.service";
 import useToaster from "@/composables/use-toaster";
@@ -104,6 +104,8 @@ import { createSeoFriendlyUrl } from "@/utils/helpers";
 import { VALIDATION_MESSAGE_TIMEOUT,SUCCESS_REDIRECT_TIMEOUT } from "@/utils/constants";
 import ApiResponse from "@/components/common/text/api-response";
 import { MEDIA_BASEURL } from "@/utils/constants";
+
+const router = useRouter();
 
 const props = defineProps({
   ticketData:Array,

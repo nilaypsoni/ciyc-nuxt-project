@@ -186,12 +186,14 @@ import VueTagsInput from '@sipec/vue3-tags-input';
 import methodModel from "@/models/method.model";
 import BaseTimepicker from "@/components/common/form/base-timepicker";
 import ApiClient from "@/methods/apiclient"
-import router from "~/src/router";
+// import router from "~/src/router";
 import PrimaryLoader from "@/components/common/loaders/primary-loader";
 import useEventsService from "@/services/events.service";
 import { VALIDATION_MESSAGE_TIMEOUT,SUCCESS_REDIRECT_TIMEOUT } from "@/utils/constants";
 import ApiResponse from "@/components/common/text/api-response";
 const { useFetchEventTypesService, useHandleCreateEventService, useHandleEditEventService } = useEventsService()
+
+const router = useRouter();
 
 const { data: eventTypes } = useFetchEventTypesService()
 const errorMessage = ref('');

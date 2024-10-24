@@ -12,17 +12,17 @@
 
 <script setup>
 import LoginForm from "@/components/stateful/auth/login-form";
-import router from "~/src/router";
+// import routerConfig from "~/src/router";
+import { useRouter } from 'vue-router';
 import {ROUTES} from "@/utils/constants/routes";
 
-
+const router = useRouter();
 
 const handleSignUp = (role) => {
     router.push({name:ROUTES.REGISTER,params:{role:role}})
 }
 
 const handleForgotPassword = () => {
-    router.push({name:ROUTES.FORGOT_PASSWORD})
-
+    router.push({ name: ROUTES.FORGOT_PASSWORD });
 }
 </script>

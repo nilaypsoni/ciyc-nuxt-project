@@ -71,8 +71,8 @@
         const activeSlideHTML = activeSlide.html();
         const parser = new DOMParser();
         const doc = parser.parseFromString(activeSlideHTML, 'text/html');
-        const title = doc.querySelector('.banner-section-content').getAttribute('data-title');
-        const description = doc.querySelector('.banner-section-content').getAttribute('data-description');
+        const title = doc.querySelector('.banner-section-content')?.getAttribute('data-title');
+        const description = doc.querySelector('.banner-section-content')?.getAttribute('data-description');
         activeSlideTitle.value = title
         activeSlideDescription.value = description
 
