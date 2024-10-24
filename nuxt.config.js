@@ -192,6 +192,7 @@ export default defineNuxtConfig({
         // Add other PostCSS plugins as needed
       },
     },
+    transpile: ["@fawmi/vue-google-maps"],
     // Disable source maps
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
@@ -205,13 +206,13 @@ export default defineNuxtConfig({
     { src: '~/src/plugins/jquery.js', mode: 'client' },
     { src: "~/src/plugins/bootstrap.client.js", mode: 'client' }, // Add mode 'client' if Bootstrap requires it
     // "~/src/plugins/vue-google-login.js",
-    { src: "~/src/plugins/vue-google-maps.js", mode: "client" }, // Ensure this is client-side only
+    "~/src/plugins/google-maps-config.js", // Ensure this is client-side only
     { src: "~/src/plugins/slick.client.js", mode: 'client' },
     "~/src/plugins/fontawesome.js",
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
     // {src: '~/src/plugins/v-model-prop-plugin.client.js', mode: 'client'},
-    {src: '~/src/plugins/date-picker.js', mode: 'client'},
+    { src: '~/src/plugins/date-picker.js', mode: 'client'},
     
     
   ],
@@ -224,6 +225,10 @@ export default defineNuxtConfig({
       squareApiKey: process.env.SQUARE_API_KEY,
       squareLocationKey: process.env.SQUARE_LOCATION_KEY,// Set a fallback value if the environment variable is missing
     },
-
   },
+  vite: {
+    optimizeDeps: {
+      include: ['@fawmi/vue-google-maps', 'fast-deep-equal'],
+    },
+  } 
 });
