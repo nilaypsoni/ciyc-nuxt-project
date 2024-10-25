@@ -64,13 +64,13 @@ const additionalDropdown = ref(null);
 
 const field = ref(props.fieldsData)
 onMounted(() => {
-  $(".timezone-search-select").select2({
+  $(".timezone-search-select").select({
     width: '100%',
     
     // minimumResultsForSearch: -1
   });
 
-  // $('.neighborhood-search-select').select2({
+  // $('.neighborhood-search-select').select({
   //   width: '100%',
   // });
  
@@ -78,7 +78,7 @@ onMounted(() => {
   $(".timezone-search-select").on("change", function (e) { changeTimezone(e.target.value) });
   // $('.neighborhood-search-select').on("change", function (e) { changeNeighborhood(e.target.value) });
   // var cName = document.getElementsByClassName('js-example-basic-single');
-  // cName.select2();
+  // cName.select();
 })
 
 const changeTimezone = (timezone) => {
@@ -94,7 +94,7 @@ const changeTimezone = (timezone) => {
 watch(() => props.isChicagoTimezone,async (isEnabled) =>{
     if(isEnabled){
       await nextTick();
-      $('.neighborhood-search-select').select2({
+      $('.neighborhood-search-select').select({
         width: '100%',
       });
       $('.neighborhood-search-select').on("change", function (e) { changeNeighborhood(e.target.value) });
