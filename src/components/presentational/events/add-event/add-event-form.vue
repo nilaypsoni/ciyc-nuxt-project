@@ -909,7 +909,7 @@ const setEventData = async() =>{
     
     setTimeout(function(){
       fieldsData.timezone = eventData.value?.timezone
-      $(".timezone-search-select").select2({
+      $(".timezone-search-select").select({
           width: '100%',
       });
     },2000)
