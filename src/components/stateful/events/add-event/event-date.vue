@@ -31,7 +31,7 @@
                                     </span>
                                     <span v-bind:class="fieldsDataError.timezone && showValidationMsg ? 'error-field' : ''" class="input-f g-input">
                                         <label class="mb-1 required-field">Timezone<span class="text-danger">*</span></label>
-                                        <select v-model="fieldsData.timezone" @change="changeTimezone()" class="form-select timezone-search-select custom-select2">
+                                        <select v-model="field.timezone" @change="changeTimezone()" class="form-select timezone-search-select custom-select2">
                                           <option value="" disabled>Select Timezone</option>
                                           <option v-for="item of timezones" :value="item.timezone" >{{ item.label }}</option>
                                         </select> 
@@ -62,7 +62,7 @@ const props = defineProps({
 const additionalDropdown = ref(null);
 
 
-const field = ref(props.fieldsData)
+const field = ref({...props.fieldsData})
 onMounted(() => {
   $(".timezone-search-select").select({
     width: '100%',
@@ -74,7 +74,6 @@ onMounted(() => {
   //   width: '100%',
   // });
  
-  
   $(".timezone-search-select").on("change", function (e) { changeTimezone(e.target.value) });
   // $('.neighborhood-search-select').on("change", function (e) { changeNeighborhood(e.target.value) });
   // var cName = document.getElementsByClassName('js-example-basic-single');
@@ -83,6 +82,7 @@ onMounted(() => {
 
 const changeTimezone = (timezone) => {
   props.fieldsData.timezone = timezone
+  console.log(props.fieldsData.timezone,"ncgvuhjbn");
   
 }
 
@@ -100,7 +100,6 @@ watch(() => props.isChicagoTimezone,async (isEnabled) =>{
       $('.neighborhood-search-select').on("change", function (e) { changeNeighborhood(e.target.value) });
     }
 })
-
 
 const getTimezones = () => {
   ApiClient.get('timezone/all', { page: 1, limit: 999 }).then(res => {
@@ -133,6 +132,9 @@ const closeOtherPickers = () => {
   // If you have multiple date pickers, you may need to access their refs and blur them individually
   // this.$refs.startDatePicker.blur();
   // this.$refs.anotherDatePicker.blur();
+  
+  // document.activeElement.blur();
+
 };
 
 </script>

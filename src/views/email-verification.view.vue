@@ -189,7 +189,7 @@ const cultureChange = (culture) => {
 }
 
 const getCuture = () => {
-  ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value }).then(res => {
+  ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value })?.then(res => {
     let arr = []
     res.data.map(itm => {
       arr = [...arr, ...itm.cultures.map(itm => {
@@ -208,7 +208,7 @@ const getCuture = () => {
 }
 
 const getEventTyps = () => {
-  ApiClient.get('event-types/all', { page: 1, limit: 999 }).then(res => {
+  ApiClient.get('event-types/all', { page: 1, limit: 999 })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.name
     }).sort()
@@ -222,7 +222,7 @@ const getEventTyps = () => {
 getEventTyps()
 
 const getCutureGroup = () => {
-  ApiClient.get('culture/group', { page: 1, limit: 999, search: cultureGroupSearch.value }).then(res => {
+  ApiClient.get('culture/group', { page: 1, limit: 999, search: cultureGroupSearch.value })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.cultureGroup
     }).sort()
@@ -240,7 +240,7 @@ getCuture()
 const loader = ref(false);
 const getUser = () => {
   loader.value = true
-  ApiClient.get(`profile-settings/detailByEmail?email=`+email).then(res => {
+  ApiClient.get(`profile-settings/detailByEmail?email=`+email)?.then(res => {
     // userData.value.location=res?.data?.location
     loader.value = false
 
@@ -269,7 +269,7 @@ const submitCultureFocus = () =>{
         eventCategories: eventCategories.value,
     };
 
-    ApiClient.post('user/updateCultureFocus', payload).then(res => {
+    ApiClient.post('user/updateCultureFocus', payload)?.then(res => {
         // useToaster('success','','Details have been saved successfully')
         showResponseMessage('Details have been saved successfully',"")
 

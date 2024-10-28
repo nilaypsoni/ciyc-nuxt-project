@@ -37,7 +37,7 @@
 import $ from 'jquery'; // Import jQuery
 
 export default {
-  onMounted() {
+  mounted() {
         $('body').removeClass('l-primary-bg-d');
         $('body').removeClass('create-event-section-body');
        
