@@ -20,5 +20,6 @@ const toggle = () => {
 }
 const away = () => {
   sharedState.value.active = false;
+  console.log(sharedState.value.active ,"sharedState.active");
 }
 </script>
