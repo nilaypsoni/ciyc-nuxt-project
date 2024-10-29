@@ -209,12 +209,9 @@ export default defineNuxtConfig({
     { src: "~/src/plugins/slick.client.js", mode: 'client' },
     { src:  "~/src/plugins/vue-google-login.js", mode: 'client' },
     "~/src/plugins/fontawesome.js",
-    // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",
-    // {src: '~/src/plugins/v-model-prop-plugin.client.js', mode: 'client'},
+    "~/src/plugins/custom-router.js",
     { src: '~/src/plugins/date-picker.js', mode: 'client'},
-    
-    
   ],
   runtimeConfig: {
     public: {
@@ -230,5 +227,5 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['@fawmi/vue-google-maps', 'fast-deep-equal'],
     },
-  } 
+  },
 });
