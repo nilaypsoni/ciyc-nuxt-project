@@ -208,6 +208,7 @@ export default defineNuxtConfig({
     "~/src/plugins/google-maps-config.js", // Ensure this is client-side only
     { src: "~/src/plugins/slick.client.js", mode: 'client' },
     { src:  "~/src/plugins/vue-google-login.js", mode: 'client' },
+    { src: "~/src/plugins/vue-click-away.client.js"},
     "~/src/plugins/fontawesome.js",
     // "~/src/plugins/gtm.js",
     "~/src/plugins/axios.js",

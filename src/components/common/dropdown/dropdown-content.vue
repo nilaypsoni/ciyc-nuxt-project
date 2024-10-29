@@ -1,7 +1,7 @@
 <template>
   <transition name="dropdown-content">
     <div
-        v-if="sharedState.active"
+        v-if="sharedState?.active"
         class="origin-top-right absolute z-50 right-0 mt-2 w-48 bg-white rounded-lg shadow-primary__shadow py-2"
     >
       <slot/>
@@ -12,7 +12,6 @@
 <script setup>
 
 import {inject} from "vue";
-
 const {sharedState} = inject('sharedState')
 
 </script>
