@@ -319,13 +319,9 @@ watch(()=>{
 
 watch(()=>activeProfile.value,()=>{
     if(activeProfile.value == ROLES.SEEKER){
-        router.push({ name: ROUTES.ORGANIZER, params: { organizerId: userData?.value?._id } }).then(() => {
-            location.href = window.location.href; // Force reload by updating the URL
-        });
+        router.push({ name: ROUTES.ORGANIZER, params: { organizerId: userData?.value?._id } })
     }else {
-        router.push({ name: ROUTES.ORGANIZATION, params: { organizerId: userData?.value?._id } }).then(() => {
-            location.href = window.location.href; // Force reload by updating the URL
-        });
+        router.push({ name: ROUTES.ORGANIZATION, params: { organizerId: userData?.value?._id } })
     }
 })
 
