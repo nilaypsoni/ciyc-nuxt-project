@@ -210,7 +210,6 @@ export default defineNuxtConfig({
     { src:  "~/src/plugins/vue-google-login.js", mode: 'client' },
     "~/src/plugins/fontawesome.js",
     "~/src/plugins/axios.js",
-    "~/src/plugins/custom-router.js",
     { src: '~/src/plugins/date-picker.js', mode: 'client'},
   ],
   runtimeConfig: {
@@ -228,4 +227,5 @@ export default defineNuxtConfig({
       include: ['@fawmi/vue-google-maps', 'fast-deep-equal'],
     },
   },
+  ssr: true
 });

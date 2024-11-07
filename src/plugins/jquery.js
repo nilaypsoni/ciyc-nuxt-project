@@ -1,5 +1,7 @@
 import jQuery from 'jquery';
 
-export default () => {
-  window.$ = window.jQuery = jQuery;
-}
+export default defineNuxtPlugin((nuxtApp) => {
+  if (process.client) {
+    window.$ = window.jQuery = jQuery;
+  }
+});

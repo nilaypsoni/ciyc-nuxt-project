@@ -611,6 +611,17 @@ watch(() => {
 });
 
 onMounted(() => {
+
+
+  console.log('This is client-side rendering');
+
+
+  if (process.server) {
+    console.log('This is server-side rendering');
+  }
+
+ 
+
   if (stripeResponse === "success" && stripeAction == "card") {
     refUserId.value = !!userData?._id ? userData?._id : null;
     if (user.value?.role == "guest") TokenService.clearStorage();
