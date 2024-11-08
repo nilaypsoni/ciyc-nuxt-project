@@ -1,10 +1,20 @@
-import { useRouter } from '#app';
+import { useRouter,useRoute } from '#app';
 import {ROUTES} from "@/utils/constants/routes";
 
 export default ({ app }) => {
     const router = useRouter();
-    // Access the router instance
+    const route = useRoute();
     router.beforeEach((to, from, next) => {
+        
+      if (process?.client) {
+        const spacedStr = to?.name?.replace(/([a-z])([A-Z])/g, "$1 $2");
+        const title = spacedStr
+          .split(" ") // Split into words
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
+          .join(" "); // Join back into a string
+        document.title = `Culture City | ${title}`;
+      }
+     
 
         var toUrl = to.fullPath.split('?')[0];
         toUrl = toUrl.split('#')[0];
