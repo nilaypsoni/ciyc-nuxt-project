@@ -210,6 +210,7 @@ export default defineNuxtConfig({
     { src:  "~/src/plugins/vue-google-login.js", mode: 'client' },
     { src: "~/src/plugins/vue-click-away.client.js"},
     "~/src/plugins/fontawesome.js",
+    "~/src/plugins/route-change.js",
     "~/src/plugins/axios.js",
     { src: '~/src/plugins/date-picker.js', mode: 'client'},
   ],

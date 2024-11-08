@@ -13,6 +13,7 @@
 defineProps({
   title:String,
   isRequired:Boolean,
-  isFeatured:Boolean
+  isFeatured:Boolean,
+  default: false,
 })
 </script>

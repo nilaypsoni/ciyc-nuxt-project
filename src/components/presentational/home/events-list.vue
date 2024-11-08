@@ -84,7 +84,8 @@ const props = defineProps({
   },
   seeAllRoute: Object,
   backButton: Boolean,
-  isFeatured:Boolean
+  isFeatured:Boolean | String,
+  default: false,
 })
 
 

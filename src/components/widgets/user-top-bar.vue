@@ -54,11 +54,11 @@ import TokenService from "@/services/token.service";
 import { ROLES } from "@/utils/constants";
 import { BASE_URL } from "@/utils/constants";
 
-const pageTitle = reactive(localStorage.getItem('page-title'))
-const pageIcon = reactive(localStorage.getItem('page-icon'))
+const pageTitle = process?.client ?reactive(localStorage.getItem('page-title')) : ''
+const pageIcon = process?.client ? reactive(localStorage.getItem('page-icon')) : ''
 
 const userData = ref(TokenService.getUser())
-const activeProfile = ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? localStorage.getItem('activeProfile') : ((userData?.value?.role==ROLES.ORGANIZATION) ? ROLES.ORGANIZATION : ROLES.SEEKER) ));
+const activeProfile = process?.client ? ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? localStorage.getItem('activeProfile') : ((userData?.value?.role==ROLES.ORGANIZATION) ? ROLES.ORGANIZATION : ROLES.SEEKER) )) : '';
 
 const router = useRouter()
 const { MEDIA_BASEURL } = useMediaBaseUrl();

@@ -68,7 +68,6 @@ try{
       }
       
     } else {
-      console.log(metaData.value.data.type, 'metaData.value --- metaData.value')
       if (metaData.value) {
         useHead({
           title: `${appName} | ${metaData.value.data.title}`,

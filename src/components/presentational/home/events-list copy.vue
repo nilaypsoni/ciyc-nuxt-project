@@ -35,7 +35,8 @@ defineProps({
   },
   seeAllRoute: Object,
   backButton: Boolean,
-  isFeatured:Boolean
+  isFeatured:Boolean,
+  default: false,
 })
 
 

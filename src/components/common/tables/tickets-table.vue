@@ -105,7 +105,7 @@ let tableHeader = reactive(['#','Event','Organizer','Purchase Date','Event Date'
 const tableData = ref([]);
 
 const getData=()=>{
-  ApiClient.get('booking',{seekerId:userData?._id,...filter}).then(res=>{
+  ApiClient.get('booking',{seekerId:userData?._id,...filter})?.then(res=>{
     if(res.data){
       ticketsList.value=res.data
       tableData.value=res.data

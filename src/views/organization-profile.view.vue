@@ -79,12 +79,12 @@ const currentEvents=ref([])
 const pastEvents=ref([])
 const isLoading=ref(false)
 
-const role = localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization'; //HERE
+const role = process?.client ? localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization' : ''; //HERE
 
 
 const getCurrentEvents=()=>{
   isLoading.value=true
-  ApiClient.get('event/past-current',{role:role,page:1,limit:2,organizerId:organizerId,current:true}).then(res=>{
+  ApiClient.get('event/past-current',{role:role,page:1,limit:2,organizerId:organizerId,current:true})?.then(res=>{
     currentEvents.value=res.data
     isLoading.value=false
   })
@@ -93,7 +93,7 @@ getCurrentEvents()
 
 const getPastEvents=()=>{
   isLoading.value=true
-  ApiClient.get('event/past-current',{role:role,page:1,limit:1,organizerId:organizerId,current:false}).then(res=>{
+  ApiClient.get('event/past-current',{role:role,page:1,limit:1,organizerId:organizerId,current:false})?.then(res=>{
     pastEvents.value=res.data
     isLoading.value=false
   })
