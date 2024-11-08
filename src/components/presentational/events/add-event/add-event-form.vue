@@ -218,7 +218,7 @@ const errorMessage = ref('');
 const successMessage = ref('');
 const showValidationMsg = ref(false);
 
-const formStepNo = ref(parseInt(localStorage.getItem('eventFormStepNo')));
+const formStepNo = import.meta.client ? ref(parseInt(localStorage.getItem('eventFormStepNo'))): '';
 
 
 const createUpdateEventLoader = ref(false);
@@ -271,7 +271,7 @@ const showResponseMessage = (successMsg,errorMsg) =>{
 
 const userRole = tokenService?.getUser()?.role
 
-const role = localStorage.getItem('activeProfile') ? (localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization') : (userRole == 'Seeker' ? 'Organizer' : 'Organization');
+const role = import.meta.client ? localStorage.getItem('activeProfile') ? (localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization') : (userRole == 'Seeker' ? 'Organizer' : 'Organization') : '';
 
 
 const { useFetchEventTypesService, useHandleCreateEventService, useHandleEditEventService } = useEventsService()
@@ -320,7 +320,7 @@ let fieldDetails = reactive({
 
 
 const payoutclick=()=>{
-  ApiClient.put('profile-settings/payout?role='+role+'&userId='+tokenService.getUser()?._id,{}).then(res=>{
+  ApiClient.put('profile-settings/payout?role='+role+'&userId='+tokenService.getUser()?._id,{})?.then(res=>{
     if(res.data){
       // window.open(res.data,'blank')
       window.location.href=res.data
@@ -341,7 +341,7 @@ if(fieldDetails.country == ''){
   return false;
 }
 
-ApiClient.put('profile-settings/country-code?userId='+tokenService.getUser()?._id,{country:fieldDetails.country}).then(res=>{
+ApiClient.put('profile-settings/country-code?userId='+tokenService.getUser()?._id,{country:fieldDetails.country})?.then(res=>{
   if(res.statusCode == 200){
     // useToaster("success", "", res.message)
     showCountryCodeResponseMessage(res.message,'')
@@ -677,7 +677,7 @@ onMounted(async() => {
 
 const getUser = () => {
   
-  ApiClient.get(`profile-settings/detail?userId=${organizerId ? organizerId : userData?.value?._id}`).then(res => {
+  ApiClient.get(`profile-settings/detail?userId=${organizerId ? organizerId : userData?.value?._id}`)?.then(res => {
     // userData.value.location=res?.data?.location
     userData.value = { ...userData.value, ...res.data }
     setTimeout(() => {
@@ -720,7 +720,7 @@ const getData = () => {
       console.log('HERE GET DATA HIT')
         
           loading.value = true
-          ApiClient.get('event', { eventId: paramsEventId.value }).then(async(res) => {
+          ApiClient.get('event', { eventId: paramsEventId.value })?.then(async(res) => {
             if (res.data) {
               eventData.value = { cultures: [], ...res.data }
 
@@ -829,7 +829,7 @@ const createAndPublish = (changeIsPrivate = false) =>{
 
 const publushUnpublish = () => {
   let userId = tokenService?.getUser()?._id
-  ApiClient.put(`event/publish?eventId=${paramsEventId.value}&userId=${userId}`, { status: !eventData.value.isPublished }).then(res => {
+  ApiClient.put(`event/publish?eventId=${paramsEventId.value}&userId=${userId}`, { status: !eventData.value.isPublished })?.then(res => {
     if (res.message == 'Success') {
      
       if(eventData.value.isPublished == 'undefined'){
@@ -2185,7 +2185,9 @@ const jumpToFormStep = (validateUpto, jumpedFormStep) => {
   }
 
   // if(!validationError){
+  if (import.meta.client) {
     localStorage.setItem('eventFormStepNo',jumpedFormStep)
+  }
     formStepNo.value = jumpedFormStep - 1
     goToNextFormStep();
   // }
