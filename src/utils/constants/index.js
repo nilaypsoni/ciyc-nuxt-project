@@ -41,3 +41,18 @@ export const MEDIA_BASEURL = `${process.env.VUE_APP_API_URL}uploads/`
 export const MEDIA_BASEURL_PLACEHOLDER = `https://cultureinyourcity.com/img/`
 export const VALIDATION_MESSAGE_TIMEOUT = 7000
 export const SUCCESS_REDIRECT_TIMEOUT = 2000
+
+
+export const ROUTER_FOR_METADATA = [
+  "home",
+  "addEvents",
+  "aboutUs",
+  "contactUs",
+  "faqs",
+  "becomeAmbassador",
+  "joinCommunity",
+  "singleEvent",
+  "cityEventsInfo",
+  "organizerPublicProfile",
+  "categoryEventInfo",
+];
