@@ -14,24 +14,24 @@
         @open-organization-details="(arg) => modalRedirect('loginActive', 'organizationDetailsActive', arg)"
         @close-modal="() => toggleModal('loginActive')" :login-message="loginMessage" />
     </auth-modal>
-    <auth-modal :modal-active="modalActive.signupActive" :toggle-modal="() => signupClose()" :title="(userRole == 'Seeker') ? 'Signup' : `Host Signup`">
+    <auth-modal :modal-active="modalActive?.signupActive" :toggle-modal="() => signupClose()" :title="(userRole == 'Seeker') ? 'Signup' : `Host Signup`">
       <client-only> 
         <signup-form :role="userRole" @open-login="(e) => modalRedirect(e)" @open-signup="(r) => openSignup(r)"  @close-modal="() => toggleModal('signupActive')"
         @open-organization-details="(arg) => modalRedirect('signupActive', 'organizationDetailsActive', arg)"
         @signup-role="signupRole" />
       </client-only>
     </auth-modal>
-    <auth-modal :modal-active="modalActive.organizationDetailsActive"
+    <auth-modal :modal-active="modalActive?.organizationDetailsActive"
       :toggle-modal="() => toggleModal('organizationDetailsActive')" title="Organization Details">
       <organization-details-form :userId="signedUpUserId"
         @open-email-verification="(arg) => modalRedirect('organizationDetailsActive', 'emailVerificationActive', arg)"
         @open-login="() => modalRedirect('organizationDetailsActive', 'loginActive')" />
     </auth-modal>
-    <auth-modal :modal-active="modalActive.forgotPassword" :toggle-modal="() => toggleModal('forgotPassword')"
+    <auth-modal :modal-active="modalActive?.forgotPassword" :toggle-modal="() => toggleModal('forgotPassword')"
       title="Forgot Password">
       <forgot-password-form @close-modal="() => toggleModal('forgotPassword')" />
     </auth-modal>
-    <auth-modal :modal-active="modalActive.changePassword" v-if="!hideChangePassword" :toggle-modal="() => toggleModal('changePassword')" title="">
+    <auth-modal :modal-active="modalActive?.changePassword" v-if="!hideChangePassword" :toggle-modal="() => toggleModal('changePassword')" title="">
       <small class="text-sm pb-2 text-icon__color text-center">You can change your password now.</small>
       <forgot-password-change-password-form :forget-password-email="forgotPasswordEmail"
         :forget-password-code="verificationCode" @close-modal="() => toggleModal('changePassword')" />

@@ -610,7 +610,8 @@ watch(() => {
   }
 });
 
-onMounted(() => {
+onMounted(() => { 
+
   if (stripeResponse === "success" && stripeAction == "card") {
     refUserId.value = !!userData?._id ? userData?._id : null;
     if (user.value?.role == "guest") TokenService.clearStorage();
