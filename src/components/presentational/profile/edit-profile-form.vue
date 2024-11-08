@@ -196,7 +196,7 @@ const cultureGroupSuggestion = ref([])
 const cultureGroups = ref([])
 const cultures = ref([])
 
-const role = localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization';
+const role = import.meta.client ? localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization' : '';
 const isProfileCompleted = useUrlQuery('c');
 
 const { useHandleChangeUserInformationService, useFetchStripeCountriesService } = useSettingsService()
@@ -279,7 +279,7 @@ const neighborhoodChange = (neighborhood) => {
 }
 
 const getChicagoNeighborhoods = () => {
-  ApiClient.get('timezone/chicagoNeighborhood/all', { page: 1, limit: 999 }).then(res => {
+  ApiClient.get('timezone/chicagoNeighborhood/all', { page: 1, limit: 999 })?.then(res => {
     if (res.data) {
       chicagoNeighborhoodSuggestion.value = res.data.map(itm => {
         return itm.community.trim()
@@ -403,7 +403,7 @@ const eventCategoryChange = (category) => {
 
 
 const getEventTyps = () => {
-  ApiClient.get('event-types/all', { page: 1, limit: 999 }).then(res => {
+  ApiClient.get('event-types/all', { page: 1, limit: 999 })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.name
     }).sort()
@@ -466,7 +466,7 @@ const cultureChange = (culture) => {
 
 const getCultureContents = () => {
 //   loading2.value = true
-  ApiClient.get('content/all', { page: 1, limit: 999999999 }).then(res => {
+  ApiClient.get('content/all', { page: 1, limit: 999999999 })?.then(res => {
     
     // cultures.value = res.data
 
@@ -480,7 +480,7 @@ const getCultureContents = () => {
 
 const getCuture = () => {
   // loading2.value = true
-  ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value }).then(res => {
+  ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value })?.then(res => {
     let arr = []
     res.data.map(itm => {
       arr = [...arr, ...itm.cultures.map(itm => {
@@ -506,7 +506,7 @@ const getCuture = () => {
 getCuture()
 
 const getCutureGroup = () => {
-  ApiClient.get('culture/group', { page: 1, limit: 999, search: cultureGroupSearch.value }).then(res => {
+  ApiClient.get('culture/group', { page: 1, limit: 999, search: cultureGroupSearch.value })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.cultureGroup
     }).sort()
@@ -518,7 +518,7 @@ const getCutureGroup = () => {
 }
 
 const getBusinessType = () => {
-  ApiClient.get('business-type/all', { page: 1, limit: 9999999, search: '' }).then(res => {
+  ApiClient.get('business-type/all', { page: 1, limit: 9999999, search: '' })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.businessType
     }).sort()
@@ -547,7 +547,7 @@ const profilePictureValue = ref(role == 'Organizer'? {url:'placeholder.png'} : {
 
 const getUser = () => {
 
-  ApiClient.get(`profile-settings/detail?userId=${userData._id}`).then(res => {
+  ApiClient.get(`profile-settings/detail?userId=${userData._id}`)?.then(res => {
 
     var userData = res.data;
 
@@ -818,7 +818,7 @@ const setUserProfileImg = () => {
 
 const changeProfilePicture = () => {
   if(uploadedProfilePicture.value){
-    ApiClient.putForm('profile-settings/profile-picture?role='+role+'&userId=' + userData._id, { image: uploadedProfilePicture.value }).then(res => {
+    ApiClient.putForm('profile-settings/profile-picture?role='+role+'&userId=' + userData._id, { image: uploadedProfilePicture.value })?.then(res => {
         if (!res.error && res.data) {
         //   TokenService.setUser(userData.value)
         // userData.profilePicture = res.data
@@ -843,7 +843,7 @@ const changeProfilePicture = () => {
 
 const removeImage = () => {
 
-ApiClient.get(`profile-settings/remove-profile-picture?userId=${userData._id}&role=${role}`).then(res => {
+ApiClient.get(`profile-settings/remove-profile-picture?userId=${userData._id}&role=${role}`)?.then(res => {
 
 
   if(role == 'Organizer'){

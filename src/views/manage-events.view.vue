@@ -169,7 +169,7 @@ const { MEDIA_BASEURL } = useMediaBaseUrl();
 const router = useRouter()
 const userRole = tokenService.getUser().role
 
-const role = localStorage.getItem('activeProfile') ? (localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : "Organization") : (userRole == 'Seeker' ? 'Organizer' : 'Organization');
+const role = import.meta.client ?  localStorage.getItem('activeProfile') ? (localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : "Organization") : (userRole == 'Seeker' ? 'Organizer' : 'Organization') : '';
 
 
 const errorMessage = ref('');
@@ -223,7 +223,7 @@ const publishEvent = (id, status) => {
   eventId.value = id
   eventStatus.value = status
   let userId = tokenService.getUser()?._id
-  ApiClient.put(`event/publish?eventId=${id}&userId=${userId}`, { status: status }).then(res => {
+  ApiClient.put(`event/publish?eventId=${id}&userId=${userId}`, { status: status })?.then(res => {
     if (res.error) {
       // useToaster('danger', '', res.message)
       // errorMessage.value = res.message
@@ -248,7 +248,7 @@ const publishEvent = (id, status) => {
 
 const deleteEvent = (id) => {
   // handleDeleteEvent(id)
-  ApiClient.delete('event', { eventId: id }).then(res => {
+  ApiClient.delete('event', { eventId: id })?.then(res => {
 
     getData()
     // useToaster('success', '', "Event Delete Successfully.")
@@ -257,7 +257,7 @@ const deleteEvent = (id) => {
 }
 
 const cancelEvent = (id) => {
-  ApiClient.post('event/cancel', { eventId: id }).then(res => {
+  ApiClient.post('event/cancel', { eventId: id })?.then(res => {
 
     if(res.error){
       // useToaster('danger', '', res.message)
@@ -285,7 +285,7 @@ const eventImg = (img) => {
 const getData =  (loader = false) => {
   if (loader) loading.value = true
   const userId = tokenService.getUser()?._id
- ApiClient.get('event/my', { role:role,userId: userId, ...filters }).then(async res => {
+ ApiClient.get('event/my', { role:role,userId: userId, ...filters })?.then(async res => {
     if (res.data) {
       data.value = await getDataWithSaleEnd(res.data)
 
@@ -392,7 +392,10 @@ const eventFullUrl = (title) =>{
 }
 
 const goToEditEvent = (id) => {
-  localStorage.setItem('eventFormStepNo',1)
+  if (import.meta.client) {
+    localStorage.setItem('eventFormStepNo',1)
+  }
+
 
   router.push({name:ROUTES.ADD_EVENTS, params: { eventId: id }})
 }
