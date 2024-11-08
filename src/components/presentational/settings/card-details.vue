@@ -67,7 +67,7 @@ const saveCardDetails = () => {
 // }
 
 const deleteCardDetails = () => {
-  ApiClient.delete(`profile-settings/card?userId=${tokenService.getUser()?._id}`).then(res=>{
+  ApiClient.delete(`profile-settings/card?userId=${tokenService.getUser()?._id}`)?.then(res=>{
     useToaster("success", "Card Deleted", 'Card Deleted Successfully')
     getData()
   })
@@ -75,7 +75,7 @@ const deleteCardDetails = () => {
 }
 
 const getData=()=>{
-  ApiClient.get('profile-settings/card',{userId:tokenService.getUser()?._id}).then(res=>{
+  ApiClient.get('profile-settings/card',{userId:tokenService.getUser()?._id})?.then(res=>{
     cardData.value=res.data
   })
 }

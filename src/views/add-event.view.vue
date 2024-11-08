@@ -1,5 +1,7 @@
 <template>
-  <add-event-form :key="paramsEventId"/>
+  <client-only>
+    <add-event-form :key="paramsEventId"/>
+  </client-only>
 </template>
 
 <script setup>
