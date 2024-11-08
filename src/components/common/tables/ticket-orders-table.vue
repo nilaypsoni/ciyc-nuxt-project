@@ -93,7 +93,7 @@
   import ExcelJS from 'exceljs';
   import exportBtnSvg from "@/assets/icon-park.svg";
   
-  const role = localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization'; //HERE
+  const role = process?.client ? localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization' : ''; //HERE
   
   const user=ref(tokenService.getUser())
   const events=ref([])
@@ -120,7 +120,7 @@
   const tableHeader = reactive(['Order#','Event','Buyer','Start Date','Purchase Date','Status','Amount Received','Total'])
   
   const getEvents=()=>{
-    ApiClient.get('event/my',{role:role,userId:user.value._id,page:1,limit:100,isPublished:true}).then(res=>{
+    ApiClient.get('event/my',{role:role,userId:user.value._id,page:1,limit:100,isPublished:true})?.then(res=>{
       if(res.data){
         events.value=res.data
       }
@@ -128,7 +128,7 @@
   }
   getEvents()
   const getData=()=>{
-    ApiClient.get('booking/orders',{role:role,organizerId:user.value._id,...filter}).then(res=>{
+    ApiClient.get('booking/orders',{role:role,organizerId:user.value._id,...filter})?.then(res=>{
       if(res.data){
         ticketOrdersList.value=res.data
         tableData.value=res.data

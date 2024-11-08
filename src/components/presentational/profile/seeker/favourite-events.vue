@@ -47,7 +47,7 @@ const favouriteEvents = ref([]);
 
 const getFavourites=()=>{
   const userId = TokenService.getUser()?._id
-  ApiClient.get(`favourite?userId=${userId}&page=1&limit=3`).then(res=>{
+  ApiClient.get(`favourite?userId=${userId}&page=1&limit=3`)?.then(res=>{
     favouriteEvents.value = res.data
     console.log('favouriteEvents.value',favouriteEvents)
   })

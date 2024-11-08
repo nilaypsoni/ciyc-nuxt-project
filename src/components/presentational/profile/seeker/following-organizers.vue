@@ -32,7 +32,7 @@ const followers=ref([])
 const isLoading=ref(false)
 
 const follows=(organizerid)=>{
-  ApiClient.delete(`follow?seekerId=${userid}&organizerId=${organizerid}`).then(res=>{
+  ApiClient.delete(`follow?seekerId=${userid}&organizerId=${organizerid}`)?.then(res=>{
       // eventData.value={cultures:[],...res.data}
       getfollows()
   })
@@ -41,7 +41,7 @@ const follows=(organizerid)=>{
 const getfollows=()=>{
   // alert('hi')
   isLoading.value=true
-  ApiClient.get(`follow?userId=${userid}&page=1&limit=6&followType=1`).then(res=>{
+  ApiClient.get(`follow?userId=${userid}&page=1&limit=6&followType=1`)?.then(res=>{
     followers.value=res.data
     isLoading.value=false
   })

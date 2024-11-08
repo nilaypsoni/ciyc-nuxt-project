@@ -270,7 +270,7 @@ const websiteLogo = `${BASE_URL}logo.svg`;
   {
     path: '/',
     component: UserLayout,
-    beforeEnter : (to,from,next)=>AuthGuard(to,from,next,ROLES.ORGANIZER),
+    beforeEnter : process?.client ? (to,from,next)=>AuthGuard(to,from,next,ROLES.ORGANIZER): null,
     children:[
 
       {
@@ -307,7 +307,7 @@ const websiteLogo = `${BASE_URL}logo.svg`;
   {
     path: '/',
     component: UserLayout,
-    beforeEnter : (to,from,next)=>AuthGuard(to,from,next,ROLES.SEEKER),
+    beforeEnter : process?.client ? (to,from,next)=>AuthGuard(to,from,next,ROLES.SEEKER) : null,
     children:[
       {
         path: 'organizer-profile/:organizerId',
@@ -325,7 +325,7 @@ const websiteLogo = `${BASE_URL}logo.svg`;
   {
     path: '/',
     component: UserLayout,
-    beforeEnter : (to,from,next)=>AuthGuard(to,from,next,TokenService.getUser()?.role === ROLES.ORGANIZER ? ROLES.ORGANIZER : ROLES.SEEKER),
+    beforeEnter : process?.client ? (to,from,next)=>AuthGuard(to,from,next,TokenService.getUser()?.role === ROLES.ORGANIZER ? ROLES.ORGANIZER : ROLES.SEEKER) : null,
     children:[
       {
         path: 'organizer-profile/:organizerId',
@@ -417,7 +417,7 @@ const websiteLogo = `${BASE_URL}logo.svg`;
   {
     path: '/',
     component: CreateEventLayout,
-    beforeEnter : (to,from,next)=>AuthGuard(to,from,next,TokenService.getUser()?.role === ROLES.ORGANIZER ? ROLES.ORGANIZER : ROLES.SEEKER),
+    beforeEnter : process?.client ? (to,from,next)=>AuthGuard(to,from,next,TokenService.getUser()?.role === ROLES.ORGANIZER ? ROLES.ORGANIZER : ROLES.SEEKER) : null,
     children:[
       {
         path: 'add-events/:eventId?',
@@ -439,12 +439,15 @@ const websiteLogo = `${BASE_URL}logo.svg`;
 
       const userRole = TokenService.getUser()?.role;
       console.log('userRoole2');
-      if (!userRole || userRole === ROLES.GUEST) {
+      if (process?.client) {
+        if (!userRole || userRole === ROLES.GUEST) {
           next(); // Allow access to the route and its children
       } else {
           // Redirect to another route if the user is logged in
           next({ name: ROUTES.HOME }); // Change 'LoggedInHome' to the appropriate route name
+      } 
       }
+    
     },
     children:[
       {
@@ -486,12 +489,15 @@ const websiteLogo = `${BASE_URL}logo.svg`;
 
       const userRole = TokenService.getUser()?.role;
       console.log('userRoole2');
-      if (!userRole || userRole === ROLES.GUEST) {
+      if (process?.client) {
+        if (!userRole || userRole === ROLES.GUEST) {
           next(); // Allow access to the route and its children
       } else {
           // Redirect to another route if the user is logged in
           next({ name: ROUTES.HOME }); // Change 'LoggedInHome' to the appropriate route name
       }
+      }
+     
     },
     children:[
       {
@@ -516,7 +522,7 @@ const websiteLogo = `${BASE_URL}logo.svg`;
   {
     path: '/',
     component: MainLayout,
-    beforeEnter :(to, from, next)=>AuthGuard(to,from,next,TokenService.getUser()?.role),
+    beforeEnter : process?.client ? (to, from, next)=>AuthGuard(to,from,next,TokenService.getUser()?.role) : null,
     children:[
       {
         path: 'settings',

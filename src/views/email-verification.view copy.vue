@@ -1,68 +1,71 @@
 <template>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <!-- LOGO -->
-    <tr>
-        <td bgcolor="#3b5998" align="center">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#3b5998" align="center" style="padding: 0px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111;  font-size: 48px; font-weight: 400; line-height: 48px;">
-                        <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Email Verification</h1>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#ffffff" align="left" style="padding: 10px 15px 35px; color: #666666;  font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;">You will receive an email confirmation to {{ userEmail }} from no-reply@mail.cultureinyourcity.com.  Please check your email and click on verify email button in your confirmation email.  </p>
-                    </td>
-                </tr>
-             
-                <tr>
-                    <td bgcolor="#ffffff" align="left" style="padding: 10px 15px 35px; color: #666666;  font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;color: rgb(13, 110, 253);">Please check your spam folder as well for an email from no-reply@mail.cultureinyourcity.com. </p>
-                    </td>
-                </tr> <!-- COPY -->
-               
-                
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#FFECD1" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666;  font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;"> If you don’t receive it please  <a style="color: #0d6efd;text-decoration: underline;" href="/contact-us">contact us</a> or email </h2>
-                        <p style="margin: 0;"><a href="javascript:;"  style="color: #0d6efd;text-decoration: underline;">explore@cultureinyourcity.com</a></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666;  font-size: 14px; font-weight: 400; line-height: 18px;"> <br>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+    <tbody>
+        <tr>
+            <td bgcolor="#3b5998" align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tbody>
+                        <tr>
+                            <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <!-- HEADER -->
+        <tr>
+            <td bgcolor="#3b5998" align="center" style="padding: 0px 10px 0px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-size: 48px; font-weight: 400; line-height: 48px;">
+                                <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Email Verification</h1>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <!-- MESSAGE BODY -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#ffffff" align="left" style="padding: 10px 15px 35px; color: #666666; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                <p style="margin: 0;">You will receive an email confirmation to {{ userEmail }} from no-reply@mail.cultureinyourcity.com. Please check your email and click on verify email button in your confirmation email.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ffffff" align="left" style="padding: 10px 15px 35px; color: #666666; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                <p style="margin: 0; color: rgb(13, 110, 253);">Please check your spam folder as well for an email from no-reply@mail.cultureinyourcity.com.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <!-- CONTACT INFO -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#FFECD1" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px; color: #666666; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">If you don’t receive it please <a style="color: #0d6efd; text-decoration: underline;" href="/contact-us">contact us</a> or email</h2>
+                                <p style="margin: 0;"><a href="javascript:;" style="color: #0d6efd; text-decoration: underline;">explore@cultureinyourcity.com</a></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
 <!-- <h2 v-if="!isLogin && isSeeker" class="culture-main-heading">Please answer the questions below to help us better offer you the best experience you seek</h2> -->

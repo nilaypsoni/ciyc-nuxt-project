@@ -253,8 +253,8 @@ import useMediaBaseUrl from '@/composables/media-base-url';
 const userData = ref(TokenService.getUser())
 const role = ref('')
 const openSignup = ref('')
-const toggleVal =  ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? ((localStorage.getItem('activeProfile') == ROLES.ORGANIZATION) ? true : false) : ((userData?.value?.role==ROLES.ORGANIZATION || userData?.value?.role==ROLES.ORGANIZER) ? true : false) ));
-const activeProfile = ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? localStorage.getItem('activeProfile') : ((userData?.value?.role==ROLES.ORGANIZATION || userData?.value?.role==ROLES.ORGANIZER) ? ROLES.ORGANIZATION : ROLES.SEEKER) ));
+const toggleVal =  process.client ? ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? ((localStorage.getItem('activeProfile') == ROLES.ORGANIZATION) ? true : false) : ((userData?.value?.role==ROLES.ORGANIZATION || userData?.value?.role==ROLES.ORGANIZER) ? true : false) )) : '';
+const activeProfile = process.client ? ref(((localStorage.getItem('activeProfile') && localStorage.getItem('activeProfile') !='') ? localStorage.getItem('activeProfile') : ((userData?.value?.role==ROLES.ORGANIZATION || userData?.value?.role==ROLES.ORGANIZER) ? ROLES.ORGANIZATION : ROLES.SEEKER) )) : '';
 console.log('activeProfile',activeProfile.value)
 const router = useRouter()
 const { MEDIA_BASEURL } = useMediaBaseUrl();
@@ -276,22 +276,25 @@ const setProfile = () => {
 
 
 
-
+if (process.client) {
+    
     if(userData?.value?.role == ROLES.SEEKER){
        
-        localStorage.setItem('activeProfile',ROLES.SEEKER)
-    }else{
-        localStorage.setItem('activeProfile', activeProfile.value);
+       localStorage.setItem('activeProfile',ROLES.SEEKER)
+   }else{
+       localStorage.setItem('activeProfile', activeProfile.value);
 
 
-        // toggleVal.value =(activeProfile.value == ROLES.ORGANIZATION) ? true : false;
-        // if(activeProfile.value =toggleVal.value= ROLES.SEEKER){
-        //     router.push({ name: ROUTES.ORGANIZER, params: { organizerId: userData?.value?._id } })
-        // }else{
-        //     router.push({ name: ROUTES.ORGANIZATION, params: { organizerId: userData?.value?._id } })
-        // }
+       // toggleVal.value =(activeProfile.value == ROLES.ORGANIZATION) ? true : false;
+       // if(activeProfile.value =toggleVal.value= ROLES.SEEKER){
+       //     router.push({ name: ROUTES.ORGANIZER, params: { organizerId: userData?.value?._id } })
+       // }else{
+       //     router.push({ name: ROUTES.ORGANIZATION, params: { organizerId: userData?.value?._id } })
+       // }
 
-    }
+   }
+}
+    
   
 }
 
@@ -313,7 +316,9 @@ watch(()=>toggleVal.value,()=>{
 
 watch(()=>{
     if(userData.value.role == ROLES.SEEKER){
-        localStorage.setItem('activeProfile',ROLES.SEEKER)
+        if (process?.client) {
+            localStorage.setItem('activeProfile',ROLES.SEEKER)
+        }
     }
 })
 

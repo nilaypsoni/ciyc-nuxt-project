@@ -217,7 +217,7 @@
     @handle-filter-type-change="handleFilterTypeChange"
     custom-class="bg-site__light__peach"
     :events-list="featuredEvents"
-    is-featured="true"
+    is-featured= true
     title="Featured Events"
     :see-all-route="{
       name: ROUTES?.BROWSE_EVENTS_LIST,
