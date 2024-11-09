@@ -3,6 +3,7 @@
 </template>
 <script setup>
 import axiosInterceptors from "@/config/axios-interceptors";
+import { onMounted, onBeforeUnmount } from 'vue';
 import { useHead } from '#imports';
 import { useAsyncData, useRoute } from '#app';
 import {ROUTES} from "@/utils/constants/routes";
@@ -10,8 +11,6 @@ import { BASE_URL, ROUTER_FOR_METADATA } from "@/utils/constants";
 import dateModel from "@/models/date.model";
 
 axiosInterceptors();
-
-
 
 // try{
   const config = useRuntimeConfig();
@@ -24,7 +23,7 @@ axiosInterceptors();
         const { data: metaData } = await useAsyncData('metaData', () =>
           $fetch(`${config.public.apiUrl}api/v1/meta-tags/byPageRouteName?pageRouteName=${routeName}`)
         );
-        return metaData?.value?.data; // Return the fetched data
+        return metaData?.value?.data; 
       } catch (error) {
         // throw new Error('Failed to fetch event details');
       }
@@ -196,7 +195,7 @@ axiosInterceptors();
 
     const metaTagDetails = await getMetaTagDetailsByPage(to);
 
-    if (metaTagDetails) {
+    if (Object?.keys(metaTagDetails)?.length) {
       if (metaTagDetails.type == 'dynamic') {
         const pathSegments = route.path.split('/').filter(Boolean); // filter(Boolean) removes any empty strings
         to = pathSegments[pathSegments.length - 1];
@@ -370,4 +369,5 @@ axiosInterceptors();
     }
 
   }
+
 </script>
