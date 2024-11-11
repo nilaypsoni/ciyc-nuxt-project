@@ -205,7 +205,7 @@ export default defineNuxtConfig({
     "~/src/plugins/vue-query.js",
     { src: '~/src/plugins/jquery.js', mode: 'client' },
     { src: "~/src/plugins/bootstrap.client.js", mode: 'client' }, // Add mode 'client' if Bootstrap requires it
-    "~/src/plugins/google-maps-config.js", // Ensure this is client-side only
+    // "~/src/plugins/google-maps-config.js", // Ensure this is client-side only
     { src: "~/src/plugins/slick.client.js", mode: 'client' },
     { src:  "~/src/plugins/vue-google-login.js", mode: 'client' },
     { src: "~/src/plugins/vue-click-away.client.js"},

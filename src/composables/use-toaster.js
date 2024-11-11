@@ -1,4 +1,5 @@
-import {createToast} from "mosha-vue-toastify";
+import pkg from 'mosha-vue-toastify';
+const { createToast } = pkg;
 
 
 const useToaster = (type = "success",title,description,timeout=5000,customColor='') => {
