@@ -866,7 +866,7 @@
   <auth-modal
     :modal-active="isGuestLoginModal"
     :toggle-modal="openGuestLoginModal"
-    title="Guest Login">
+    title="Login">
     <guest-login @close-modal="openGuestLoginModal" only-guest-modal />
   </auth-modal>
 

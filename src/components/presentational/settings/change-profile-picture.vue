@@ -82,7 +82,7 @@ watch(() => isError.value, () => {
 
 
 const getUser = () => {
-ApiClient.get(`profile-settings/detail?userId=${userData.value._id}`).then(res => {
+ApiClient.get(`profile-settings/detail?userId=${userData.value._id}`)?.then(res => {
 
   var userDetails = res.data;
   if(role == 'Seeker'){

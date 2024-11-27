@@ -40,7 +40,7 @@ const router  = useRouter()
 
 const pastEvents=ref([]);
 
-const role = localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization'; //HERE
+const role =process.client ? localStorage.getItem('activeProfile') == 'Seeker' ? 'Organizer' : 'Organization' : ''; //HERE
 
 const userData = TokenService.getUser()
 
@@ -49,7 +49,7 @@ const userId = userData?._id;
 
 const getPastEvents=()=>{
 //   isLoading.value=true
-  ApiClient.get('event/past-current',{role:role,page:1,limit:1,organizerId:userId,current:false}).then(res=>{
+  ApiClient.get('event/past-current',{role:role,page:1,limit:1,organizerId:userId,current:false})?.then(res=>{
     pastEvents.value=res.data
     // isLoading.value=false
   })

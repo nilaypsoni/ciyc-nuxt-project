@@ -56,6 +56,7 @@ export const ROUTES = {
     LOGIN_AS_USER:"loginAsUser",
     JOIN_COMMUNITY:"joinCommunity",
     LOGIN:"login",
+    // LOGINN:"login1",
     REGISTER:"register",
     FORGOT_PASSWORD:"forgotPassword",
     BROWSE_EVENTS_LIST:"browseEventList",

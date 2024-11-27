@@ -405,7 +405,7 @@
                              
                         </div>
                         <!-- v-if="eventData?.createdBy != userData?._id" -->
-                        <div  class="checkout-summary-col event-details-col bg-white border border-r-10 p-4 ps-3 pe-3 mb-4">
+                        <div  class="checkout-summary-col event-details-col  m-login bg-white border border-r-10 p-4 ps-3 pe-3 mb-4">
                             <span class="c-s-title mb-4 pb-1">
                               {{ eventData?.title }}
                             </span>

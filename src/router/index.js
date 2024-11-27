@@ -455,6 +455,11 @@ const websiteLogo = `${BASE_URL}logo.svg`;
         name: ROUTES.LOGIN,
         component: () => import('../views/login.view.vue')
       },
+      // {
+      //   path: 'login1',
+      //   name: ROUTES.LOGINN,
+      //   component: () => import('../views/login-as.view.vue')
+      // },
       {
         path: 'register/:role',
         name: ROUTES.REGISTER,

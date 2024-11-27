@@ -618,7 +618,7 @@ const neighborhoodChange = (neighborhood) => {
 }
 
 const getChicagoNeighborhoods = () => {
-  ApiClient.get('timezone/chicagoNeighborhood/all', { page: 1, limit: 999 }).then(res => {
+  ApiClient.get('timezone/chicagoNeighborhood/all', { page: 1, limit: 999 })?.then(res => {
     if (res.data) {
       chicagoNeighborhoodSuggestion.value = res.data.map(itm => {
         return itm.community.trim()
@@ -740,7 +740,7 @@ const eventCategoryChange = (category) => {
 
 
 const getEventTyps = () => {
-  ApiClient.get('event-types/all', { page: 1, limit: 999 }).then(res => {
+  ApiClient.get('event-types/all', { page: 1, limit: 999 })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.name
     }).sort()
@@ -802,7 +802,7 @@ const cultureChange = (culture) => {
 }
 
 const getCuture = () => {
-  ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value }).then(res => {
+  ApiClient.get('culture/all', { page: 1, limit: 999, search: cultureSearch.value })?.then(res => {
     let arr = []
     res.data.map(itm => {
       arr = [...arr, ...itm.cultures.map(itm => {
@@ -821,7 +821,7 @@ const getCuture = () => {
 }
 
 const getCutureGroup = () => {
-  ApiClient.get('culture/group', { page: 1, limit: 999, search: cultureGroupSearch.value }).then(res => {
+  ApiClient.get('culture/group', { page: 1, limit: 999, search: cultureGroupSearch.value })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.cultureGroup
     }).sort()
@@ -833,7 +833,7 @@ const getCutureGroup = () => {
 }
 
 const getBusinessType = () => {
-  ApiClient.get('business-type/all', { page: 1, limit: 9999999, search: '' }).then(res => {
+  ApiClient.get('business-type/all', { page: 1, limit: 9999999, search: '' })?.then(res => {
     let arr = res.data.map(itm => {
       return itm.businessType
     }).sort()
@@ -864,7 +864,7 @@ getBusinessType();
 
 const getUser = () => {
 
-  ApiClient.get(`profile-settings/detail?userId=${userData._id}`).then(res => {
+  ApiClient.get(`profile-settings/detail?userId=${userData._id}`)?.then(res => {
 
     var userData = res.data;
 

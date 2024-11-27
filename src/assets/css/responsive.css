@@ -24,7 +24,7 @@
     height: 290px;
     }
     .form-col {
-        padding: 30px 30px 30px 30px;
+        /* padding: 30px 30px 30px 30px; */
     }
     .form-col .page-title {
         padding-top: 30px !important;
@@ -166,10 +166,10 @@
 }
 @media only screen and (max-width: 991px) {
 
-    .form-col {
+    /* .form-col {
         padding: 30px 20px 30px 25px;
         width: 56%;
-    }
+    } */
     .form-logo-info img {
         width: 180px;
     }

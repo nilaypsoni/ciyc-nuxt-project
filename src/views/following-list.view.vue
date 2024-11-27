@@ -42,7 +42,7 @@ const follows=(organizerid)=>{
 const getfollows=()=>{
   // alert('hi')
   isLoading.value=true
-  ApiClient.get(`follow?userId=${userid}&page=1&limit=98999999999999&followType=1`).then(res=>{
+  ApiClient.get(`follow?userId=${userid}&page=1&limit=98999999999999&followType=1`)?.then(res=>{
     followers.value=res.data
     isLoading.value=false
   })

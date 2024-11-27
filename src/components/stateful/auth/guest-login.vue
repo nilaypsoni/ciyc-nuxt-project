@@ -2,9 +2,9 @@
   <div class="payment-info">
     <div class="form-container">
       <form class="flex flex-col gap-y-2 w-100" @submit.prevent="loginSubmit">
-        <div>
+        <!-- <div>
           <a  @click="login" class="text-primary__color text-sm texthover anchor h6 cursor-pointer">Login As A User?</a>
-        </div>
+        </div> -->
         <div class="d-flex justify-content-between mt-4">
           <div >
             <label class="mb-1">Email Address</label>
@@ -49,6 +49,10 @@
             custom-classes="w-100 border-0 mt-4 primary-bg text-white pt-2 pb-2 ps-4 pe-4 d-flex justify-content-center border-r-10"
         />
         <PrimaryLoader :is-loading="isLoading"/>
+        <div class="d-flex justify-content-center mt-4 ml-2">
+        <p class="center">Do you already have an account ?  <a  @click="openModal" class="color text-primary__color text-sm texthover anchor h6 cursor-pointer"> Log In</a></p>
+        <Modal ref="modal" />
+        </div>
         <!-- <button type="button" v-if="!onlyGuestModal" @click="emit('open-signup')" class="text-primary__color text-sm">Create A New Account?</button> -->
       </form>
     </div>
@@ -56,6 +60,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import BaseInput from "@/components/common/form/base-input";
 import {onMounted, reactive,watch, watchEffect} from "vue";
 import Button from "@/components/common/buttons/button";
@@ -63,7 +68,7 @@ import PrimaryLoader from "@/components/common/loaders/primary-loader";
 import useAuthService from "@/services/auth.service";
 import { ROUTES } from "@/utils/constants/routes";
 import { useRouter } from "vue-router";
-
+import Modal from '@/views/login-as.view'
 const props = defineProps({
   onlyGuestModal:{
     default:false,
@@ -86,9 +91,11 @@ const loginData = reactive({
 })
 const {mutate,isLoading,isSuccess} = useHandleGuestLoginInService(emit)
 
+const modal = ref(null)
 
-
-
+const openModal = () => {
+  modal.value.open()
+}
 // Square payment setup
 var guestCard; 
   const initializeGuestPaymentForm = async () => {
@@ -141,7 +148,7 @@ const loginSubmit = () => {
 
 
 const login=()=>{
-  router.push({ name: ROUTES.LOGIN })
+  router.push({ name: ROUTES.LOGINN })
   localStorage.setItem('isPurchase','true')
 }
 </script>
@@ -171,10 +178,12 @@ const login=()=>{
 
 .form-container {
   /* max-width: 400px; */
-  margin-left: 20px;
   width: 100%;
 }
-
+.color{
+  color:#F05537;
+  border-bottom: 2px solid #F05537;
+}
 .payment-option-one {
     border: 1px solid #d9d9d9;
     padding: 10px;

@@ -98,7 +98,7 @@
     
     
     
-    <auth-modal :modal-active="isGuestLoginModal" :toggle-modal="openGuestLoginModal" title="Guest Login">
+    <auth-modal :modal-active="isGuestLoginModal" :toggle-modal="openGuestLoginModal" title="Login">
 
     <guest-login @guest-login-success="handleGuestLoginSuccess" @close-modal="openGuestLoginModal" only-guest-modal  v-if="showGuestCardForm == false"/>
     <guest-login @guest-login-success="handleGuestLoginSuccess" @close-modal="openGuestLoginModal" only-guest-modal show-guest-card-form v-if="showGuestCardForm == true"/>

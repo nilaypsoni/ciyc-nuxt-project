@@ -3,7 +3,7 @@
     <div v-show="modalActive" :id="id ? id : ''" :class="` modal modal-popup popup-login-f  align-items-center justify-content-center  ${className}`">
       <transition name="modal-animation-inner ">
         <div v-show="modalActive" class="popup g-form p-0">
-          <a class="close" @click="close" href="javascript:;">&times;</a> 
+          <a class="close" @click="close" href="javascript:;">X</a> 
           
           <!-- Modal Content -->
           <slot />
